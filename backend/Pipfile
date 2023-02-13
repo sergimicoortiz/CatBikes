@@ -11,8 +11,8 @@ django-cors-headers = "*"
 faker = "*"
 djangorestframework-jwt = "*"
 pyjwt = "*"
-numpy = "*"
 python-dotenv = "*"
+numpy = "*"
 
 [dev-packages]
 
