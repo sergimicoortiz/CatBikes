@@ -4,6 +4,7 @@ services:
   db:
     image: mysql:latest
     container_name: db
+    hostname: db
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: CatBikes
@@ -32,10 +33,14 @@ services:
     networks:
       - backend
 
-  # drf:
-  #   build: ./backend
-  #   container_name: drf
-  #   command: sh -c '/app/wait-for-it.sh -t 0 db:3306 -- python ./manage.py runserver 0.0.0.0:8000'
+  drf:
+    build: ./backend
+    container_name: drf
+    command: sh -c '/app/wait-for-it.sh -t 0 db:3306 -- python ./manage.py runserver 0.0.0.0:8000'
+    networks:
+      - backend
+    ports:
+      - "8000:8000"
 volumes:
   dbdata:
 

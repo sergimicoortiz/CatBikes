@@ -28,7 +28,7 @@ SECRET_KEY = os.getenv("SECRET") or 'pepit'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', os.getenv("ALLOWED_HOSTS") or '*']
 
 
 # Application definition

@@ -1,6 +1,7 @@
 *__pycache__*
-.env
+example.env
 Pipfile.lock
 .dockerignore
 Dockerfile
 package.json
+Pipfile
