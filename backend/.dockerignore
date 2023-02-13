@@ -1,0 +1,6 @@
+*__pycache__*
+.env
+Pipfile.lock
+.dockerignore
+Dockerfile
+package.json

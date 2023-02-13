@@ -9,11 +9,14 @@ services:
       MYSQL_DATABASE: CatBikes
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
+      # REMOVE PORTS???
     ports:
       - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
-      - ./backend/sql/dump.sql:/docker-entrypoint-initdb.d/datadump.sql 
+      - ./backend/sql/dump.sql:/docker-entrypoint-initdb.d/datadump.sql
+    networks:
+      - backend
   phpmyadmin_CRUD:
     image: phpmyadmin/phpmyadmin:latest
     container_name: pma
@@ -26,5 +29,16 @@ services:
     restart: always
     ports:
       - 8080:80
+    networks:
+      - backend
+
+  drf:
+    build: ./backend
+    container_name: drf
+    command: sh -c '/app/wait-for-it.sh -t 0 db:3306 -- pipenv run python ./manage.py runserver 0.0.0.0:8000'
 volumes:
   dbdata:
+
+
+networks:
+  backend:
