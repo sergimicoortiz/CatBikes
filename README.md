@@ -1,6 +1,6 @@
 # React_DRF_MySQL_CatBikes
 
-Por [`Sergi Micó Ortiz`](https://github.com/sergimicoortiz)  y  [`Juan Luis López del Barco`](https://github.com/JuanLuisLopez-code)
+Por [`Sergi Micó Ortiz`](https://github.com/sergimicoortiz)
 
 ## Table of Contents
 
