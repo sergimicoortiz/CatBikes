@@ -153,4 +153,4 @@ REST_FRAMEWORK = {
 }
 
 # Jwt token expiration time in minutes
-JWT_EXP_TIME = os.getenv("JWT_EXP") or 30
+JWT_EXP_TIME = int(os.getenv("JWT_EXP")) or 30
