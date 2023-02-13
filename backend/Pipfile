@@ -12,6 +12,7 @@ faker = "*"
 djangorestframework-jwt = "*"
 pyjwt = "*"
 numpy = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

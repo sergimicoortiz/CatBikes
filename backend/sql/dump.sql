@@ -201,7 +201,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2023-02-09 19:39:11.082739'),(2,'contenttypes','0002_remove_content_type_name','2023-02-09 19:39:11.167796'),(3,'auth','0001_initial','2023-02-09 19:39:11.483945'),(4,'auth','0002_alter_permission_name_max_length','2023-02-09 19:39:11.584374'),(5,'auth','0003_alter_user_email_max_length','2023-02-09 19:39:11.612611'),(6,'auth','0004_alter_user_username_opts','2023-02-09 19:39:11.640740'),(7,'auth','0005_alter_user_last_login_null','2023-02-09 19:39:11.665751'),(8,'auth','0006_require_contenttypes_0002','2023-02-09 19:39:11.674413'),(9,'auth','0007_alter_validators_add_error_messages','2023-02-09 19:39:11.697008'),(10,'auth','0008_alter_user_username_max_length','2023-02-09 19:39:11.718742'),(11,'auth','0009_alter_user_last_name_max_length','2023-02-09 19:39:11.743940'),(12,'auth','0010_alter_group_name_max_length','2023-02-09 19:39:11.786618'),(13,'auth','0011_update_proxy_permissions','2023-02-09 19:39:11.808859'),(14,'auth','0012_alter_user_first_name_max_length','2023-02-09 19:39:11.830682'),(15,'user','0001_initial','2023-02-09 19:39:12.315460'),(16,'admin','0001_initial','2023-02-09 19:39:12.542762'),(17,'admin','0002_logentry_remove_auto_add','2023-02-09 19:39:12.574614'),(18,'admin','0003_logentry_add_action_flag_choices','2023-02-09 19:39:12.612313'),(19,'blacklist','0001_initial','2023-02-09 19:39:12.655906'),(20,'stations','0001_initial','2023-02-09 19:39:12.921079'),(21,'incidents','0001_initial','2023-02-09 19:39:13.211894'),(22,'incidents','0002_alter_incident_status','2023-02-09 19:39:13.249711'),(23,'incidents','0003_notification','2023-02-09 19:39:13.420080'),(24,'rent','0001_initial','2023-02-09 19:39:13.824400'),(25,'sessions','0001_initial','2023-02-09 19:39:13.921110');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2023-02-13 15:29:41.396756'),(2,'contenttypes','0002_remove_content_type_name','2023-02-13 15:29:41.492151'),(3,'auth','0001_initial','2023-02-13 15:29:41.951592'),(4,'auth','0002_alter_permission_name_max_length','2023-02-13 15:29:42.166133'),(5,'auth','0003_alter_user_email_max_length','2023-02-13 15:29:42.192985'),(6,'auth','0004_alter_user_username_opts','2023-02-13 15:29:42.256950'),(7,'auth','0005_alter_user_last_login_null','2023-02-13 15:29:42.299483'),(8,'auth','0006_require_contenttypes_0002','2023-02-13 15:29:42.311662'),(9,'auth','0007_alter_validators_add_error_messages','2023-02-13 15:29:42.356178'),(10,'auth','0008_alter_user_username_max_length','2023-02-13 15:29:42.398013'),(11,'auth','0009_alter_user_last_name_max_length','2023-02-13 15:29:42.443897'),(12,'auth','0010_alter_group_name_max_length','2023-02-13 15:29:42.511327'),(13,'auth','0011_update_proxy_permissions','2023-02-13 15:29:42.573682'),(14,'auth','0012_alter_user_first_name_max_length','2023-02-13 15:29:42.625772'),(15,'user','0001_initial','2023-02-13 15:29:43.196593'),(16,'admin','0001_initial','2023-02-13 15:29:43.467113'),(17,'admin','0002_logentry_remove_auto_add','2023-02-13 15:29:43.508973'),(18,'admin','0003_logentry_add_action_flag_choices','2023-02-13 15:29:43.559309'),(19,'blacklist','0001_initial','2023-02-13 15:29:43.627062'),(20,'stations','0001_initial','2023-02-13 15:29:43.884571'),(21,'incidents','0001_initial','2023-02-13 15:29:44.035953'),(22,'incidents','0002_initial','2023-02-13 15:29:44.362865'),(23,'rent','0001_initial','2023-02-13 15:29:44.719048'),(24,'rent','0002_initial','2023-02-13 15:29:44.886136'),(25,'sessions','0001_initial','2023-02-13 15:29:44.996636');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -249,9 +249,9 @@ CREATE TABLE `incidents_incident` (
   `user_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`),
+  KEY `incidents_incident_modified_at_dedf2cef` (`modified_at`),
   KEY `incidents_incident_slot_id_2ae57628_fk_stations_slot_id` (`slot_id`),
   KEY `incidents_incident_user_id_d45fd8f9_fk_user_user_id` (`user_id`),
-  KEY `incidents_incident_modified_at_dedf2cef` (`modified_at`),
   CONSTRAINT `incidents_incident_slot_id_2ae57628_fk_stations_slot_id` FOREIGN KEY (`slot_id`) REFERENCES `stations_slot` (`id`),
   CONSTRAINT `incidents_incident_user_id_d45fd8f9_fk_user_user_id` FOREIGN KEY (`user_id`) REFERENCES `user_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -303,8 +303,8 @@ CREATE TABLE `incidents_notification` (
   `modified_at` datetime(6) NOT NULL,
   `user_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `incidents_notification_user_id_640b50dc_fk_user_user_id` (`user_id`),
   KEY `incidents_notification_modified_at_fd71004e` (`modified_at`),
+  KEY `incidents_notification_user_id_640b50dc_fk_user_user_id` (`user_id`),
   CONSTRAINT `incidents_notification_user_id_640b50dc_fk_user_user_id` FOREIGN KEY (`user_id`) REFERENCES `user_user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -537,4 +537,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-09 20:43:04
+-- Dump completed on 2023-02-13 16:31:00

@@ -9,8 +9,10 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+from dotenv import load_dotenv
+import os
 from pathlib import Path
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wc)*!&lr3om&nlht^iz3%8&-91@9k(qtlioou99g$ya3=)1u4z'
+
+SECRET_KEY = os.getenv("SECRET") or 'pepit'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -84,10 +87,10 @@ WSGI_APPLICATION = 'src.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'CatBikes',
-        'USER': 'admin',
-        'PASSWORD': 'admin',
-        'HOST': '127.0.0.1',
+        'NAME': os.getenv("DB_NAME") or 'CatBikes',
+        'USER': os.getenv("DB_USER") or 'admin',
+        'PASSWORD': os.getenv("DB_PASS") or 'admin',
+        'HOST': os.getenv("DB_HOST") or '127.0.0.1',
         'PORT': '3306',
     }
 }
@@ -149,5 +152,5 @@ REST_FRAMEWORK = {
     )
 }
 
-#Jwt token expiration time in minutes
-JWT_EXP_TIME = 30
+# Jwt token expiration time in minutes
+JWT_EXP_TIME = int(os.getenv("JWT_EXP")) or 30
