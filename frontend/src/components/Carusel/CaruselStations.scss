@@ -1,0 +1,16 @@
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+@import 'swiper/css/scrollbar';
+
+.carusel_item {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 10%;
+
+    img {
+        max-width: 80%;
+        height: auto;
+    }
+}

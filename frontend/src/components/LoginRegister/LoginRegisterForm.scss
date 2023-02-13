@@ -1,0 +1,133 @@
+//https://codepen.io/colorlib/pen/rxddKy
+$color_1: #FFFFFF;
+$color_2: #b3b3b3;
+$color_3: #4CAF50;
+$color_4: #1a1a1a;
+$color_5: #4d4d4d;
+$color_6: #000000;
+$color_7: #EF3B3A;
+$font-family_1: "Roboto", sans-serif;
+
+@import "https://fonts.googleapis.com/css?family=Roboto:300";
+
+.login-page {
+    width: 360px;
+    padding: 8% 0 0;
+    margin: auto;
+}
+
+.form {
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+
+    .error {
+        color: red;
+        margin: auto;
+    }
+
+    input {
+        font-family: $font-family_1;
+        outline: 0;
+        background: #f2f2f2;
+        width: 100%;
+        border: 0;
+        margin: 0 0 15px;
+        padding: 15px;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    button {
+        font-family: $font-family_1;
+        text-transform: uppercase;
+        outline: 0;
+        background: #4CAF50;
+        width: 100%;
+        border: 0;
+        padding: 15px;
+        color: $color_1;
+        font-size: 14px;
+        -webkit-transition: all 0.3 ease;
+        transition: all 0.3 ease;
+        cursor: pointer;
+
+        &:hover {
+            background: #43A047;
+        }
+
+        &:active {
+            background: #43A047;
+        }
+
+        &:focus {
+            background: #43A047;
+        }
+    }
+
+    .message {
+        margin: 15px 0 0;
+        color: $color_2;
+        font-size: 12px;
+
+        a {
+            color: $color_3;
+            text-decoration: none;
+        }
+    }
+
+    .register-form {
+        display: none;
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    max-width: 300px;
+    margin: 0 auto;
+
+    &:before {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+
+    .info {
+        margin: 50px auto;
+        text-align: center;
+
+        h1 {
+            margin: 0 0 15px;
+            padding: 0;
+            font-size: 36px;
+            font-weight: 300;
+            color: $color_4;
+        }
+
+        span {
+            color: $color_5;
+            font-size: 12px;
+
+            a {
+                color: $color_6;
+                text-decoration: none;
+            }
+
+            .fa {
+                color: $color_7;
+            }
+        }
+    }
+}

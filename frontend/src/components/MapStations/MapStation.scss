@@ -1,0 +1,13 @@
+@import '../../pages/Dashboard/Dashboard.scss';
+
+.map {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.markerImg {
+    margin: auto;
+    width: 50%;
+    height: auto;
+}

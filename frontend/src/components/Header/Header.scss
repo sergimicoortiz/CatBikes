@@ -1,0 +1,288 @@
+// https://codepen.io/themustafaomar/pen/VKbQye
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+$font-family: 'Roboto', sans-serif;
+$font-size-base: 0.925rem;
+$base-color: #66f;
+$text-dark: #3c4250;
+$border-color: #eceef3;
+
+$navbar-body-color: #fff;
+// $navbar-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.035);
+$navbar-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$navbar-padding-y: 1rem;
+$navbar-padding-x: 1.15rem;
+
+$navbar-link-hover: $base-color;
+$navbar-link-padding-y: 0.5rem;
+$navbar-link-padding-x: 1rem;
+
+$navbar-dropdown-padding-y: 0.5rem;
+$navbar-dropdown-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+$navbar-dropdown-radius: 0.75rem;
+
+$navbar-dropdown-item-padding-y: 0.25rem;
+$navbar-dropdown-item-padding-x: 1rem;
+
+$navbar-dropdown-separator-margin-y: 9px;
+$navbar-dropdown-separator-color: $border-color;
+
+
+.container {
+    * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        font-family: $font-family;
+        font-size: $font-size-base;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    width: 1170px;
+    position: relative;
+
+    margin: {
+        left: auto;
+        right: auto;
+    }
+
+    padding: {
+        left: 15px;
+        right: 15px;
+    }
+}
+
+// Start navbar
+
+.navbar,
+.navbar>.container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+}
+
+.navbar {
+    box-shadow: $navbar-shadow;
+    background-color: $navbar-body-color;
+    padding: $navbar-padding-y $navbar-padding-x;
+    border-bottom: 1px solid $border-color;
+
+    .container {
+        @media (min-width: 576px) {
+            max-width: 540px;
+        }
+
+        @media (min-width: 768px) {
+            max-width: 720px;
+        }
+
+        @media (min-width: 992px) {
+            max-width: 960px;
+        }
+
+        @media (min-width: 1200px) {
+            max-width: 1140px;
+        }
+    }
+
+    /*
+  |-----------------------------------
+  | Start navbar logo or brand etc..
+  |-----------------------------------
+  */
+    .navbar-header {
+        display: flex;
+        align-items: center;
+
+        @media (max-width: 768px) {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        >a {
+            font-weight: 500;
+            color: $text-dark;
+        }
+    }
+
+    /*
+  |-----------------------------------
+  | Start navbar menu
+  |-----------------------------------
+  */
+    .navbar-menu {
+        display: flex;
+        align-items: center;
+        flex-basis: auto;
+        flex-grow: 1;
+
+        &.active {
+            display: flex !important;
+        }
+
+        // Ul
+        .navbar-nav {
+            margin-left: auto;
+            flex-direction: row;
+            display: flex;
+            padding-left: 0;
+            margin-bottom: 0;
+            list-style: none;
+
+            @media (max-width: 768px) {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                border-top: 1px solid #EEE;
+                margin-top: 1rem;
+            }
+
+            >li {
+                >a {
+                    color: $text-dark;
+                    text-decoration: none;
+                    display: inline-block;
+                    padding: $navbar-link-padding-y $navbar-link-padding-x;
+
+                    &:hover {
+                        color: $navbar-link-hover;
+                    }
+
+                    @media (max-width: 768px) {
+                        border-bottom: 1px solid $border-color;
+                    }
+                }
+
+                &.active {
+                    a {
+                        color: $base-color;
+                    }
+                }
+            }
+        }
+    }
+
+    // https://codepen.io/DanishBloom/pen/dpeggN
+
+    // Custom
+    .navbar .navbar-header>a span {
+        color: $base-color;
+    }
+
+    .navbar .navbar-header h4 {
+        font-weight: 500;
+        font-size: 1.25rem;
+
+        @media (max-width: 768px) {
+            font-size: 1.05rem;
+        }
+    }
+
+    $color_1: #1d1f20;
+    $font-family_1: monospace;
+    $background-color_1: #1d1f20;
+    $background-color_2: red;
+
+    @keyframes ring {
+        0% {
+            transform: rotate(18deg);
+        }
+
+        50% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(-18deg);
+        }
+    }
+
+    @keyframes pulse {
+        from {
+            opacity: 1;
+            transform: scale(.8);
+        }
+
+        to {
+            opacity: 0;
+            transform: scale(2);
+        }
+    }
+
+    body {
+        background-color: $background-color_1;
+        color: $color_1;
+    }
+
+    .ringBell {
+        width: 60px;
+        height: 60px;
+        margin: 3% auto;
+        cursor: pointer;
+
+        &:after {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            content: '';
+            transform-origin: top;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNDczLjczMyA0NzMuNzMzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NzMuNzMzIDQ3My43MzM7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiPjxnPjxwYXRoIGQ9Ik0yMi42NDgsMzk4LjY1YzIuNTUsNi4yMzMsOC43ODMsMTAuNDgzLDE1LjU4MywxMC40ODNoMTIzLjUzM2M1LjM4MywzNi41NSwzNy4xMTcsNjQuNiw3NC44LDY0LjZzNjkuNDE3LTI4LjA1LDc0LjgtNjQuNiAgICBoMTIzLjgxN2wwLDBjMC44NSwwLDEuNywwLDIuNTUtMC4yODNjNi4yMzMtMC44NSwxMS4zMzMtNS4xLDEzLjYtMTAuNzY3YzIuMjY3LTYuNTE3LDAuNTY3LTEzLjMxNy00LjI1LTE3Ljg1ICAgIGMtMC4yODMtMC4yODMtMC41NjctMC41NjctMC44NS0wLjg1Yy0xLjctMS43LTguNS05LjM1LTE1LjAxNy0yNS41Yy03LjA4My0xNy4yODMtMTUuODY3LTQ4LjE2Ny0xNS44NjctOTYuMDUgICAgYzAtOTQuNjMzLTM1LjctMTQ0LjUtNjUuNDUtMTY5LjcxN2MtMTkuODMzLTE2LjcxNy0zOS42NjctMjQuOTMzLTUyLjctMjguOWMtMC41NjctMTEuNjE3LTMuNC0yNy40ODMtMTQuMTY3LTQwLjIzMyAgICBDMjc1LjY2NSwxMC4yLDI2MS43ODIsMCwyMzcuMTMyLDBjLTI0LjM2NywwLTM4LjI1LDEwLjQ4My00NS42MTcsMTguOTgzYy0xMS4wNSwxMy4wMzMtMTQuMTY3LDI5LjE4My0xNC40NSw0MS4wODMgICAgYy0xMy4zMTcsMy45NjctMzMuMTUsMTIuMTgzLTUyLjcsMjguMzMzYy01NC42ODMsNDQuNzY3LTY2LjAxNywxMTYuNzMzLTY2LjAxNywxNjguODY3YzAsNDYuNDY3LTguNzgzLDc3LjM1LTE2LjE1LDk1LjIgICAgYy03LjkzMywxOC45ODMtMTUuNTgzLDI3LjQ4My0xNS41ODMsMjcuNDgzbDAsMEMyMS41MTUsMzg0Ljc2NywyMC4wOTgsMzkyLjEzMywyMi42NDgsMzk4LjY1eiBNMjM2Ljg0OCw0MzkuNzMzICAgIGMtMTguOTgzLDAtMzUuMTMzLTEzLjAzMy00MC4yMzMtMzAuNmg4MC40NjdDMjcxLjk4Miw0MjYuNywyNTUuODMyLDQzOS43MzMsMjM2Ljg0OCw0MzkuNzMzeiBNOTIuMzQ4LDI1Ny4yNjcgICAgYzAtMTUyLjQzMyw5OS43MzMtMTY2Ljg4MywxMDMuNy0xNjcuNDVjNC41MzMtMC41NjcsOC43ODMtMi44MzMsMTEuNjE3LTYuNTE3YzIuODMzLTMuNjgzLDMuOTY3LTguMjE3LDMuNC0xMy4wMzMgICAgYy0wLjg1LTUuMzgzLTEuNDE3LTIxLjI1LDYuMjMzLTMwLjAzM2MxLjQxNy0xLjcsNS45NS03LjA4MywxOS44MzMtNy4wODNzMTguNDE3LDUuMzgzLDIwLjExNyw3LjA4MyAgICBjNy4wODMsOC4yMTcsNi44LDIzLjgsNS45NSwyOC45Yy0wLjg1LDQuNTMzLDAuMjgzLDkuMzUsMy4xMTcsMTMuMDMzYzIuODMzLDMuNjgzLDYuOCw2LjIzMywxMS42MTcsNi44ICAgIGMwLjI4MywwLDI1LjUsMy42ODMsNTAuNzE3LDI0LjkzM2MzNS40MTcsMjkuNzUsNTMuMjY3LDc4LjIsNTMuMjY3LDE0My45MzNjMCw1Ny44LDExLjA1LDk0LjkxNywyMi4xLDExNy41ODNINjkuNjgyICAgIEM4MC40NDgsMzUxLjksOTIuMzQ4LDMxMy45MzMsOTIuMzQ4LDI1Ny4yNjd6IiBmaWxsPSIjRkZGRkZGIi8+PC9nPjwvc3ZnPg==);
+            background-size: cover;
+        }
+
+        &:hover {
+            &:after {
+                animation: ring .16s ease-in-out 5;
+            }
+
+            .-count {
+                &:before {
+                    animation: pulse .6s ease-out;
+                }
+            }
+        }
+    }
+
+    .-count {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        width: 30px;
+        height: 30px;
+        background-color: $background-color_2;
+        margin: -6px 0 0 38px;
+        font-family: $font-family_1;
+        font-size: 22px;
+        font-weight: bold;
+        z-index: 90;
+
+        &:before {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            content: '';
+            box-sizing: border-box;
+            border: 1.5px solid red;
+        }
+    }
+
+}
