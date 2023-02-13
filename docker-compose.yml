@@ -11,14 +11,14 @@ services:
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
       # REMOVE PORTS???
-    ports:
-      - "3306:3306"
+      # ports:
+      #   - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
       - ./backend/sql/dump.sql:/docker-entrypoint-initdb.d/datadump.sql
     networks:
       - backend
-  phpmyadmin_CRUD:
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: pma
     links:
@@ -28,8 +28,8 @@ services:
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
     restart: always
-    ports:
-      - 8080:80
+    # ports:
+    #   - 8080:80
     networks:
       - backend
 
@@ -39,8 +39,16 @@ services:
     command: sh -c '/app/wait-for-it.sh -t 0 db:3306 -- python ./manage.py runserver 0.0.0.0:8000'
     networks:
       - backend
+    # ports:
+    #   - "8000:8000"
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
     ports:
-      - "8000:8000"
+      - "80:80"
+    networks:
+      - backend
 volumes:
   dbdata:
 

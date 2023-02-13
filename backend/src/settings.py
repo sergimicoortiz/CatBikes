@@ -28,7 +28,8 @@ SECRET_KEY = os.getenv("SECRET") or 'pepit'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', 'localhost', os.getenv("ALLOWED_HOSTS") or '*']
+ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1',
+                 'localhost', os.getenv("ALLOWED_HOSTS") or '*']
 
 
 # Application definition
@@ -139,8 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS URLS
 CORS_ALLOWED_ORIGINS = [
-    'http://0.0.0.0:3000',
-    'http://localhost:3000',
+    os.getenv("CORS") or 'http://localhost'
 ]
 
 AUTH_USER_MODEL = 'user.User'
