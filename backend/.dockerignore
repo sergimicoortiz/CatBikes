@@ -1,0 +1,7 @@
+*__pycache__*
+example.env
+Pipfile.lock
+.dockerignore
+Dockerfile
+package.json
+Pipfile

@@ -1,0 +1,11 @@
+FROM node:latest as build
+WORKDIR /app
+COPY . . 
+RUN npm install -D && npm run build
+
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+COPY loadbalancer/nginx.conf /etc/nginx/nginx.conf
+EXPOSE 80
+
+#SIZE: 32.6MB

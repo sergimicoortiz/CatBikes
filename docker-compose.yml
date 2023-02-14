@@ -4,19 +4,20 @@ services:
   db:
     image: mysql:latest
     container_name: db
+    hostname: db
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: CatBikes
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
-    ports:
-      - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
-      - ./backend/sql/dump.sql:/docker-entrypoint-initdb.d/datadump.sql 
-  phpmyadmin_CRUD:
+      - ./backend/sql/dump.sql:/docker-entrypoint-initdb.d/datadump.sql
+    networks:
+      - backend
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: pma
+    container_name: phpmyadmin
     links:
       - db
     environment:
@@ -25,6 +26,27 @@ services:
       PMA_ARBITRARY: 1
     restart: always
     ports:
-      - 8080:80
+    - 8080:80
+    networks:
+      - backend
+
+  drf:
+    build: ./backend
+    container_name: drf
+    command: sh -c '/app/wait-for-it.sh -t 0 db:3306 -- python ./manage.py runserver 0.0.0.0:8000'
+    networks:
+      - backend
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "80:80"
+    networks:
+      - backend
 volumes:
   dbdata:
+
+
+networks:
+  backend:
