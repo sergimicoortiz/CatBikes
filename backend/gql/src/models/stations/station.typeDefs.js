@@ -5,7 +5,7 @@ const stationTypeDefs = gql`
         id: ID!
         name: String!
         slug: String!
-        status: Status!
+        status: StationStatus!
         image: String!
         latitude: Float!
         longitude: Float!
@@ -19,6 +19,16 @@ const stationTypeDefs = gql`
         stations: [Station]!
         stationCount: Int!
     }
-    `;
+
+    type Mutation {
+        addStation(
+        name: String!
+        status: StationStatus!
+        image: String!
+        latitude: Float!
+        longitude: Float!
+        slotCuantities: Int!
+        ): Station
+    }`;
 
 export default stationTypeDefs;

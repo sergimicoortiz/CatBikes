@@ -13,6 +13,12 @@ const enums = gql`
         in_revision
         resolved
     }
+
+    enum StationStatus {
+        active
+        inactive
+        maintenance
+    }
 `;
 
 export default enums;
