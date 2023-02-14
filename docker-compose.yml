@@ -31,7 +31,7 @@ services:
       - backend
 
   drf:
-    build: ./backend
+    build: ./backend/drf
     container_name: drf
     command: sh -c '/app/wait-for-it.sh -t 0 db:3306 -- python ./manage.py runserver 0.0.0.0:8000'
     networks:
