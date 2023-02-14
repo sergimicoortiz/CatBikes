@@ -36,6 +36,7 @@ const stationResolvers = {
         deleteStation: async (parent, args) => {
             try {
                 const station = await Stations.findOne({ where: { slug: args.slug } });
+                await Slot.destroy({ where: { station_id: station.id } });
                 await station.destroy();
                 return station;
             } catch (error) {
