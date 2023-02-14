@@ -1,5 +1,7 @@
 import { ApolloServer } from "apollo-server";
 
+import enums from "./utils/enums.js";
+
 //Station typeDefs and resolvers
 import stationTypeDefs from "./models/stations/station.typeDefs.js";
 import stationResolvers from "./models/stations/station.resolvers.js";
@@ -13,7 +15,7 @@ import slotTypeDefs from "./models/slots/slot.typeDefs.js";
 import slotResolvers from "./models/slots/slot.resolvers.js";
 
 const server = new ApolloServer({
-    typeDefs: [stationTypeDefs, bikeTypeDefs, slotTypeDefs],
+    typeDefs: [enums, stationTypeDefs, bikeTypeDefs, slotTypeDefs],
     resolvers: [stationResolvers, bikeResolvers, slotResolvers],
 });
 

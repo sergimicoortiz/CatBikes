@@ -5,7 +5,7 @@ const stationTypeDefs = gql`
         id: ID!
         name: String!
         slug: String!
-        status: String!
+        status: Status!
         image: String!
         latitude: Float!
         longitude: Float!

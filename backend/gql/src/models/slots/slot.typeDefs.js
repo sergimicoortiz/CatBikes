@@ -3,7 +3,7 @@ import { gql } from 'apollo-server';
 const slotTypeDefs = gql`
     type Slot {
         id: ID!
-        status: String!
+        status: Status!
         station: Station!
         bike: Bike
     }
