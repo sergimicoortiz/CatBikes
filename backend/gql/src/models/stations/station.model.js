@@ -1,7 +1,7 @@
 import sequelize from "../../utils/db.js";
 import { DataTypes } from "sequelize";
 
-const station = sequelize.define("stations_station", {
+const Station = sequelize.define("stations_station", {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -43,4 +43,4 @@ const station = sequelize.define("stations_station", {
     freezeTableName: true,
 });
 
-export default station;
+export default Station;

@@ -8,9 +8,13 @@ import stationResolvers from "./models/stations/station.resolvers.js";
 import bikeTypeDefs from "./models/bikes/bike.typeDefs.js";
 import bikeResolvers from "./models/bikes/bike.resolvers.js";
 
+//Slot typeDefs and resolvers
+import slotTypeDefs from "./models/slots/slot.typeDefs.js";
+import slotResolvers from "./models/slots/slot.resolvers.js";
+
 const server = new ApolloServer({
-    typeDefs: [stationTypeDefs, bikeTypeDefs],
-    resolvers: [stationResolvers, bikeResolvers],
+    typeDefs: [stationTypeDefs, bikeTypeDefs, slotTypeDefs],
+    resolvers: [stationResolvers, bikeResolvers, slotResolvers],
 });
 
 server.listen().then(({ url }) => {
