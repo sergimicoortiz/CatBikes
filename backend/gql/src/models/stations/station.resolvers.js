@@ -1,6 +1,6 @@
 import Stations from './station.model.js';
 import Slot from '../slots/slot.model.js';
-import {generateSlug} from '../../utils/utils.js';
+import { generateSlug } from '../../utils/utils.js';
 
 const stationResolvers = {
     Query: {
@@ -11,22 +11,37 @@ const stationResolvers = {
 
     Mutation: {
         addStation: async (parent, args) => {
-            const station = await Stations.create({
-                name: args.name,
-                slug: generateSlug(args.name),
-                status: args.status,
-                image: args.image,
-                latitude: args.latitude,
-                longitude: args.longitude
-            });
-            for (let i = 0; i < args.slotCuantities; i++) {
-                Slot.create({
-                    station_id: station.id,
-                    status: 'unused',
-                    bike_id: null
+            try {
+                const station = await Stations.create({
+                    name: args.name,
+                    slug: generateSlug(args.name),
+                    status: args.status,
+                    image: args.image,
+                    latitude: args.latitude,
+                    longitude: args.longitude
                 });
+                for (let i = 0; i < args.slotCuantities; i++) {
+                    Slot.create({
+                        station_id: station.id,
+                        status: 'unused',
+                        bike_id: null
+                    });
+                }
+                return station;
+            } catch (error) {
+                console.error(error);
+                throw new Error(error);
             }
-            return station;
+        },
+        deleteStation: async (parent, args) => {
+            try {
+                const station = await Stations.findOne({ where: { slug: args.slug } });
+                await station.destroy();
+                return station;
+            } catch (error) {
+                console.error(error);
+                throw new Error(error);
+            }
         }
     },
 

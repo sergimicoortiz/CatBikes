@@ -29,6 +29,8 @@ const stationTypeDefs = gql`
         longitude: Float!
         slotCuantities: Int!
         ): Station
+
+        deleteStation(slug: String!): Station
     }`;
 
 export default stationTypeDefs;
