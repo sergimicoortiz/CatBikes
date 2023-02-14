@@ -10,9 +10,6 @@ services:
       MYSQL_DATABASE: CatBikes
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
-      # REMOVE PORTS???
-      # ports:
-      #   - "3306:3306"
     volumes:
       - dbdata:/var/lib/mysql
       - ./backend/sql/dump.sql:/docker-entrypoint-initdb.d/datadump.sql
@@ -20,7 +17,7 @@ services:
       - backend
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: pma
+    container_name: phpmyadmin
     links:
       - db
     environment:
@@ -29,7 +26,7 @@ services:
       PMA_ARBITRARY: 1
     restart: always
     # ports:
-    #   - 8080:80
+    # - 8080:80
     networks:
       - backend
 
@@ -46,8 +43,7 @@ services:
     build: ./frontend
     container_name: frontend
     ports:
-      # - "80:80"
-      - "80:3000"
+      - "80:80"
     networks:
       - backend
 volumes:
