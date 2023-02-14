@@ -12,7 +12,7 @@ const bikeTypeDefs = gql`
     type Query {
         bike(slug: String!): Bike
         bikes: [Bike]!
-        bikesStatus(status: String!): [Bike]!
+        bikesStatus(status: Status!): [Bike]!
     }
     `;
 
