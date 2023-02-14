@@ -9,6 +9,9 @@ const stationTypeDefs = gql`
         image: String!
         latitude: Float!
         longitude: Float!
+        total_slots: Int!
+        total_bikes: Int!
+        slots: [Slot]!
     }
 
     type Query {

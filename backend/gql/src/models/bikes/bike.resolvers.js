@@ -1,6 +1,6 @@
 import Bike from "./bike.model.js";
 import { GraphQLError } from 'graphql';
-
+import Slot from '../slots/slot.model.js';
 
 const bikeResolvers = {
     Query: {
@@ -16,6 +16,10 @@ const bikeResolvers = {
             }
             return await Bike.findAll({ where: { status: args.status } })
         }
+    },
+
+    Bike: {
+        Slot: async (parent) => await Slot.findOne({ where: { bike_id: parent.id } })
     }
 };
 

@@ -6,6 +6,7 @@ const bikeTypeDefs = gql`
         name: String!
         slug: String!
         status: String!
+        Slot: Slot
     }
 
     type Query {

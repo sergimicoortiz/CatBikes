@@ -9,8 +9,6 @@ const slotResolvers = {
     },
 
     Slot: {
-        id: (parent) => parent.id,
-        status: (parent) => parent.status,
         station: async (parent) => await Station.findByPk(parent.station_id),
         bike: async (parent) => await Bike.findByPk(parent.bike_id),
     }
