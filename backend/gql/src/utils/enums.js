@@ -19,6 +19,11 @@ const enums = gql`
         inactive
         maintenance
     }
+
+    enum UserType {
+        admin
+        client
+    }
 `;
 
 export default enums;
