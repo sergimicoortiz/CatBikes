@@ -43,6 +43,24 @@ const stationResolvers = {
                 console.error(error);
                 throw new Error(error);
             }
+        },
+
+        updateStation: async (parent, args) => {
+            const { slug, name, status, image, latitude, longitude } = args;
+            try {
+                const station = await Stations.findOne({ where: { slug } });
+                if (!station) throw new Error('Station not found');
+                if (name) station.name = name;
+                if (status) station.status = status;
+                if (image) station.image = image;
+                if (latitude) station.latitude = latitude;
+                if (longitude) station.longitude = longitude;
+                await station.save();
+                return station;
+            } catch (error) {
+                console.error(error);
+                throw new Error(error);
+            }
         }
     },
 

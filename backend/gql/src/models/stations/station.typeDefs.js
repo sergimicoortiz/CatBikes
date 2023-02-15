@@ -31,6 +31,15 @@ const stationTypeDefs = gql`
         ): Station
 
         deleteStation(slug: String!): Station
+
+        updateStation(
+        slug: String!
+        name: String
+        status: StationStatus
+        image: String
+        latitude: Float
+        longitude: Float
+        ): Station
     }`;
 
 export default stationTypeDefs;
