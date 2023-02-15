@@ -8,10 +8,15 @@ const slotTypeDefs = gql`
         bike: Bike
     }
 
-    extend type Query {
+     type Query {
         slots: [Slot]!
         slot(id: ID!): Slot!
     }
-    `;
 
-    export default slotTypeDefs;
+type Mutation {
+        createSlot(station_id: ID!): Slot
+        updateSlot(id: ID!, station_id: ID, bike_id: ID): Slot
+        deleteSlot(id: ID!): Slot
+    }`;
+
+export default slotTypeDefs;

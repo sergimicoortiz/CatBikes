@@ -16,8 +16,8 @@ const bikeTypeDefs = gql`
     }
 
     type Mutation {
-        createBike(name: String!, status: Status!): Bike
-        updateBike(slug: String!, name: String, status: Status): Bike
+        createBike(name: String!, slot_id: ID): Bike
+        updateBike(slug: String!, name: String, slot_id: ID): Bike
         deleteBike(slug: String!): Bike
 
     }`;

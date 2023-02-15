@@ -48,6 +48,7 @@ const stationResolvers = {
         updateStation: async (parent, args) => {
             const { slug, name, status, image, latitude, longitude } = args;
             try {
+                if (!name && !status && !image && !latitude && !longitude) throw new Error('No data to update');
                 const station = await Stations.findOne({ where: { slug } });
                 if (!station) throw new Error('Station not found');
                 if (name) station.name = name;

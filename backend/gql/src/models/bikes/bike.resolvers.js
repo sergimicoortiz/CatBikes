@@ -17,9 +17,20 @@ const bikeResolvers = {
     Mutation: {
         createBike: async (parent, args) => {
             try {
-                const { name, status } = args;
+                const { name, slot_id } = args;
                 const slug = generateSlug(name);
+                const status = 'used';
                 const bike = await Bike.create({ name, slug, status });
+                if (slot_id) {
+                    const slot = await Slot.findOne({ where: { id: slot_id } });
+                    if (!slot) throw new Error('Slot not found');
+                    if (slot.bike_id) throw new Error('Slot already used');
+                    slot.bike_id = bike.id;
+                    slot.status = 'used';
+                    bike.status = 'unused';
+                    await slot.save();
+                    await bike.save();
+                }
                 return bike;
             } catch (error) {
                 console.error(error);
@@ -32,6 +43,7 @@ const bikeResolvers = {
                 const slot = await Slot.findOne({ where: { bike_id: bike.id } });
                 if (slot) {
                     slot.bike_id = null;
+                    slot.status = 'unused';
                     await slot.save();
                 }
                 await bike.destroy();
@@ -43,11 +55,23 @@ const bikeResolvers = {
         },
         updateBike: async (parent, args) => {
             try {
-                const { slug, name, status } = args;
+                const { slug, name, slot_id } = args;
+                if (!name && !slot_id && !status) throw new Error('No data to update');
                 const bike = await Bike.findOne({ where: { slug } });
                 if (!bike) throw new Error('Bike not found');
                 if (name) bike.name = name;
-                if (status) bike.status = status;
+                if (slot_id) {
+                    const slot = await Slot.findOne({ where: { id: slot_id } });
+                    const slot_old = await Slot.findOne({ where: { bike_id: bike.id } });
+                    if (!slot || !slot_old) throw new Error('Slot not found');
+                    if (slot.bike_id) throw new Error('Slot already used');
+                    slot.bike_id = bike.id;
+                    slot.status = 'used';
+                    slot_old.bike_id = null;
+                    slot_old.status = 'unused';
+                    await slot_old.save();
+                    await slot.save();
+                }
                 await bike.save();
                 return bike;
             } catch (error) {
