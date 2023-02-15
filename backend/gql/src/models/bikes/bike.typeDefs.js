@@ -14,6 +14,12 @@ const bikeTypeDefs = gql`
         bikes: [Bike]!
         bikesStatus(status: Status!): [Bike]!
     }
-    `;
 
-    export default bikeTypeDefs;
+    type Mutation {
+        createBike(name: String!, status: Status!): Bike
+        updateBike(slug: String!, name: String, status: Status): Bike
+        deleteBike(slug: String!): Bike
+
+    }`;
+
+export default bikeTypeDefs;
