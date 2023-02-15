@@ -33,7 +33,7 @@ const server = new ApolloServer({
             if (status === 200) {
                 user = data.user;
                 isAuth = true;
-                isAdmin = user.types === 'admin';
+                isAdmin = data.user.types === 'admin';
             }
         }
         return { user, isAdmin, isAuth, AuthenticationError };

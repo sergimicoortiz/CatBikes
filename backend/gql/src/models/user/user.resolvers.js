@@ -5,6 +5,7 @@ const userResolvers = {
         user: async (parent, args, context) => {
             try {
                 if (args.uuid) {
+                    if (!context.isAdmin) throw new context.AuthenticationError('Unauthorized');
                     const user = await User.findOne({ where: { uuid: args.uuid } });
                     if (!user) throw new Error('User not found');
                     return user;
@@ -17,7 +18,10 @@ const userResolvers = {
             }
         },
 
-        allUsers: async () => await User.findAll()
+        allUsers: async (parent, args, context) => {
+            if (!context.isAdmin) throw new context.AuthenticationError('Unauthorized');
+            return await User.findAll()
+        }
     }
 };
 
