@@ -27,21 +27,12 @@ const slotResolvers = {
                 throw new Error(error);
             }
         },
-        updateSlot: async (parent, args) => {
-            try {
-
-            }
-            catch (error) {
-                console.error(error);
-                throw new Error(error);
-            }
-        },
         deleteSlot: async (parent, args) => {
             try {
                 const slot = await Slot.findByPk(args.id);
                 if (!slot) throw new Error("Slot not found");
                 const bike = await Bike.findByPk(slot.bike_id);
-                if(bike){
+                if (bike) {
                     bike.status = "used";
                     await bike.save();
                 }

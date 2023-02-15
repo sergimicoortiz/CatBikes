@@ -56,14 +56,15 @@ const bikeResolvers = {
         updateBike: async (parent, args) => {
             try {
                 const { slug, name, slot_id } = args;
-                if (!name && !slot_id && !status) throw new Error('No data to update');
+                if (!name && !slot_id) throw new Error('No data to update');
                 const bike = await Bike.findOne({ where: { slug } });
                 if (!bike) throw new Error('Bike not found');
                 if (name) bike.name = name;
                 if (slot_id) {
                     const slot = await Slot.findOne({ where: { id: slot_id } });
                     const slot_old = await Slot.findOne({ where: { bike_id: bike.id } });
-                    if (!slot || !slot_old) throw new Error('Slot not found');
+                    if (!slot) throw new Error('Slot not found');
+                    if (!slot_old) throw new Error('Slot not found');
                     if (slot.bike_id) throw new Error('Slot already used');
                     slot.bike_id = bike.id;
                     slot.status = 'used';
