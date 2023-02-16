@@ -18,6 +18,7 @@ class userSerializer(serializers.ModelSerializer):
 
         return {
             'user': {
+                'id': user.id,
                 'uuid': user.uuid,
                 'username': user.username,
                 'email': user.email,

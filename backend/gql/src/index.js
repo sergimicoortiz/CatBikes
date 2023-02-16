@@ -21,6 +21,10 @@ import slotResolvers from "./models/slots/slot.resolvers.js";
 import userTypeDefs from "./models/user/user.typeDefs.js";
 import userResolvers from "./models/user/user.resolvers.js";
 
+//Rent typeDefs and resolvers
+import rentTypeDefs from "./models/rent/rent.typeDefs.js";
+import rentResolvers from "./models/rent/rent.resolvers.js";
+
 //Other imports
 import enums from "./utils/enums.js";
 import { getUser } from './services/userService.js';
@@ -47,8 +51,8 @@ const context = async ({ req }) => {
 };
 
 const server = new ApolloServer({
-    typeDefs: [enums, stationTypeDefs, bikeTypeDefs, slotTypeDefs, userTypeDefs],
-    resolvers: [stationResolvers, bikeResolvers, slotResolvers, userResolvers],
+    typeDefs: [enums, stationTypeDefs, bikeTypeDefs, slotTypeDefs, userTypeDefs, rentTypeDefs],
+    resolvers: [stationResolvers, bikeResolvers, slotResolvers, userResolvers, rentResolvers],
     cache: "bounded",
     includeStacktraceInErrorResponses: process.env.NODE_ENV === 'development',
     plugins: plugins,
@@ -59,4 +63,4 @@ const { url } = await startStandaloneServer(server, {
     listen: { port: process.env.PORT || 4000 },
 });
 
-console.log(`Server ready at: ${url}`);
+console.info(`Server ready at: ${url}`);
