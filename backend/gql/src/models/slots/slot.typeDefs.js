@@ -16,6 +16,7 @@ const slotTypeDefs = gql`
     type Mutation {
         createSlot(station_id: ID!): Slot
         deleteSlot(id: ID!): Slot
+        setMaintenanceSlot(id: ID!, maintenance: Boolean!): Slot
     }`;
 
 export default slotTypeDefs;

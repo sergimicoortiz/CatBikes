@@ -60,8 +60,8 @@ const bikeResolvers = {
         updateBike: async (parent, args, context) => {
             try {
                 if (!context.isAdmin) throw context.AuthenticationError;
-                const { slug, name, slot_id } = args;
-                if (!name && !slot_id) throw new GraphQLError("No data to update", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
+                const { slug, name, slot_id, status } = args;
+                if (!name && !slot_id && !status) throw new GraphQLError("No data to update", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
                 const bike = await Bike.findOne({ where: { slug } });
                 if (!bike) throw new GraphQLError("Bike not found", { extensions: { code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR } });
                 if (name) bike.name = name;
@@ -75,8 +75,7 @@ const bikeResolvers = {
                     bike.status = 'unused';
                     await slot.save();
                 }
-
-                if (slot_id && bike.status === 'unused') {
+                else if (slot_id && bike.status === 'unused') {
                     const slot = await Slot.findOne({ where: { id: slot_id } });
                     if (!slot) throw new GraphQLError("Slot not found", { extensions: { code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR } });
                     if (slot.bike_id) throw new GraphQLError("Slot already used", { extensions: { code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR } });
@@ -91,6 +90,18 @@ const bikeResolvers = {
                     slot.status = 'used';
                     bike.status = 'unused';
                     await slot.save();
+                }
+                else if (status === 'used' && bike.status === 'unused' || bike.status === 'maintenance') {
+                    const slot_old = await Slot.findOne({ where: { bike_id: bike.id } });
+                    if (!slot_old) throw new GraphQLError("Slot not found", { extensions: { code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR } });
+                    slot_old.bike_id = null;
+                    slot_old.status = 'unused';
+                    await slot_old.save();
+                    bike.status = 'used';
+                }
+                else if (status === 'maintenance') {
+                    if (bike.status === 'used') throw new GraphQLError("Bike is in use", { extensions: { code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR } });
+                    bike.status = 'maintenance';
                 }
 
                 await bike.save();
