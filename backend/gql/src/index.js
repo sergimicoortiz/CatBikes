@@ -29,6 +29,10 @@ import rentResolvers from "./models/rent/rent.resolvers.js";
 import incidentTypeDefs from "./models/incident/incident.typeDefs.js";
 import incidentResolvers from "./models/incident/incident.resolvers.js";
 
+//Notification typeDefs and resolvers
+import notificationTypeDefs from "./models/notification/notification.typeDefs.js";
+import notificationResolvers from "./models/notification/notification.resolvers.js";
+
 //Other imports
 import enums from "./utils/enums.js";
 import { getUser } from './services/userService.js';
@@ -63,6 +67,7 @@ const server = new ApolloServer({
         userTypeDefs,
         rentTypeDefs,
         incidentTypeDefs,
+        notificationTypeDefs,
     ],
     resolvers: [
         stationResolvers,
@@ -71,6 +76,7 @@ const server = new ApolloServer({
         userResolvers,
         rentResolvers,
         incidentResolvers,
+        notificationResolvers,
     ],
     cache: "bounded",
     includeStacktraceInErrorResponses: process.env.NODE_ENV === 'development',

@@ -46,6 +46,7 @@ const incidentResolvers = {
                 const incident = await Incident.findByPk(id);
                 if (!incident) throw new GraphQLError("Incident not found", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
                 incident.status = status;
+                incident.modified_at = new Date();
                 await incident.save();
                 return incident;
             } catch (error) {
