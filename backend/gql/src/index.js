@@ -25,6 +25,10 @@ import userResolvers from "./models/user/user.resolvers.js";
 import rentTypeDefs from "./models/rent/rent.typeDefs.js";
 import rentResolvers from "./models/rent/rent.resolvers.js";
 
+//Incident typeDefs and resolvers
+import incidentTypeDefs from "./models/incident/incident.typeDefs.js";
+import incidentResolvers from "./models/incident/incident.resolvers.js";
+
 //Other imports
 import enums from "./utils/enums.js";
 import { getUser } from './services/userService.js';
@@ -51,8 +55,23 @@ const context = async ({ req }) => {
 };
 
 const server = new ApolloServer({
-    typeDefs: [enums, stationTypeDefs, bikeTypeDefs, slotTypeDefs, userTypeDefs, rentTypeDefs],
-    resolvers: [stationResolvers, bikeResolvers, slotResolvers, userResolvers, rentResolvers],
+    typeDefs: [
+        enums,
+        stationTypeDefs,
+        bikeTypeDefs,
+        slotTypeDefs,
+        userTypeDefs,
+        rentTypeDefs,
+        incidentTypeDefs,
+    ],
+    resolvers: [
+        stationResolvers,
+        bikeResolvers,
+        slotResolvers,
+        userResolvers,
+        rentResolvers,
+        incidentResolvers,
+    ],
     cache: "bounded",
     includeStacktraceInErrorResponses: process.env.NODE_ENV === 'development',
     plugins: plugins,
