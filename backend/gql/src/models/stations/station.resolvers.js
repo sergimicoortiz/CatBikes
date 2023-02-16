@@ -1,5 +1,6 @@
 import Stations from './station.model.js';
 import Slot from '../slots/slot.model.js';
+import { GraphQLError } from 'graphql';
 import { generateSlug } from '../../utils/utils.js';
 
 const stationResolvers = {
@@ -10,8 +11,9 @@ const stationResolvers = {
     },
 
     Mutation: {
-        addStation: async (parent, args) => {
+        addStation: async (parent, args, context) => {
             try {
+                if (!context.isAdmin) throw new context.AuthenticationError('Unauthorized');
                 const station = await Stations.create({
                     name: args.name,
                     slug: generateSlug(args.name),
@@ -30,25 +32,27 @@ const stationResolvers = {
                 return station;
             } catch (error) {
                 console.error(error);
-                throw new Error(error);
+                throw new GraphQLError('Error adding station', { extensions: { code: 'INTERNAL_SERVER_ERROR' } });
             }
         },
-        deleteStation: async (parent, args) => {
+        deleteStation: async (parent, args, context) => {
             try {
+                if (!context.isAdmin) throw new context.AuthenticationError('Unauthorized');
                 const station = await Stations.findOne({ where: { slug: args.slug } });
                 await Slot.destroy({ where: { station_id: station.id } });
                 await station.destroy();
                 return station;
             } catch (error) {
                 console.error(error);
-                throw new Error(error);
+                throw new GraphQLError('Error delete station', { extensions: { code: 'INTERNAL_SERVER_ERROR' } });
             }
         },
 
-        updateStation: async (parent, args) => {
+        updateStation: async (parent, args, context) => {
             const { slug, name, status, image, latitude, longitude } = args;
             try {
-                if (!name && !status && !image && !latitude && !longitude) throw new Error('No data to update');
+                if (!context.isAdmin) throw new context.AuthenticationError('Unauthorized');
+                if (!name && !status && !image && !latitude && !longitude) throw new GraphQLError('No data provided for station update', { extensions: { code: 'INTERNAL_SERVER_ERROR' } });
                 const station = await Stations.findOne({ where: { slug } });
                 if (!station) throw new Error('Station not found');
                 if (name) station.name = name;
@@ -60,7 +64,7 @@ const stationResolvers = {
                 return station;
             } catch (error) {
                 console.error(error);
-                throw new Error(error);
+                throw new GraphQLError('Error update station', { extensions: { code: 'INTERNAL_SERVER_ERROR' } });
             }
         }
     },

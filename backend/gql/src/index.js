@@ -1,4 +1,5 @@
 import { ApolloServer, AuthenticationError } from "apollo-server";
+import dotenv from "dotenv";
 
 //Station typeDefs and resolvers
 import stationTypeDefs from "./models/stations/station.typeDefs.js";
@@ -20,6 +21,10 @@ import userResolvers from "./models/user/user.resolvers.js";
 import enums from "./utils/enums.js";
 import { getUser } from './services/userService.js';
 
+dotenv.config();
+
+const plugins = process.env.NODE_ENV === 'development' ? [] : [];
+
 const server = new ApolloServer({
     typeDefs: [enums, stationTypeDefs, bikeTypeDefs, slotTypeDefs, userTypeDefs],
     resolvers: [stationResolvers, bikeResolvers, slotResolvers, userResolvers],
@@ -37,7 +42,10 @@ const server = new ApolloServer({
             }
         }
         return { user, isAdmin, isAuth, AuthenticationError };
-    }
+    },
+    cache: "bounded",
+    includeStacktraceInErrorResponses: process.env.NODE_ENV === 'development',
+    plugins: plugins,
 });
 
 server.listen().then(({ url }) => {
