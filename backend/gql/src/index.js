@@ -1,4 +1,8 @@
-import { ApolloServer, AuthenticationError } from "apollo-server";
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from '@apollo/server/standalone';
+import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
+import { ApolloServerErrorCode } from '@apollo/server/errors';
+import { GraphQLError } from 'graphql';
 import dotenv from "dotenv";
 
 //Station typeDefs and resolvers
@@ -23,31 +27,37 @@ import { getUser } from './services/userService.js';
 
 dotenv.config();
 
-const plugins = process.env.NODE_ENV === 'development' ? [] : [];
+const plugins = process.env.NODE_ENV === 'development' ? [] : [ApolloServerPluginLandingPageDisabled()];
+
+const context = async ({ req }) => {
+    const AuthenticationError = new GraphQLError('Authentication failed', { code: ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED });
+    const token = (req.headers.authorization || '').split(' ')[1] || '';
+    console.log(token);
+    let user = null;
+    let isAuth = false;
+    let isAdmin = false;
+    if (token) {
+        const { data, status } = await getUser(token);
+        if (status === 200) {
+            user = data.user;
+            isAuth = true;
+            isAdmin = data.user.types === 'admin';
+        }
+    }
+    return { user, isAdmin, isAuth, AuthenticationError };
+};
 
 const server = new ApolloServer({
     typeDefs: [enums, stationTypeDefs, bikeTypeDefs, slotTypeDefs, userTypeDefs],
     resolvers: [stationResolvers, bikeResolvers, slotResolvers, userResolvers],
-    context: async ({ req }) => {
-        const token = (req.headers.authorization || '').split(' ')[1] || '';
-        let user = null;
-        let isAuth = false;
-        let isAdmin = false;
-        if (token) {
-            const { data, status } = await getUser(token);
-            if (status === 200) {
-                user = data.user;
-                isAuth = true;
-                isAdmin = data.user.types === 'admin';
-            }
-        }
-        return { user, isAdmin, isAuth, AuthenticationError };
-    },
     cache: "bounded",
     includeStacktraceInErrorResponses: process.env.NODE_ENV === 'development',
     plugins: plugins,
 });
 
-server.listen().then(({ url }) => {
-    console.log(`Server ready at ${url}`);
+const { url } = await startStandaloneServer(server, {
+    context: context,
+    listen: { port: process.env.PORT || 4000 },
 });
+
+console.log(`Server ready at: ${url}`);
