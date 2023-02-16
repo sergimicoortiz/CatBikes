@@ -30,7 +30,7 @@ dotenv.config();
 const plugins = process.env.NODE_ENV === 'development' ? [] : [ApolloServerPluginLandingPageDisabled()];
 
 const context = async ({ req }) => {
-    const AuthenticationError = new GraphQLError('Authentication failed', { code: ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED });
+    const AuthenticationError = new GraphQLError('Authentication failed', { context: { code: ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED } });
     const token = (req.headers.authorization || '').split(' ')[1] || '';
     let user = null;
     let isAuth = false;

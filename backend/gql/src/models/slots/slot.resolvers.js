@@ -1,6 +1,8 @@
 import Slot from "../slots/slot.model.js";
 import Station from "../stations/station.model.js";
 import Bike from "../bikes/bike.model.js";
+import { GraphQLError } from 'graphql';
+import { ApolloServerErrorCode } from '@apollo/server/errors';
 
 const slotResolvers = {
     Query: {
@@ -14,23 +16,25 @@ const slotResolvers = {
     },
 
     Mutation: {
-        createSlot: async (parent, args) => {
+        createSlot: async (parent, args, context) => {
             try {
+                if (!context.isAdmin) throw context.AuthenticationError;
                 const { station_id } = args;
                 const status = "unused";
                 const station = await Station.findByPk(station_id);
-                if (!station) throw new Error("Station not found");
+                if (!station) throw new GraphQLError("Station not found", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
                 const slot = await Slot.create({ status, station_id });
                 return slot;
             } catch (error) {
                 console.error(error);
-                throw new Error(error);
+                throw error;
             }
         },
-        deleteSlot: async (parent, args) => {
+        deleteSlot: async (parent, args, context) => {
             try {
+                if (!context.isAdmin) throw context.AuthenticationError;
                 const slot = await Slot.findByPk(args.id);
-                if (!slot) throw new Error("Slot not found");
+                if (!slot) throw new GraphQLError("Slot not found", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
                 const bike = await Bike.findByPk(slot.bike_id);
                 if (bike) {
                     bike.status = "used";
@@ -41,7 +45,7 @@ const slotResolvers = {
             }
             catch (error) {
                 console.error(error);
-                throw new Error(error);
+                throw error;
             }
         },
     },
