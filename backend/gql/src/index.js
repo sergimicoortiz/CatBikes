@@ -32,7 +32,6 @@ const plugins = process.env.NODE_ENV === 'development' ? [] : [ApolloServerPlugi
 const context = async ({ req }) => {
     const AuthenticationError = new GraphQLError('Authentication failed', { code: ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED });
     const token = (req.headers.authorization || '').split(' ')[1] || '';
-    console.log(token);
     let user = null;
     let isAuth = false;
     let isAdmin = false;
