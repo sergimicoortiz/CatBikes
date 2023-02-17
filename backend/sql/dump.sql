@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.32, for Linux (x86_64)
 --
--- Host: 0.0.0.0    Database: CatBikes
+-- Host: localhost    Database: CatBikes
 -- ------------------------------------------------------
--- Server version	8.0.31
+-- Server version	8.0.32-0ubuntu0.22.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -107,7 +107,7 @@ CREATE TABLE `blacklist_blacklist` (
   `token` varchar(254) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `token` (`token`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,6 +116,7 @@ CREATE TABLE `blacklist_blacklist` (
 
 LOCK TABLES `blacklist_blacklist` WRITE;
 /*!40000 ALTER TABLE `blacklist_blacklist` DISABLE KEYS */;
+INSERT INTO `blacklist_blacklist` VALUES (2,'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFzZGFzZGFzZCIsImV4cCI6MTY3NjY0NjIzMn0.4c8zqhRcK5be25MfLKLeY4Fj62yMq0fmNjAgt_OkEVQ'),(1,'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFzZGFzZGFzZCIsImV4cCI6MTY3NjY0NTYzMX0.DTHjosp8J03vxBVXc7kJ4bksPebFcV6xdZYJQcxy9ZQ');
 /*!40000 ALTER TABLE `blacklist_blacklist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,7 +202,7 @@ CREATE TABLE `django_migrations` (
 
 LOCK TABLES `django_migrations` WRITE;
 /*!40000 ALTER TABLE `django_migrations` DISABLE KEYS */;
-INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2023-02-13 15:29:41.396756'),(2,'contenttypes','0002_remove_content_type_name','2023-02-13 15:29:41.492151'),(3,'auth','0001_initial','2023-02-13 15:29:41.951592'),(4,'auth','0002_alter_permission_name_max_length','2023-02-13 15:29:42.166133'),(5,'auth','0003_alter_user_email_max_length','2023-02-13 15:29:42.192985'),(6,'auth','0004_alter_user_username_opts','2023-02-13 15:29:42.256950'),(7,'auth','0005_alter_user_last_login_null','2023-02-13 15:29:42.299483'),(8,'auth','0006_require_contenttypes_0002','2023-02-13 15:29:42.311662'),(9,'auth','0007_alter_validators_add_error_messages','2023-02-13 15:29:42.356178'),(10,'auth','0008_alter_user_username_max_length','2023-02-13 15:29:42.398013'),(11,'auth','0009_alter_user_last_name_max_length','2023-02-13 15:29:42.443897'),(12,'auth','0010_alter_group_name_max_length','2023-02-13 15:29:42.511327'),(13,'auth','0011_update_proxy_permissions','2023-02-13 15:29:42.573682'),(14,'auth','0012_alter_user_first_name_max_length','2023-02-13 15:29:42.625772'),(15,'user','0001_initial','2023-02-13 15:29:43.196593'),(16,'admin','0001_initial','2023-02-13 15:29:43.467113'),(17,'admin','0002_logentry_remove_auto_add','2023-02-13 15:29:43.508973'),(18,'admin','0003_logentry_add_action_flag_choices','2023-02-13 15:29:43.559309'),(19,'blacklist','0001_initial','2023-02-13 15:29:43.627062'),(20,'stations','0001_initial','2023-02-13 15:29:43.884571'),(21,'incidents','0001_initial','2023-02-13 15:29:44.035953'),(22,'incidents','0002_initial','2023-02-13 15:29:44.362865'),(23,'rent','0001_initial','2023-02-13 15:29:44.719048'),(24,'rent','0002_initial','2023-02-13 15:29:44.886136'),(25,'sessions','0001_initial','2023-02-13 15:29:44.996636');
+INSERT INTO `django_migrations` VALUES (1,'contenttypes','0001_initial','2023-02-17 14:20:48.314054'),(2,'contenttypes','0002_remove_content_type_name','2023-02-17 14:20:48.404253'),(3,'auth','0001_initial','2023-02-17 14:20:48.809992'),(4,'auth','0002_alter_permission_name_max_length','2023-02-17 14:20:48.889169'),(5,'auth','0003_alter_user_email_max_length','2023-02-17 14:20:48.907712'),(6,'auth','0004_alter_user_username_opts','2023-02-17 14:20:48.925128'),(7,'auth','0005_alter_user_last_login_null','2023-02-17 14:20:48.943869'),(8,'auth','0006_require_contenttypes_0002','2023-02-17 14:20:48.951178'),(9,'auth','0007_alter_validators_add_error_messages','2023-02-17 14:20:48.968668'),(10,'auth','0008_alter_user_username_max_length','2023-02-17 14:20:48.990022'),(11,'auth','0009_alter_user_last_name_max_length','2023-02-17 14:20:49.007103'),(12,'auth','0010_alter_group_name_max_length','2023-02-17 14:20:49.043295'),(13,'auth','0011_update_proxy_permissions','2023-02-17 14:20:49.060545'),(14,'auth','0012_alter_user_first_name_max_length','2023-02-17 14:20:49.078166'),(15,'user','0001_initial','2023-02-17 14:20:49.547434'),(16,'admin','0001_initial','2023-02-17 14:20:49.730529'),(17,'admin','0002_logentry_remove_auto_add','2023-02-17 14:20:49.759245'),(18,'admin','0003_logentry_add_action_flag_choices','2023-02-17 14:20:49.786283'),(19,'blacklist','0001_initial','2023-02-17 14:20:49.822422'),(20,'stations','0001_initial','2023-02-17 14:20:50.054463'),(21,'incidents','0001_initial','2023-02-17 14:20:50.178530'),(22,'incidents','0002_initial','2023-02-17 14:20:50.510041'),(23,'rent','0001_initial','2023-02-17 14:20:50.830547'),(24,'rent','0002_initial','2023-02-17 14:20:50.970574'),(25,'sessions','0001_initial','2023-02-17 14:20:51.031299');
 /*!40000 ALTER TABLE `django_migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -274,7 +275,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`%`*/ /*!50003 TRIGGER `incidents_incident_AU` AFTER UPDATE ON `incidents_incident` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `incidents_incident_AU` AFTER UPDATE ON `incidents_incident` FOR EACH ROW BEGIN
 IF NEW.status = 'in_progress' THEN
 INSERT INTO incidents_notification (body, user_id, seen, created_at, modified_at) VALUES (CONCAT('The incidence: ', OLD.slug, ' is in progress.'), OLD.user_id, FALSE, NOW(), NOW());
 END IF;
@@ -368,7 +369,7 @@ CREATE TABLE `stations_bike` (
   `status` varchar(200) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -377,6 +378,7 @@ CREATE TABLE `stations_bike` (
 
 LOCK TABLES `stations_bike` WRITE;
 /*!40000 ALTER TABLE `stations_bike` DISABLE KEYS */;
+INSERT INTO `stations_bike` VALUES (1,'william-scott-58kbks','William Scott','used'),(2,'chase-holmes-lo69mt','Chase Holmes','used'),(3,'jonathan-taylor-79kqw1','Jonathan Taylor','unused'),(4,'richard-johnson-k8pjtw','Richard Johnson','used'),(5,'ryan-silva-t5suer','Ryan Silva','used'),(6,'sara-white-auotwa','Sara White','used'),(7,'austin-johnson-b200ph','Austin Johnson','unused'),(8,'katelyn-shepard-22ao86','Katelyn Shepard','used'),(9,'dennis-black-qmdjzo','Dennis Black','used'),(10,'mr-joshua-alexander-vyhdtu','Mr. Joshua Alexander','used'),(11,'anthony-bishop-0loong','Anthony Bishop','used'),(12,'erik-henderson-v76cjk','Erik Henderson','used'),(13,'david-martin-vke76t','David Martin','used'),(14,'andre-lara-h3ur03','Andre Lara','used'),(15,'brenda-nixon-md-6owz72','Brenda Nixon MD','used'),(16,'rebecca-fernandez-z5r87f','Rebecca Fernandez','used'),(17,'rachel-russell-a6vp03','Rachel Russell','used'),(18,'craig-arellano-yyo303','Craig Arellano','unused'),(19,'laurie-moore-xz9twe','Laurie Moore','unused'),(20,'ryan-horton-qpif7j','Ryan Horton','used'),(21,'jennifer-green-7lhai1','Jennifer Green','unused'),(22,'kathryn-knight-hpyghi','Kathryn Knight','used'),(23,'nicholas-wilkins-uhored','Nicholas Wilkins','used'),(24,'stephanie-smith-ehrzr2','Stephanie Smith','unused'),(25,'johnny-ramirez-1pqft6','Johnny Ramirez','used'),(26,'daniel-lamb-736awo','Daniel Lamb','used'),(27,'joseph-dudley-ti3ybu','Joseph Dudley','used'),(28,'eric-berry-x885e7','Eric Berry','used'),(29,'alexandra-romero-7uuugi','Alexandra Romero','used'),(30,'hunter-lambert-35660k','Hunter Lambert','unused'),(31,'kaitlyn-foster-qn7r90','Kaitlyn Foster','unused'),(32,'matthew-singleton-e9e0a7','Matthew Singleton','unused'),(33,'susan-marquez-6rhple','Susan Marquez','unused'),(34,'christopher-young-833ijp','Christopher Young','used'),(35,'caroline-clark-93ri2j','Caroline Clark','used'),(36,'jean-kemp-hgbt63','Jean Kemp','unused'),(37,'charles-zuniga-5xs9tc','Charles Zuniga','used'),(38,'audrey-king-aw9a5j','Audrey King','used'),(39,'deborah-sanchez-s97a0j','Deborah Sanchez','used'),(40,'ronald-reyes-97ceis','Ronald Reyes','used'),(41,'lawrence-stein-x6eep6','Lawrence Stein','used'),(42,'billy-edwards-jofsnk','Billy Edwards','unused'),(43,'kenneth-james-0jijtr','Kenneth James','unused'),(44,'jesse-nicholson-s3jskh','Jesse Nicholson','used'),(45,'charles-parker-qz9y3z','Charles Parker','used'),(46,'carol-west-uhgoj1','Carol West','unused'),(47,'krista-deleon-2elit0','Krista Deleon','unused'),(48,'kelly-duncan-413b95','Kelly Duncan','used'),(49,'valerie-walters-03p2sl','Valerie Walters','used'),(50,'victoria-delgado-q6r6hh','Victoria Delgado','used');
 /*!40000 ALTER TABLE `stations_bike` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -397,7 +399,7 @@ CREATE TABLE `stations_slot` (
   KEY `stations_slot_station_id_5681ed9a_fk_stations_station_id` (`station_id`),
   CONSTRAINT `stations_slot_bike_id_ff035efc_fk_stations_bike_id` FOREIGN KEY (`bike_id`) REFERENCES `stations_bike` (`id`),
   CONSTRAINT `stations_slot_station_id_5681ed9a_fk_stations_station_id` FOREIGN KEY (`station_id`) REFERENCES `stations_station` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -406,6 +408,7 @@ CREATE TABLE `stations_slot` (
 
 LOCK TABLES `stations_slot` WRITE;
 /*!40000 ALTER TABLE `stations_slot` DISABLE KEYS */;
+INSERT INTO `stations_slot` VALUES (1,'unused',NULL,1),(2,'used',30,1),(3,'used',18,1),(4,'unused',NULL,1),(5,'used',47,1),(6,'used',19,2),(7,'unused',NULL,2),(8,'used',42,2),(9,'unused',NULL,2),(10,'used',31,2),(11,'used',21,3),(12,'used',24,3),(13,'unused',NULL,3),(14,'used',3,3),(15,'used',32,3),(16,'used',7,4),(17,'unused',NULL,4),(18,'used',33,4),(19,'unused',NULL,4),(20,'unused',NULL,4),(21,'unused',NULL,5),(22,'used',36,5),(23,'used',43,5),(24,'used',46,5),(25,'unused',NULL,5);
 /*!40000 ALTER TABLE `stations_slot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -426,7 +429,7 @@ CREATE TABLE `stations_station` (
   `latitude` double NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `slug` (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -435,6 +438,7 @@ CREATE TABLE `stations_station` (
 
 LOCK TABLES `stations_station` WRITE;
 /*!40000 ALTER TABLE `stations_station` DISABLE KEYS */;
+INSERT INTO `stations_station` VALUES (1,'William Lewis','william-lewis-96swlh','active','https://la.network/wp-content/uploads/2017/10/mendoza-bicis.jpg',-0.6128461616181847,38.8166251126952),(2,'Brandon Martin','brandon-martin-m706xt','active','http://www.gacetadelmeridiano.com/images/fotografias_noticias/unuso2/El_Pinar-kit_bici4.jpg',-0.6073548517174,38.8215600315058),(3,'Anita Pitts','anita-pitts-r6u9rl','active','https://imagenes.bikezona.com/imagenes/bike/noticias/strava-mostrara-informacion-mas-71-0004543.jpg',-0.5950006972078369,38.82388500859232),(4,'John Webster','john-webster-h7ent4','active','https://www.palma.cat/portal/PALMA/RecursosWeb/IMAGENES/1/0_101657_1.jpg',-0.6064376578528998,38.81776717196601),(5,'Julie Washington','julie-washington-4pu670','active','https://www.godoycruz.gob.ar/wp-content/uploads/2018/03/estacion-bici2.jpg',-0.598542653224862,38.81630724035015);
 /*!40000 ALTER TABLE `stations_station` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -460,7 +464,7 @@ CREATE TABLE `user_user` (
   UNIQUE KEY `uuid` (`uuid`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -537,4 +541,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-13 16:31:00
+-- Dump completed on 2023-02-17 15:35:46

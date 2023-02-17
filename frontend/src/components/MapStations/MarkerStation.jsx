@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Marker } from "react-map-gl";
 import { useNavigate } from "react-router-dom";
 import Modal from 'react-modal';
+import './MapStation.scss';
 Modal.setAppElement('#root');
 
 const MarkerStation = ({ station = {
