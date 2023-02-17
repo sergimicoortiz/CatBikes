@@ -14,7 +14,8 @@ services:
       - dbdata:/var/lib/mysql
       - ./backend/sql/dump.sql:/docker-entrypoint-initdb.d/datadump.sql
     networks:
-      - backend
+      - app
+
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin
@@ -26,16 +27,29 @@ services:
       PMA_ARBITRARY: 1
     restart: always
     ports:
-    - 8080:80
+      - 8080:80
     networks:
-      - backend
+      - app
+    depends_on:
+      - db
 
   drf:
     build: ./backend/drf
     container_name: drf
     command: sh -c '/app/wait-for-it.sh -t 0 db:3306 -- python ./manage.py runserver 0.0.0.0:8000'
     networks:
-      - backend
+      - app
+    depends_on:
+      - db
+
+  gql:
+    build: ./backend/gql
+    container_name: gql
+    command: sh -c '/app/wait-for-it.sh -t 0 db:3306 -- npm run start'
+    networks:
+      - app
+    depends_on:
+      - db
 
   frontend:
     build: ./frontend
@@ -43,10 +57,13 @@ services:
     ports:
       - "80:80"
     networks:
-      - backend
+      - app
+    depends_on:
+      - drf
+      - gql
 volumes:
   dbdata:
 
 
 networks:
-  backend:
+  app:
