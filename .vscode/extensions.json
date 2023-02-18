@@ -1,0 +1,13 @@
+{
+    "recommendations": [
+        "graphql.vscode-graphql-execution",
+        "graphql.vscode-graphql",
+        "graphql.vscode-graphql-syntax",
+        "ms-python.isort",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "donjayamanne.python-environment-manager",
+        "syler.sass-indented",
+        "dsznajder.es7-react-js-snippets"
+    ]
+}
