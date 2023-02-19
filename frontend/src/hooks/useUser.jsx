@@ -5,14 +5,14 @@ import JwtService from "../services/JwtService";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-
 export function useUser() {
     const navigate = useNavigate();
-    const { setToken, user, setUser, setIsAuth, setIsAdmin } = useContext(UserContext);
+    const { setToken, user, setUser, setIsAuth, setIsAdmin } =
+        useContext(UserContext);
     const [errorsUser, setErrorsUser] = useState("");
 
     const useLogin = useCallback((data) => {
-        UserService.Login({ "user": data })
+        UserService.Login({ user: data })
             .then(({ data, status }) => {
                 if (status === 200) {
                     setToken(data.token);
@@ -24,7 +24,6 @@ export function useUser() {
                     setErrorsUser("");
                     navigate("/");
                 }
-
             })
             .catch((e) => {
                 console.error(e);
@@ -33,7 +32,7 @@ export function useUser() {
     }, []);
 
     const useRegister = useCallback((data) => {
-        UserService.Register({ "user": data })
+        UserService.Register({ user: data })
             .then(({ data, status }) => {
                 if (status == 200) {
                     setToken(data.token);
@@ -65,14 +64,22 @@ export function useUser() {
     }, []);
 
     const refreshToken = useCallback(() => {
-        UserService.RefreshToken()
-            .then(({ data, status }) => {
-                if (status == 200) {
-                    JwtService.saveToken(data.token);
-                    sessionStorage.removeItem("time");
-                }
-            });
+        UserService.RefreshToken().then(({ data, status }) => {
+            if (status == 200) {
+                JwtService.saveToken(data.token);
+                sessionStorage.removeItem("time");
+            }
+        });
     }, []);
 
-    return { user, setUser, useRegister, useLogin, useLogout, refreshToken, errorsUser, setErrorsUser };
+    return {
+        user,
+        setUser,
+        useRegister,
+        useLogin,
+        useLogout,
+        refreshToken,
+        errorsUser,
+        setErrorsUser,
+    };
 }

@@ -1,7 +1,6 @@
 import Api from "./Api";
 
 const UserService = {
-
     Login(data) {
         return Api().post("login", data);
     },
@@ -21,7 +20,7 @@ const UserService = {
     RefreshToken() {
         Api().post("logout");
         return Api().post("refreshToken");
-    }
+    },
 };
 
 export default UserService;

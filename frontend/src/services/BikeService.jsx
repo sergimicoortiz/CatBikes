@@ -9,11 +9,11 @@ const getOne = (slug) => {
 };
 
 const createBike = (data) => {
-    return Api().post("/bikes", { "bike": data });
+    return Api().post("/bikes", { bike: data });
 };
 
 const updateBike = (data, slug) => {
-    return Api().put("/bikes/" + slug, { "bike": data });
+    return Api().put("/bikes/" + slug, { bike: data });
 };
 
 const deleteBike = (data) => {
@@ -25,7 +25,7 @@ const BikeService = {
     getOne,
     createBike,
     deleteBike,
-    updateBike
+    updateBike,
 };
 
 export default BikeService;

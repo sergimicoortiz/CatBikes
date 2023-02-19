@@ -10,18 +10,22 @@ export function NotificationsContextProvider({ children }) {
     const { token } = useContext(UserContext);
     const { incidents } = useContext(IncidentsContext);
 
-    useEffect(function () {
-        if (token) {
-            NotificationsService.getAll()
-                .then(({ data }) => {
+    useEffect(
+        function () {
+            if (token) {
+                NotificationsService.getAll().then(({ data }) => {
                     setNotifications(data);
                 });
-        }
-    }, [setNotifications, token, incidents]);
+            }
+        },
+        [setNotifications, token, incidents]
+    );
 
-    return <Context.Provider value={{ notifications, setNotifications }}>
-        {children}
-    </Context.Provider>;
+    return (
+        <Context.Provider value={{ notifications, setNotifications }}>
+            {children}
+        </Context.Provider>
+    );
 }
 
 export default Context;

@@ -16,36 +16,36 @@ const BikesList = () => {
     const columns = [
         {
             name: "Slug",
-            selector: row => row.slug,
-            sortable: true
+            selector: (row) => row.slug,
+            sortable: true,
         },
         {
             name: "Name",
-            selector: row => row.name,
-            sortable: true
+            selector: (row) => row.name,
+            sortable: true,
         },
         {
             name: "Status",
-            selector: row => row.status,
-            sortable: true
+            selector: (row) => row.status,
+            sortable: true,
         },
     ];
 
     const conditionalRowStyles = [
         {
-            when: row => row.status == "used",
+            when: (row) => row.status == "used",
             style: {
                 backgroundColor: "#03f65e",
             },
         },
         {
-            when: row => row.status == "unused",
+            when: (row) => row.status == "unused",
             style: {
                 backgroundColor: "#497f7b",
             },
         },
         {
-            when: row => row.status == "manteinance",
+            when: (row) => row.status == "manteinance",
             style: {
                 backgroundColor: "#7b7944",
             },
@@ -67,15 +67,34 @@ const BikesList = () => {
     return (
         <div>
             <div>
-                <button className="custom-btn btn-3" onClick={() => {
-                    navigate("/dashboard/bikes/create");
-                }}><span>CREATE</span></button>
-                <button className="custom-btn btn-13" onClick={() => {
-                    navigate("/dashboard/bikes/update/" + selectedRows[0].slug);
-                }} disabled={selectedRows.length !== 1}><span>UPDATE</span></button>
-                <button className="custom-btn btn-5" onClick={() => {
-                    removeSelectedBikes();
-                }} disabled={selectedRows.length === 0}><span>DELETE</span></button>
+                <button
+                    className="custom-btn btn-3"
+                    onClick={() => {
+                        navigate("/dashboard/bikes/create");
+                    }}
+                >
+                    <span>CREATE</span>
+                </button>
+                <button
+                    className="custom-btn btn-13"
+                    onClick={() => {
+                        navigate(
+                            "/dashboard/bikes/update/" + selectedRows[0].slug
+                        );
+                    }}
+                    disabled={selectedRows.length !== 1}
+                >
+                    <span>UPDATE</span>
+                </button>
+                <button
+                    className="custom-btn btn-5"
+                    onClick={() => {
+                        removeSelectedBikes();
+                    }}
+                    disabled={selectedRows.length === 0}
+                >
+                    <span>DELETE</span>
+                </button>
             </div>
             <DataTable
                 columns={columns}
@@ -85,7 +104,6 @@ const BikesList = () => {
                 onSelectedRowsChange={handleChange}
                 clearSelectedRows={toggledClearRows}
                 conditionalRowStyles={conditionalRowStyles}
-
             />
         </div>
     );

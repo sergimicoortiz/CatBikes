@@ -5,5 +5,7 @@
     "singleQuote": false,
     "bracketSpacing": true,
     "arrowParens": "always",
+    "jsxSingleQuote": false,
+    "jsxBracketSameLine": false,
     "endOfLine": "lf"
 }

@@ -18,30 +18,29 @@ export function useStations() {
     useEffect(() => {
         const page = pathname.split("/")[1];
         if (oneStation.id && page !== "dashboard") {
-            const params = { "station_id": oneStation.id };
+            const params = { station_id: oneStation.id };
             SlotService.getAll(params)
                 .then(({ data, status }) => {
                     if (status === 200) {
                         setSlotStation(data);
                     }
                 })
-                .catch(e => console.error(e));
+                .catch((e) => console.error(e));
         }
     }, [oneStation]);
 
-
     const useOneStation = useCallback((slug) => {
-        const station_tmp = stations.filter(item => item.slug === slug);
+        const station_tmp = stations.filter((item) => item.slug === slug);
         if (station_tmp.length === 1) {
             setOneStation(station_tmp[0]);
         } else {
-            StationService.GetStation(slug).
-                then(({ data, status }) => {
+            StationService.GetStation(slug)
+                .then(({ data, status }) => {
                     if (status === 200) {
                         setOneStation(data);
                     }
                 })
-                .catch(e => console.error(e));
+                .catch((e) => console.error(e));
         }
     }, []);
 
@@ -57,14 +56,16 @@ export function useStations() {
                 console.error(error);
             }
         }
-        setStations(stations.filter(item => !slugs_ok.includes(item.slug)));
-        const ids_ok = stations.filter(item => !slugs_ok.includes(item.slug)).map(item => item.id);
-        setSlots(slots.filter(slot => ids_ok.includes(slot.station_id)));
+        setStations(stations.filter((item) => !slugs_ok.includes(item.slug)));
+        const ids_ok = stations
+            .filter((item) => !slugs_ok.includes(item.slug))
+            .map((item) => item.id);
+        setSlots(slots.filter((slot) => ids_ok.includes(slot.station_id)));
     };
 
-    const useCreateStation = useCallback(data => {
+    const useCreateStation = useCallback((data) => {
         const slot_quantity = data.slot_quantity;
-        delete (data.slot_quantity);
+        delete data.slot_quantity;
         StationService.CreateStations(data, slot_quantity)
             .then(({ data, status }) => {
                 if (status === 200) {
@@ -75,7 +76,7 @@ export function useStations() {
                     setSlots([...slots, ...data.slots]);
                 }
             })
-            .catch(e => {
+            .catch((e) => {
                 console.error(e);
                 toast.error("Create station error");
                 navigate("/home");
@@ -87,7 +88,9 @@ export function useStations() {
             .then(({ data, status }) => {
                 if (status === 200) {
                     let old_stations = [...stations];
-                    const index = old_stations.findIndex(item => item.slug === slug);
+                    const index = old_stations.findIndex(
+                        (item) => item.slug === slug
+                    );
                     if (index !== -1) {
                         old_stations[index] = data;
                         setStations(old_stations);
@@ -96,12 +99,23 @@ export function useStations() {
                     navigate("/dashboard/stations");
                 }
             })
-            .catch(e => {
+            .catch((e) => {
                 console.error(e);
                 toast.error("Update station error");
                 navigate("/home");
             });
     }, []);
 
-    return { slotStation, setSlotStation, stations, setStations, oneStation, setOneStation, useCreateStation, useUpdateStation, useOneStation, useDeleteStationMultiple };
+    return {
+        slotStation,
+        setSlotStation,
+        stations,
+        setStations,
+        oneStation,
+        setOneStation,
+        useCreateStation,
+        useUpdateStation,
+        useOneStation,
+        useDeleteStationMultiple,
+    };
 }

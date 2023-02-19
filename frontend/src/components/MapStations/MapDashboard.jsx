@@ -18,7 +18,7 @@ const MapDashboard = ({ latitude, longitude, handleChange }) => {
 
     useEffect(() => {
         if (lat !== 90 && lon !== 90) {
-            handleChange({ "longitude": lon, "latitude": lat });
+            handleChange({ longitude: lon, latitude: lat });
         }
     }, [lat, lon]);
 
@@ -43,12 +43,17 @@ const MapDashboard = ({ latitude, longitude, handleChange }) => {
                 initialViewState={{
                     longitude: -0.603908,
                     latitude: 38.822944,
-                    zoom: 14
+                    zoom: 14,
                 }}
                 style={{ width: 800, height: 500 }}
                 mapStyle="mapbox://styles/mapbox/streets-v11"
             >
-                <Marker latitude={lat} longitude={lon} draggable={true} onDragEnd={handleDrag} />
+                <Marker
+                    latitude={lat}
+                    longitude={lon}
+                    draggable={true}
+                    onDragEnd={handleDrag}
+                />
             </Map>
         </div>
     );

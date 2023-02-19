@@ -6,7 +6,10 @@ const Register = () => {
     return (
         <div>
             <h1>REGISTER</h1>
-            <LoginRegisterForm sendData={(data) => useRegister(data)} errorsUser={errorsUser} />
+            <LoginRegisterForm
+                sendData={(data) => useRegister(data)}
+                errorsUser={errorsUser}
+            />
         </div>
     );
 };

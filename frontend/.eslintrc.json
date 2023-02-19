@@ -11,7 +11,7 @@
   },
   "plugins": ["react", "unused-imports"],
   "rules": {
-    "indent": ["error", 4],
+    // "indent": ["warn", 4], //Poroblem with prettier, dissable for now
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
@@ -27,5 +27,10 @@
         "argsIgnorePattern": "^_"
       }
     ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

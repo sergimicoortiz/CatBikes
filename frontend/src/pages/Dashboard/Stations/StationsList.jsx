@@ -11,42 +11,40 @@ const StationsList = () => {
     const columns = [
         {
             name: "Slug",
-            selector: row => row.slug,
+            selector: (row) => row.slug,
             sortable: true,
         },
         {
             name: "Name",
-            selector: row => row.name,
+            selector: (row) => row.name,
             sortable: true,
         },
         {
             name: "Status",
-            selector: row => row.status,
+            selector: (row) => row.status,
             sortable: true,
         },
         {
             name: "Image",
-            selector: row => row.image,
+            selector: (row) => row.image,
             sortable: true,
-
         },
         {
             name: "Position",
-            selector: row => `lon: ${row.longitude} lat: ${row.latitude}`,
+            selector: (row) => `lon: ${row.longitude} lat: ${row.latitude}`,
             sortable: true,
-
         },
     ];
 
     const conditionalRowStyles = [
         {
-            when: row => row.status == "inactive",
+            when: (row) => row.status == "inactive",
             style: {
                 backgroundColor: "red",
             },
         },
         {
-            when: row => row.status == "manteinance",
+            when: (row) => row.status == "manteinance",
             style: {
                 backgroundColor: "yellow",
             },
@@ -61,11 +59,10 @@ const StationsList = () => {
     };
 
     const deleteStations = () => {
-        useDeleteStationMultiple(selectedRows.map(row => row.slug));
+        useDeleteStationMultiple(selectedRows.map((row) => row.slug));
         setToggleCleared(!toggleCleared);
         setSelectedRows([]);
     };
-
 
     const redirects = {
         create: () => navigate("/dashboard/stations/create"),
@@ -75,9 +72,26 @@ const StationsList = () => {
     return (
         <div>
             <h1>Stations List</h1>
-            <button className="custom-btn btn-3" onClick={() => redirects.create()}><span>CREATE</span></button>
-            <button className="custom-btn btn-13" onClick={() => redirects.update(selectedRows[0].slug)} disabled={selectedRows.length !== 1}><span>UPDATE</span></button>
-            <button className="custom-btn btn-5" onClick={() => deleteStations()} disabled={selectedRows.length === 0}><span>DELETE</span></button>
+            <button
+                className="custom-btn btn-3"
+                onClick={() => redirects.create()}
+            >
+                <span>CREATE</span>
+            </button>
+            <button
+                className="custom-btn btn-13"
+                onClick={() => redirects.update(selectedRows[0].slug)}
+                disabled={selectedRows.length !== 1}
+            >
+                <span>UPDATE</span>
+            </button>
+            <button
+                className="custom-btn btn-5"
+                onClick={() => deleteStations()}
+                disabled={selectedRows.length === 0}
+            >
+                <span>DELETE</span>
+            </button>
             <DataTable
                 columns={columns}
                 data={stations}

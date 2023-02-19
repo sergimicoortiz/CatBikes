@@ -7,18 +7,22 @@ const Context = React.createContext({});
 export function IncidentsContextProvider({ children }) {
     const { isAdmin } = useContext(UserContext);
     const [incidents, setIncidents] = useState([]);
-    useEffect(function () {
-        if (isAdmin) {
-            IncidentsService.getAll()
-                .then(({ data }) => {
+    useEffect(
+        function () {
+            if (isAdmin) {
+                IncidentsService.getAll().then(({ data }) => {
                     setIncidents(data);
                 });
-        }
-    }, [setIncidents, isAdmin]);
+            }
+        },
+        [setIncidents, isAdmin]
+    );
 
-    return <Context.Provider value={{ incidents, setIncidents }}>
-        {children}
-    </Context.Provider>;
+    return (
+        <Context.Provider value={{ incidents, setIncidents }}>
+            {children}
+        </Context.Provider>
+    );
 }
 
 export default Context;

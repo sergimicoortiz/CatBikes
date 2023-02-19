@@ -9,16 +9,15 @@ const useAxios = () => {
             baseURL: secrets.URL_DRF,
             headers: {
                 "Content-type": "application/json",
-                "Authorization": `Bearer ${JwtService.getToken()}`
-            }
+                Authorization: `Bearer ${JwtService.getToken()}`,
+            },
         });
-
     } else {
         api = axios.create({
             baseURL: secrets.URL_DRF,
             headers: {
                 "Content-type": "application/json",
-            }
+            },
         });
     }
 

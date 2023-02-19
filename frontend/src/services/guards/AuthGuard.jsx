@@ -17,14 +17,13 @@ export function AuthGuard() {
     const { isAuth } = useContext(UserContext);
 
     if (!isAuth) {
-        UserService.GetUser()
-            .then(({ status }) => {
-                if (status == 200) {
-                    setTimeout(() => {
-                        navigate(sessionStorage.getItem("/profile"));
-                    }, 800);
-                }
-            });
+        UserService.GetUser().then(({ status }) => {
+            if (status == 200) {
+                setTimeout(() => {
+                    navigate(sessionStorage.getItem("/profile"));
+                }, 800);
+            }
+        });
     }
 
     return isAuth ? <Outlet /> : <Navigate to="/login" />;

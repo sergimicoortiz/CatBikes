@@ -13,7 +13,7 @@ const deleteIncidents = (data) => {
 };
 
 const CreateIncident = (data) => {
-    return Api().post("incidents", { "incident": data });
+    return Api().post("incidents", { incident: data });
 };
 
 const GetIncidentsUser = () => {

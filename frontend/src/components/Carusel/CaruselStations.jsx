@@ -5,16 +5,17 @@ import { useStations } from "../../hooks/useStations";
 import CaruselItem from "./caruselItem";
 import "./CaruselStations.scss";
 
-
 const CaruselStations = () => {
-
     const { stations } = useStations();
 
-    const data = stations.map(item => {
+    const data = stations.map((item) => {
         return { img: item.image, slug: item.slug };
     });
-    const carusel_items = data.map((item, index) =>
-        <SwiperSlide key={index}><CaruselItem data={item} /></SwiperSlide>);
+    const carusel_items = data.map((item, index) => (
+        <SwiperSlide key={index}>
+            <CaruselItem data={item} />
+        </SwiperSlide>
+    ));
     return (
         <div>
             <br />
@@ -23,7 +24,8 @@ const CaruselStations = () => {
                 spaceBetween={50}
                 navigation
                 pagination={{ clickable: true }}
-                scrollbar={{ draggable: true }}>
+                scrollbar={{ draggable: true }}
+            >
                 {carusel_items}
             </Swiper>
             <br />

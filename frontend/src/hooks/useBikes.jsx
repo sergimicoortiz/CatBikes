@@ -10,14 +10,14 @@ export function useBikes() {
     const navigate = useNavigate();
 
     const getOneBike = useCallback((slug) => {
-        BikeService.getOne(slug).
-            then(({ data }) => {
+        BikeService.getOne(slug)
+            .then(({ data }) => {
                 setOneBike(data);
             })
-            .catch(e => console.error(e));
+            .catch((e) => console.error(e));
     }, []);
 
-    const createBike = ((data) => {
+    const createBike = (data) => {
         BikeService.createBike(data)
             .then((dataThen) => {
                 if (dataThen.status == 200) {
@@ -26,14 +26,14 @@ export function useBikes() {
                     toast.success("Created successfully");
                 }
             })
-            .catch(e => {
+            .catch((e) => {
                 console.error(e);
                 toast.error("Create bike error");
                 navigate("/home");
             });
-    });
+    };
 
-    const deleteBike = (async (data) => {
+    const deleteBike = async (data) => {
         let save = [];
         for (let i = 0; i < data.length; i++) {
             try {
@@ -44,15 +44,17 @@ export function useBikes() {
                 toast.error("Delete error");
             }
         }
-        setBikes(bikes.filter(item => !save.includes(item.slug)));
-    });
+        setBikes(bikes.filter((item) => !save.includes(item.slug)));
+    };
 
-    const updateBikes = ((data, slug) => {
+    const updateBikes = (data, slug) => {
         BikeService.updateBike(data, slug)
             .then((dataThen) => {
                 if (dataThen.status === 200) {
                     let get_Old_Bike = [...bikes];
-                    const remove_old = get_Old_Bike.findIndex(item => item.slug === slug);
+                    const remove_old = get_Old_Bike.findIndex(
+                        (item) => item.slug === slug
+                    );
                     if (remove_old !== -1) {
                         get_Old_Bike[remove_old] = dataThen.data;
                         setBikes(get_Old_Bike);
@@ -61,12 +63,21 @@ export function useBikes() {
                     toast.success("Updated successfully");
                 }
             })
-            .catch(e => {
+            .catch((e) => {
                 console.error(e);
                 toast.error("Update bike error");
                 navigate("/home");
             });
-    });
+    };
 
-    return { bikes, setBikes, createBike, deleteBike, getOneBike, oneBike, setOneBike, updateBikes };
+    return {
+        bikes,
+        setBikes,
+        createBike,
+        deleteBike,
+        getOneBike,
+        oneBike,
+        setOneBike,
+        updateBikes,
+    };
 }

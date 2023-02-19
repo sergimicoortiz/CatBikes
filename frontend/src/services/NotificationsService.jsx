@@ -10,7 +10,7 @@ const UpdateSeen = (id) => {
 
 const NotificationsService = {
     getAll,
-    UpdateSeen
+    UpdateSeen,
 };
 
 export default NotificationsService;

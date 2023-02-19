@@ -17,7 +17,7 @@ export function useRent() {
                         setRents(data);
                     }
                 })
-                .catch(e => console.error(e));
+                .catch((e) => console.error(e));
         }
     }, []);
 
@@ -33,9 +33,9 @@ export function useRent() {
                 console.error(error);
             }
         }
-        setRents(rents.filter(item => !ids_ok.includes(item.id)));
+        setRents(rents.filter((item) => !ids_ok.includes(item.id)));
     };
-    
+
     const rentBike = (data) => {
         RentService.rentBike(data)
             .then((dataThen) => {
@@ -57,16 +57,15 @@ export function useRent() {
             .then((dataThen) => {
                 if (dataThen.status == 200) {
                     data.bike_id = dataThen.data.bike;
-                    RentService.returnBike(data)
-                        .then((dataReturn) => {
-                            if (dataReturn.status == 200) {
-                                toast.success("You return a Bike, thanks you");
-                                setTimeout(() => {
-                                    navigate("/home");
-                                    window.location.reload();
-                                }, 1000);
-                            }
-                        });
+                    RentService.returnBike(data).then((dataReturn) => {
+                        if (dataReturn.status == 200) {
+                            toast.success("You return a Bike, thanks you");
+                            setTimeout(() => {
+                                navigate("/home");
+                                window.location.reload();
+                            }, 1000);
+                        }
+                    });
                 }
             })
             .catch(() => {
@@ -78,7 +77,7 @@ export function useRent() {
         rents,
         setRents,
         useDeleteRentMultiple,
-        rentBike, 
-        returnBike
+        rentBike,
+        returnBike,
     };
 }

@@ -8,7 +8,6 @@ import "./IncidentModal.scss";
 Modal.setAppElement("#root");
 
 const IncidentModal = ({ modalOpen, setModalOpen, slot_id }) => {
-
     const { useCreateIncident } = useIncidents();
 
     const validators = Yup.object().shape({
@@ -20,18 +19,18 @@ const IncidentModal = ({ modalOpen, setModalOpen, slot_id }) => {
         register,
         handleSubmit,
         setValue,
-        formState: { errors }
+        formState: { errors },
     } = useForm({
-        resolver: yupResolver(validators)
+        resolver: yupResolver(validators),
     });
 
     const customStyles = {
         overlay: {
             zIndex: "999",
-        }
+        },
     };
 
-    const onSubmit = data => {
+    const onSubmit = (data) => {
         data.slot_id = slot_id;
         useCreateIncident(data);
     };
@@ -53,15 +52,10 @@ const IncidentModal = ({ modalOpen, setModalOpen, slot_id }) => {
                 <h1>Slot: {slot_id}</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>Title: </label>
-                    <input
-                        name="title"
-                        type="text"
-                        {...register("title")} />
+                    <input name="title" type="text" {...register("title")} />
                     <div className="error">{errors.title?.message}</div>
                     <label>Body: </label>
-                    <textarea
-                        name="body"
-                        {...register("body")} />
+                    <textarea name="body" {...register("body")} />
                     <div className="error">{errors.body?.message}</div>
                     <button type="submit">Send</button>
                 </form>

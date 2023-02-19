@@ -6,16 +6,20 @@ const Context = React.createContext({});
 export function SlotsContextProvider({ children }) {
     const [slots, setSlots] = useState([]);
 
-    useEffect(function () {
-        SlotService.getAll()
-            .then(({ data }) => {
+    useEffect(
+        function () {
+            SlotService.getAll().then(({ data }) => {
                 setSlots(data);
             });
-    }, [setSlots]);
+        },
+        [setSlots]
+    );
 
-    return <Context.Provider value={{ slots, setSlots }}>
-        {children}
-    </Context.Provider>;
+    return (
+        <Context.Provider value={{ slots, setSlots }}>
+            {children}
+        </Context.Provider>
+    );
 }
 
 export default Context;

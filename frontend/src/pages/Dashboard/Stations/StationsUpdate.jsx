@@ -17,7 +17,10 @@ const StationsUpdate = () => {
     return (
         <div className="updateStation">
             <h1>STATION UPDATE</h1>
-            <StationsForm SendData={(data) => useUpdateStation(slug, data)} station={oneStation} />
+            <StationsForm
+                SendData={(data) => useUpdateStation(slug, data)}
+                station={oneStation}
+            />
         </div>
     );
 };

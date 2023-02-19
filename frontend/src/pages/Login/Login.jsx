@@ -6,7 +6,10 @@ const Login = () => {
     return (
         <div>
             <h1>LOGIN</h1>
-            <LoginRegisterForm sendData={(data) => useLogin(data)} errorsUser={errorsUser} />
+            <LoginRegisterForm
+                sendData={(data) => useLogin(data)}
+                errorsUser={errorsUser}
+            />
         </div>
     );
 };

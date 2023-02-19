@@ -18,20 +18,21 @@ function AdminGuard() {
     }
 
     if (!isAdmin) {
-        UserService.GetUser()
-            .then(({ data, status }) => {
-                if (status == 200) {
-                    if (data.user.types == "admin") {
-                        setTimeout(() => {
-                            if (sessionStorage.getItem("path") == null) {
-                                navigate("/dashboard");
-                            }else{
-                                navigate("/dashboard/" + sessionStorage.getItem("path"));
-                            }
-                        }, 500);
-                    }
+        UserService.GetUser().then(({ data, status }) => {
+            if (status == 200) {
+                if (data.user.types == "admin") {
+                    setTimeout(() => {
+                        if (sessionStorage.getItem("path") == null) {
+                            navigate("/dashboard");
+                        } else {
+                            navigate(
+                                "/dashboard/" + sessionStorage.getItem("path")
+                            );
+                        }
+                    }, 500);
                 }
-            });
+            }
+        });
     }
 
     return isAdmin ? <Outlet /> : <Navigate to="/home" />;

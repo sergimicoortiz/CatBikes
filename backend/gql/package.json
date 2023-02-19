@@ -9,7 +9,7 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "lint": "eslint --ext .js src",
-    "fix": "eslint --ext .js src --fix",
+    "lint_fix": "eslint --ext .js src --fix",
     "format": "prettier --write src"
   },
   "keywords": [],
