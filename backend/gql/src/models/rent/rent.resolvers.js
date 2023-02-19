@@ -2,8 +2,8 @@ import Slot from "../slots/slot.model.js";
 import Bike from "../bikes/bike.model.js";
 import Rent from "./rent.model.js";
 import User from "../user/user.model.js";
-import { GraphQLError } from 'graphql';
-import { ApolloServerErrorCode } from '@apollo/server/errors';
+import { GraphQLError } from "graphql";
+import { ApolloServerErrorCode } from "@apollo/server/errors";
 
 const rentResolvers = {
     Query: {
@@ -11,9 +11,10 @@ const rentResolvers = {
             try {
                 if (!context.isAuth) throw context.AuthenticationError;
                 if (context.isAdmin) return await Rent.findAll();
-                return await Rent.findAll({ where: { user_id: context.user.id } });
-            }
-            catch (error) {
+                return await Rent.findAll({
+                    where: { user_id: context.user.id },
+                });
+            } catch (error) {
                 console.error(error);
                 throw error;
             }
@@ -26,15 +27,46 @@ const rentResolvers = {
                 if (!context.isAuth) throw context.AuthenticationError;
                 const { start_slot_id } = args;
                 const user_id = context.user.id;
-                const count = await Rent.count({ where: { user_id, end_slot_id: null } });
-                if (count > 0) throw new GraphQLError("User already has a rent", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
+                const count = await Rent.count({
+                    where: { user_id, end_slot_id: null },
+                });
+                if (count > 0)
+                    throw new GraphQLError("User already has a rent", {
+                        extensions: {
+                            code: ApolloServerErrorCode.BAD_USER_INPUT,
+                        },
+                    });
                 const start_slot = await Slot.findByPk(start_slot_id);
-                if (!start_slot) throw new GraphQLError("Slot not found", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
-                if (start_slot.bike_id === null) throw new GraphQLError("Slot is empty", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
+                if (!start_slot)
+                    throw new GraphQLError("Slot not found", {
+                        extensions: {
+                            code: ApolloServerErrorCode.BAD_USER_INPUT,
+                        },
+                    });
+                if (start_slot.bike_id === null)
+                    throw new GraphQLError("Slot is empty", {
+                        extensions: {
+                            code: ApolloServerErrorCode.BAD_USER_INPUT,
+                        },
+                    });
                 const bike = await Bike.findByPk(start_slot.bike_id);
-                if (!bike) throw new GraphQLError("Bike not found", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
-                if (bike.status === "used") throw new GraphQLError("Bike is in use", { extensions: { code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR } });
-                const rent = await Rent.create({ bike_id: start_slot.bike_id, start_slot_id, user_id });
+                if (!bike)
+                    throw new GraphQLError("Bike not found", {
+                        extensions: {
+                            code: ApolloServerErrorCode.BAD_USER_INPUT,
+                        },
+                    });
+                if (bike.status === "used")
+                    throw new GraphQLError("Bike is in use", {
+                        extensions: {
+                            code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR,
+                        },
+                    });
+                const rent = await Rent.create({
+                    bike_id: start_slot.bike_id,
+                    start_slot_id,
+                    user_id,
+                });
                 bike.status = "used";
                 await bike.save();
                 start_slot.bike_id = null;
@@ -51,13 +83,35 @@ const rentResolvers = {
                 if (!context.isAuth) throw context.AuthenticationError;
                 const { end_slot_id } = args;
                 const user_id = context.user.id;
-                const rent = await Rent.findOne({ where: { user_id, end_slot_id: null } });
-                if (!rent) throw new GraphQLError("Rent not found", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
+                const rent = await Rent.findOne({
+                    where: { user_id, end_slot_id: null },
+                });
+                if (!rent)
+                    throw new GraphQLError("Rent not found", {
+                        extensions: {
+                            code: ApolloServerErrorCode.BAD_USER_INPUT,
+                        },
+                    });
                 const end_slot = await Slot.findByPk(end_slot_id);
                 const bike = await Bike.findByPk(rent.bike_id);
-                if (!bike) throw new GraphQLError("Bike not found", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
-                if (!end_slot) throw new GraphQLError("Slot not found", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
-                if (end_slot.bike_id !== null) throw new GraphQLError("Slot is not empty", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
+                if (!bike)
+                    throw new GraphQLError("Bike not found", {
+                        extensions: {
+                            code: ApolloServerErrorCode.BAD_USER_INPUT,
+                        },
+                    });
+                if (!end_slot)
+                    throw new GraphQLError("Slot not found", {
+                        extensions: {
+                            code: ApolloServerErrorCode.BAD_USER_INPUT,
+                        },
+                    });
+                if (end_slot.bike_id !== null)
+                    throw new GraphQLError("Slot is not empty", {
+                        extensions: {
+                            code: ApolloServerErrorCode.BAD_USER_INPUT,
+                        },
+                    });
                 rent.end_slot_id = end_slot_id;
                 rent.end_date = new Date();
                 await rent.save();
@@ -77,16 +131,25 @@ const rentResolvers = {
                 if (!context.isAdmin) throw context.AuthenticationError;
                 const { id } = args;
                 const rent = await Rent.findByPk(id);
-                if (!rent) throw new GraphQLError("Rent not found", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
-                if (rent.end_slot_id === null) throw new GraphQLError("Rent is not ended", { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
+                if (!rent)
+                    throw new GraphQLError("Rent not found", {
+                        extensions: {
+                            code: ApolloServerErrorCode.BAD_USER_INPUT,
+                        },
+                    });
+                if (rent.end_slot_id === null)
+                    throw new GraphQLError("Rent is not ended", {
+                        extensions: {
+                            code: ApolloServerErrorCode.BAD_USER_INPUT,
+                        },
+                    });
                 await rent.destroy();
                 return rent;
-            }
-            catch (error) {
+            } catch (error) {
                 console.error(error);
                 throw error;
             }
-        }
+        },
     },
 
     Rent: {

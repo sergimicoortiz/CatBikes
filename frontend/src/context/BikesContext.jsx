@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import BikeService from '../services/BikeService'
+import React, { useState, useEffect } from "react";
+import BikeService from "../services/BikeService";
 
-const Context = React.createContext({})
+const Context = React.createContext({});
 
 export function BikesContextProvider({ children }) {
     const [bikes, setBikes] = useState([]);
 
-    useEffect(function () {
-        BikeService.getAll()
-            .then(({ data }) => {
-                setBikes(data)
-            })
-    }, [setBikes])
+    useEffect(
+        function () {
+            BikeService.getAll().then(({ data }) => {
+                setBikes(data);
+            });
+        },
+        [setBikes]
+    );
 
-    return <Context.Provider value={{ bikes, setBikes }}>
-        {children}
-    </Context.Provider>
+    return (
+        <Context.Provider value={{ bikes, setBikes }}>
+            {children}
+        </Context.Provider>
+    );
 }
 
-export default Context
+export default Context;

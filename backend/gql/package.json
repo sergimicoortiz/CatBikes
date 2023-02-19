@@ -7,7 +7,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "dev": "nodemon src/index.js",
+    "lint": "eslint --ext .js src",
+    "lint_fix": "eslint --ext .js src --fix",
+    "format": "prettier --write src"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +25,11 @@
     "sequelize": "^6.28.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.20"
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.4"
   }
 }

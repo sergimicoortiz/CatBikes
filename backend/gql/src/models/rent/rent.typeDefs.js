@@ -1,15 +1,14 @@
-import gql from 'graphql-tag';
-
+import gql from "graphql-tag";
 
 const rentTypeDefs = gql`
     type Rent {
         id: ID!
-        bike : Bike!
-        start_slot : Slot!
-        end_slot : Slot
-        start_date : String!
-        end_date : String
-        user : User!
+        bike: Bike!
+        start_slot: Slot!
+        end_slot: Slot
+        start_date: String!
+        end_date: String
+        user: User!
     }
 
     type Query {

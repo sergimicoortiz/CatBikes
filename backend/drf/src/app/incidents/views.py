@@ -1,18 +1,16 @@
 from rest_framework.response import Response
 from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets, status
-from rest_framework.permissions import (IsAuthenticated)
+from rest_framework.permissions import IsAuthenticated
 from src.app.core.permissions import IsAdmin
 from .models import Incident
 from .serializers import IncidentSerializer, NotificationSerializer
-from rest_framework.permissions import (
-    AllowAny)
+from rest_framework.permissions import AllowAny
 
 
 class IncidentView(viewsets.GenericViewSet):
-
     def get_permissions(self):
-        if self.request.method == 'POST':
+        if self.request.method == "POST":
             self.permission_classes = [IsAuthenticated]
         else:
             self.permission_classes = [IsAdmin]
@@ -29,12 +27,12 @@ class IncidentView(viewsets.GenericViewSet):
         return Response(serializer.data)
 
     def post(self, request):
-        data = request.data['incident']
+        data = request.data["incident"]
         serializer_context = {
-            'username': request.user,
-            'slot_id': data['slot_id'],
-            'title': data['title'],
-            'body': data['body'],
+            "username": request.user,
+            "slot_id": data["slot_id"],
+            "title": data["title"],
+            "body": data["body"],
         }
         incident = IncidentSerializer.create(serializer_context)
         return Response(IncidentSerializer.to_incident(incident))
@@ -53,20 +51,24 @@ class IncidentAuthView(viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response(IncidentSerializer(IncidentSerializer.getIncidentUser(request.user), many=True).data)
+        return Response(
+            IncidentSerializer(
+                IncidentSerializer.getIncidentUser(request.user), many=True
+            ).data
+        )
 
 
 class NotificationsAuthView(viewsets.GenericViewSet):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response(NotificationSerializer(NotificationSerializer.getNotificationUser(request.user), many=True).data)
+        return Response(
+            NotificationSerializer(
+                NotificationSerializer.getNotificationUser(request.user), many=True
+            ).data
+        )
 
     def seenNotification(self, request, id):
-        serializer_context = {
-            'username': request.user,
-            'id': id
-        }
-        serializer = NotificationSerializer.seeNotification(
-            context=serializer_context)
+        serializer_context = {"username": request.user, "id": id}
+        serializer = NotificationSerializer.seeNotification(context=serializer_context)
         return Response(NotificationSerializer.to_notification(serializer))

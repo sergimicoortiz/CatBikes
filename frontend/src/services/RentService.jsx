@@ -1,11 +1,11 @@
-import Api from './Api';
+import Api from "./Api";
 
 const GetRentDashboard = () => {
-    return Api().get('rentDashboard');
+    return Api().get("rentDashboard");
 };
 
 const DeleteRentDashboard = (id) => {
-    return Api().delete('rentDashboard/' + id);
+    return Api().delete("rentDashboard/" + id);
 };
 
 const getOneRent = () => {
@@ -13,11 +13,13 @@ const getOneRent = () => {
 };
 
 const rentBike = (data) => {
-    return Api().post("rent", { "rentBike": { "start_slot": data.id } });
+    return Api().post("rent", { rentBike: { start_slot: data.id } });
 };
 
 const returnBike = (data) => {
-    return Api().post("returnBike", { "returnBike": { "end_slot": data.id, "bike_id": data.bike_id } });
+    return Api().post("returnBike", {
+        returnBike: { end_slot: data.id, bike_id: data.bike_id },
+    });
 };
 
 const RentService = {
@@ -25,7 +27,7 @@ const RentService = {
     rentBike,
     returnBike,
     GetRentDashboard,
-    DeleteRentDashboard
+    DeleteRentDashboard,
 };
 
 export default RentService;

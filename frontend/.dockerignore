@@ -13,5 +13,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 src/secrets.example.js
+src/secrets.exampleDocker.js
 .dockerignore
 Dockerfile

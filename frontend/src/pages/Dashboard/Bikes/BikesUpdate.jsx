@@ -10,11 +10,14 @@ const BikesList = () => {
 
     useEffect(function () {
         getOneBike(slug);
-    }, [])
+    }, []);
 
     return (
-        < BikesForm oneBike={oneBike} sendData={(data) => updateBikes(data, slug)} />
+        <BikesForm
+            oneBike={oneBike}
+            sendData={(data) => updateBikes(data, slug)}
+        />
     );
-}
+};
 
 export default BikesList;

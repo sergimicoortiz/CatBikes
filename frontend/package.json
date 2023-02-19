@@ -29,7 +29,10 @@
     "start": "BROWSER=none react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .js,.jsx src/",
+    "lint_fix": "eslint --ext .js,.jsx --fix src/",
+    "format": "prettier --write src/**/*.{js,jsx,ts,tsx,json,css,scss,md}"
   },
   "browserslist": {
     "production": [
@@ -46,5 +49,16 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "prettier": "^2.8.4"
+  },
+  "eslintIgnore": [
+    "*.test.js"
+  ]
 }

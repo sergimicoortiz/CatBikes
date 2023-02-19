@@ -10,14 +10,13 @@ from rest_framework import authentication, exceptions
 class blacklistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blacklist
-        fields = ('token')
+        fields = "token"
 
     def newBlackToken(context):
-
-        token = context['token']
+        token = context["token"]
 
         payload = jwt.decode(token, settings.SECRET_KEY)
-        user = User.objects.get(username=payload['username'])
+        user = User.objects.get(username=payload["username"])
         user.countTokens = 0
         user.save()
 
@@ -25,5 +24,5 @@ class blacklistSerializer(serializers.ModelSerializer):
             token=token,
         )
         return {
-            'token': token_create.token,
+            "token": token_create.token,
         }

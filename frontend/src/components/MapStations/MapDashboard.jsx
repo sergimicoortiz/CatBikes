@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import secrets from "../../secrets";
 import Map, { Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import './MapStation.scss';
+import "./MapStation.scss";
 const MapDashboard = ({ latitude, longitude, handleChange }) => {
     const [firstClick, setFirstClick] = useState(true);
     const [lon, setLon] = useState(90);
@@ -18,7 +18,7 @@ const MapDashboard = ({ latitude, longitude, handleChange }) => {
 
     useEffect(() => {
         if (lat !== 90 && lon !== 90) {
-            handleChange({ 'longitude': lon, 'latitude': lat });
+            handleChange({ longitude: lon, latitude: lat });
         }
     }, [lat, lon]);
 
@@ -28,12 +28,12 @@ const MapDashboard = ({ latitude, longitude, handleChange }) => {
             setLon(data.lngLat.lng);
             setLat(data.lngLat.lat);
         }
-    }
+    };
 
     const handleDrag = (data) => {
         setLon(data.lngLat.lng);
         setLat(data.lngLat.lat);
-    }
+    };
 
     return (
         <div className="map">
@@ -43,15 +43,20 @@ const MapDashboard = ({ latitude, longitude, handleChange }) => {
                 initialViewState={{
                     longitude: -0.603908,
                     latitude: 38.822944,
-                    zoom: 14
+                    zoom: 14,
                 }}
                 style={{ width: 800, height: 500 }}
                 mapStyle="mapbox://styles/mapbox/streets-v11"
             >
-                <Marker latitude={lat} longitude={lon} draggable={true} onDragEnd={handleDrag} />
+                <Marker
+                    latitude={lat}
+                    longitude={lon}
+                    draggable={true}
+                    onDragEnd={handleDrag}
+                />
             </Map>
         </div>
-    )
-}
+    );
+};
 
 export default MapDashboard;

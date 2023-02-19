@@ -1,6 +1,6 @@
-import axios from 'axios';
-import secrets from '../secrets';
-import JwtService from '../services/JwtService';
+import axios from "axios";
+import secrets from "../secrets";
+import JwtService from "../services/JwtService";
 
 const useAxios = () => {
     let api = null;
@@ -9,16 +9,15 @@ const useAxios = () => {
             baseURL: secrets.URL_DRF,
             headers: {
                 "Content-type": "application/json",
-                "Authorization": `Bearer ${JwtService.getToken()}`
-            }
+                Authorization: `Bearer ${JwtService.getToken()}`,
+            },
         });
-
     } else {
         api = axios.create({
             baseURL: secrets.URL_DRF,
             headers: {
                 "Content-type": "application/json",
-            }
+            },
         });
     }
 
@@ -26,7 +25,7 @@ const useAxios = () => {
         (response) => response,
         (error) => {
             if (error.response.status === 403) {
-                sessionStorage.removeItem("time")
+                sessionStorage.removeItem("time");
                 JwtService.destroyToken();
                 window.location.reload();
             }
@@ -35,5 +34,5 @@ const useAxios = () => {
     );
 
     return api;
-}
+};
 export default useAxios;

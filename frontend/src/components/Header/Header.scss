@@ -1,6 +1,6 @@
 // https://codepen.io/themustafaomar/pen/VKbQye
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-$font-family: 'Roboto', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
+$font-family: "Roboto", sans-serif;
 $font-size-base: 0.925rem;
 $base-color: #66f;
 $text-dark: #3c4250;
@@ -25,7 +25,6 @@ $navbar-dropdown-item-padding-x: 1rem;
 
 $navbar-dropdown-separator-margin-y: 9px;
 $navbar-dropdown-separator-color: $border-color;
-
 
 .container {
     * {
@@ -60,7 +59,7 @@ $navbar-dropdown-separator-color: $border-color;
 // Start navbar
 
 .navbar,
-.navbar>.container {
+.navbar > .container {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -112,7 +111,7 @@ $navbar-dropdown-separator-color: $border-color;
             justify-content: center;
         }
 
-        >a {
+        > a {
             font-weight: 500;
             color: $text-dark;
         }
@@ -146,12 +145,12 @@ $navbar-dropdown-separator-color: $border-color;
                 width: 100%;
                 display: flex;
                 justify-content: center;
-                border-top: 1px solid #EEE;
+                border-top: 1px solid #eee;
                 margin-top: 1rem;
             }
 
-            >li {
-                >a {
+            > li {
+                > a {
                     color: $text-dark;
                     text-decoration: none;
                     display: inline-block;
@@ -178,7 +177,7 @@ $navbar-dropdown-separator-color: $border-color;
     // https://codepen.io/DanishBloom/pen/dpeggN
 
     // Custom
-    .navbar .navbar-header>a span {
+    .navbar .navbar-header > a span {
         color: $base-color;
     }
 
@@ -213,7 +212,7 @@ $navbar-dropdown-separator-color: $border-color;
     @keyframes pulse {
         from {
             opacity: 1;
-            transform: scale(.8);
+            transform: scale(0.8);
         }
 
         to {
@@ -237,7 +236,7 @@ $navbar-dropdown-separator-color: $border-color;
             width: 60px;
             height: 60px;
             position: absolute;
-            content: '';
+            content: "";
             transform-origin: top;
             background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgNDczLjczMyA0NzMuNzMzIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NzMuNzMzIDQ3My43MzM7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiPjxnPjxwYXRoIGQ9Ik0yMi42NDgsMzk4LjY1YzIuNTUsNi4yMzMsOC43ODMsMTAuNDgzLDE1LjU4MywxMC40ODNoMTIzLjUzM2M1LjM4MywzNi41NSwzNy4xMTcsNjQuNiw3NC44LDY0LjZzNjkuNDE3LTI4LjA1LDc0LjgtNjQuNiAgICBoMTIzLjgxN2wwLDBjMC44NSwwLDEuNywwLDIuNTUtMC4yODNjNi4yMzMtMC44NSwxMS4zMzMtNS4xLDEzLjYtMTAuNzY3YzIuMjY3LTYuNTE3LDAuNTY3LTEzLjMxNy00LjI1LTE3Ljg1ICAgIGMtMC4yODMtMC4yODMtMC41NjctMC41NjctMC44NS0wLjg1Yy0xLjctMS43LTguNS05LjM1LTE1LjAxNy0yNS41Yy03LjA4My0xNy4yODMtMTUuODY3LTQ4LjE2Ny0xNS44NjctOTYuMDUgICAgYzAtOTQuNjMzLTM1LjctMTQ0LjUtNjUuNDUtMTY5LjcxN2MtMTkuODMzLTE2LjcxNy0zOS42NjctMjQuOTMzLTUyLjctMjguOWMtMC41NjctMTEuNjE3LTMuNC0yNy40ODMtMTQuMTY3LTQwLjIzMyAgICBDMjc1LjY2NSwxMC4yLDI2MS43ODIsMCwyMzcuMTMyLDBjLTI0LjM2NywwLTM4LjI1LDEwLjQ4My00NS42MTcsMTguOTgzYy0xMS4wNSwxMy4wMzMtMTQuMTY3LDI5LjE4My0xNC40NSw0MS4wODMgICAgYy0xMy4zMTcsMy45NjctMzMuMTUsMTIuMTgzLTUyLjcsMjguMzMzYy01NC42ODMsNDQuNzY3LTY2LjAxNywxMTYuNzMzLTY2LjAxNywxNjguODY3YzAsNDYuNDY3LTguNzgzLDc3LjM1LTE2LjE1LDk1LjIgICAgYy03LjkzMywxOC45ODMtMTUuNTgzLDI3LjQ4My0xNS41ODMsMjcuNDgzbDAsMEMyMS41MTUsMzg0Ljc2NywyMC4wOTgsMzkyLjEzMywyMi42NDgsMzk4LjY1eiBNMjM2Ljg0OCw0MzkuNzMzICAgIGMtMTguOTgzLDAtMzUuMTMzLTEzLjAzMy00MC4yMzMtMzAuNmg4MC40NjdDMjcxLjk4Miw0MjYuNywyNTUuODMyLDQzOS43MzMsMjM2Ljg0OCw0MzkuNzMzeiBNOTIuMzQ4LDI1Ny4yNjcgICAgYzAtMTUyLjQzMyw5OS43MzMtMTY2Ljg4MywxMDMuNy0xNjcuNDVjNC41MzMtMC41NjcsOC43ODMtMi44MzMsMTEuNjE3LTYuNTE3YzIuODMzLTMuNjgzLDMuOTY3LTguMjE3LDMuNC0xMy4wMzMgICAgYy0wLjg1LTUuMzgzLTEuNDE3LTIxLjI1LDYuMjMzLTMwLjAzM2MxLjQxNy0xLjcsNS45NS03LjA4MywxOS44MzMtNy4wODNzMTguNDE3LDUuMzgzLDIwLjExNyw3LjA4MyAgICBjNy4wODMsOC4yMTcsNi44LDIzLjgsNS45NSwyOC45Yy0wLjg1LDQuNTMzLDAuMjgzLDkuMzUsMy4xMTcsMTMuMDMzYzIuODMzLDMuNjgzLDYuOCw2LjIzMywxMS42MTcsNi44ICAgIGMwLjI4MywwLDI1LjUsMy42ODMsNTAuNzE3LDI0LjkzM2MzNS40MTcsMjkuNzUsNTMuMjY3LDc4LjIsNTMuMjY3LDE0My45MzNjMCw1Ny44LDExLjA1LDk0LjkxNywyMi4xLDExNy41ODNINjkuNjgyICAgIEM4MC40NDgsMzUxLjksOTIuMzQ4LDMxMy45MzMsOTIuMzQ4LDI1Ny4yNjd6IiBmaWxsPSIjRkZGRkZGIi8+PC9nPjwvc3ZnPg==);
             background-size: cover;
@@ -245,12 +244,12 @@ $navbar-dropdown-separator-color: $border-color;
 
         &:hover {
             &:after {
-                animation: ring .16s ease-in-out 5;
+                animation: ring 0.16s ease-in-out 5;
             }
 
             .-count {
                 &:before {
-                    animation: pulse .6s ease-out;
+                    animation: pulse 0.6s ease-out;
                 }
             }
         }
@@ -279,10 +278,9 @@ $navbar-dropdown-separator-color: $border-color;
             width: 30px;
             height: 30px;
             border-radius: 50%;
-            content: '';
+            content: "";
             box-sizing: border-box;
             border: 1.5px solid red;
         }
     }
-
 }

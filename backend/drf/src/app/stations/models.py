@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Station(models.Model):
-
     name = models.CharField(max_length=100)
     slug = models.SlugField(max_length=100, unique=True, editable=False)
     status = models.CharField(max_length=100)
@@ -24,11 +23,12 @@ class Bike(models.Model):
 
 
 class Slot(models.Model):
-
     station = models.ForeignKey(
-        Station, on_delete=models.CASCADE, null=False, related_name="slots")
+        Station, on_delete=models.CASCADE, null=False, related_name="slots"
+    )
     bike = models.OneToOneField(
-        Bike, on_delete=models.CASCADE, null=True, unique=True, related_name="slots")
+        Bike, on_delete=models.CASCADE, null=True, unique=True, related_name="slots"
+    )
     status = models.CharField(max_length=200)
 
     def __str__(self):

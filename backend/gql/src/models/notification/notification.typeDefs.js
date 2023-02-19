@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 const notificationTypeDefs = gql`
     type Notification {
@@ -15,8 +15,9 @@ const notificationTypeDefs = gql`
     }
 
     type Mutation {
-        createNotification(body: String! user_uuid: String!): Notification!
-        updateNotification(id: ID! seen: Boolean!): Notification!
-    }`;
+        createNotification(body: String!, user_uuid: String!): Notification!
+        updateNotification(id: ID!, seen: Boolean!): Notification!
+    }
+`;
 
 export default notificationTypeDefs;

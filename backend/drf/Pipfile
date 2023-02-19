@@ -13,6 +13,7 @@ djangorestframework-jwt = "*"
 pyjwt = "*"
 python-dotenv = "*"
 numpy = "*"
+black = "*"
 
 [dev-packages]
 

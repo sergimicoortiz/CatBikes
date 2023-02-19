@@ -1,4 +1,4 @@
-@import '../../pages/Dashboard/Dashboard.scss';
+@import "../../pages/Dashboard/Dashboard.scss";
 
 .map {
     display: flex;
@@ -8,6 +8,6 @@
 
 .markerImg {
     margin: auto;
-    width: 50%;
+    max-width: 40%;
     height: auto;
 }

@@ -1,5 +1,6 @@
 *__pycache__*
 example.env
+exampleDocker.env
 Pipfile.lock
 .dockerignore
 Dockerfile

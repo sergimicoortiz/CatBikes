@@ -1,18 +1,17 @@
 //https://codepen.io/juliepark/pen/vjMOKQ
-$white: #FCFCFC;
-$gray: #CBCDD3;
+$white: #fcfcfc;
+$gray: #cbcdd3;
 $dark: #777777;
-$error: #B0DB7D;
+$error: #b0db7d;
 $orange: pink;
-$success: #B0DB7D;
-$secondary: #99DBB4;
+$success: #b0db7d;
+$secondary: #99dbb4;
 
-@import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
 
-$font: 'Lato', sans-serif;
+$font: "Lato", sans-serif;
 
 .notification {
-
     #container {
         position: relative;
         margin: auto;
@@ -62,7 +61,11 @@ $font: 'Lato', sans-serif;
         width: 35%;
         height: 100%;
         left: 30%;
-        background: linear-gradient(to bottom right, $success 40%, $secondary 100%);
+        background: linear-gradient(
+            to bottom right,
+            $success 40%,
+            $secondary 100%
+        );
         border-radius: 20px;
         box-shadow: 5px 5px 20px rgba($gray, 10%);
         perspective: 40px;
@@ -84,7 +87,7 @@ $font: 'Lato', sans-serif;
 
     .two {
         right: 12%;
-        opacity: .5;
+        opacity: 0.5;
     }
 
     .face {
@@ -129,12 +132,11 @@ $font: 'Lato', sans-serif;
         transform: rotate(45deg);
     }
 
-
     .shadow {
         position: absolute;
         width: 21%;
         height: 3%;
-        opacity: .5;
+        opacity: 0.5;
         background: $dark;
         left: 40%;
         top: 43%;
@@ -149,7 +151,6 @@ $font: 'Lato', sans-serif;
     .move {
         animation: move 3s ease-in-out infinite;
     }
-
 
     .message {
         position: absolute;
@@ -169,13 +170,13 @@ $font: 'Lato', sans-serif;
         left: 25%;
         outline: 0;
         border: none;
-        box-shadow: 2px 2px 10px rgba($dark, .5);
-        transition: all .5s ease-in-out;
+        box-shadow: 2px 2px 10px rgba($dark, 0.5);
+        transition: all 0.5s ease-in-out;
 
         &:hover {
             background: darken($white, 5%);
             transform: scale(1.05);
-            transition: all .3s ease-in-out;
+            transition: all 0.3s ease-in-out;
         }
     }
 

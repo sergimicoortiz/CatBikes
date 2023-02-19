@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 const stationTypeDefs = gql`
     type Station {
@@ -22,24 +22,25 @@ const stationTypeDefs = gql`
 
     type Mutation {
         addStation(
-        name: String!
-        status: StationStatus!
-        image: String!
-        latitude: Float!
-        longitude: Float!
-        slotCuantities: Int!
+            name: String!
+            status: StationStatus!
+            image: String!
+            latitude: Float!
+            longitude: Float!
+            slotCuantities: Int!
         ): Station
 
         deleteStation(slug: String!): Station
 
         updateStation(
-        slug: String!
-        name: String
-        status: StationStatus
-        image: String
-        latitude: Float
-        longitude: Float
+            slug: String!
+            name: String
+            status: StationStatus
+            image: String
+            latitude: Float
+            longitude: Float
         ): Station
-    }`;
+    }
+`;
 
 export default stationTypeDefs;

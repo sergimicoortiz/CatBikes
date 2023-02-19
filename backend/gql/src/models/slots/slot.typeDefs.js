@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 const slotTypeDefs = gql`
     type Slot {
@@ -8,7 +8,7 @@ const slotTypeDefs = gql`
         bike: Bike
     }
 
-     type Query {
+    type Query {
         slots: [Slot]!
         slot(id: ID!): Slot!
     }
@@ -17,6 +17,7 @@ const slotTypeDefs = gql`
         createSlot(station_id: ID!): Slot
         deleteSlot(id: ID!): Slot
         setMaintenanceSlot(id: ID!, maintenance: Boolean!): Slot
-    }`;
+    }
+`;
 
 export default slotTypeDefs;

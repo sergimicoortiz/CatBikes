@@ -7,15 +7,13 @@ from .models import Bike
 from .serializers import BikeSerializer
 from .models import Slot
 from .serializers import SlotSerializer
-from rest_framework.permissions import (
-    AllowAny)
+from rest_framework.permissions import AllowAny
 from src.app.core.permissions import IsAdmin
 
 
 class StationView(viewsets.GenericViewSet):
-
     def get_permissions(self):
-        if self.request.method == 'GET':
+        if self.request.method == "GET":
             self.permission_classes = [AllowAny]
         else:
             self.permission_classes = [IsAdmin]
@@ -31,38 +29,37 @@ class StationView(viewsets.GenericViewSet):
         return Response(serializer.data)
 
     def post(self, request):
-        station = request.data.get('station')
+        station = request.data.get("station")
         serializer = StationSerializer(data=station)
-        if (serializer.is_valid(raise_exception=True)):
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
-        if (request.data.get('slot')):
-            slots = request.data.get('slot')
-            slot_context = {'station_id': serializer.data['id']}
-            for i in range(slots['quantity']):
+        if request.data.get("slot"):
+            slots = request.data.get("slot")
+            slot_context = {"station_id": serializer.data["id"]}
+            for i in range(slots["quantity"]):
                 SlotSerializer.create(context=slot_context)
-            slots = Slot.objects.filter(
-                station_id=serializer.data['id'])
-        return Response({'station': serializer.data, 'slots': SlotSerializer(slots, many=True).data})
+            slots = Slot.objects.filter(station_id=serializer.data["id"])
+        return Response(
+            {"station": serializer.data, "slots": SlotSerializer(slots, many=True).data}
+        )
 
     def delete(self, request, slug):
         station = get_object_or_404(Station.objects.all(), slug=slug)
         station.delete()
-        return Response({'data': 'Station deleted'})
+        return Response({"data": "Station deleted"})
 
     def put(self, request, slug):
         station = get_object_or_404(Station.objects.all(), slug=slug)
-        data = request.data.get('station')
-        serializer = StationSerializer(
-            instance=station, data=data, partial=True)
-        if (serializer.is_valid(raise_exception=True)):
+        data = request.data.get("station")
+        serializer = StationSerializer(instance=station, data=data, partial=True)
+        if serializer.is_valid(raise_exception=True):
             serializer.save()
         return Response(serializer.data)
 
 
 class BikeView(viewsets.GenericViewSet):
-
     def get_permissions(self):
-        if self.request.method == 'GET':
+        if self.request.method == "GET":
             self.permission_classes = [AllowAny]
         else:
             self.permission_classes = [IsAdmin]
@@ -78,7 +75,7 @@ class BikeView(viewsets.GenericViewSet):
         return Response(serializer.data)
 
     def post(self, request):
-        new_bike = request.data.get('bike')
+        new_bike = request.data.get("bike")
         serializer = BikeSerializer(data=new_bike)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
@@ -86,20 +83,17 @@ class BikeView(viewsets.GenericViewSet):
 
     def put(self, request, slug):
         saved_bike = get_object_or_404(Bike.objects.all(), slug=slug)
-        data = request.data.get('bike')
-        serializer = BikeSerializer(
-            instance=saved_bike, data=data, partial=True)
+        data = request.data.get("bike")
+        serializer = BikeSerializer(instance=saved_bike, data=data, partial=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
 
-        slot = request.data.get('slot')
-        if (slot):
-            if slot['id'] is not None:
-                slot_context = {'bike_id': saved_bike.id, 'status': 'used'}
-                saved_slot = get_object_or_404(
-                    Slot.objects.all(), pk=slot['id'])
-                SlotSerializer.update(
-                    instance=saved_slot, context=slot_context)
+        slot = request.data.get("slot")
+        if slot:
+            if slot["id"] is not None:
+                slot_context = {"bike_id": saved_bike.id, "status": "used"}
+                saved_slot = get_object_or_404(Slot.objects.all(), pk=slot["id"])
+                SlotSerializer.update(instance=saved_slot, context=slot_context)
 
         return Response(serializer.data)
 
@@ -110,9 +104,8 @@ class BikeView(viewsets.GenericViewSet):
 
 
 class SlotView(viewsets.GenericViewSet):
-
     def get_permissions(self):
-        if self.request.method == 'GET':
+        if self.request.method == "GET":
             self.permission_classes = [AllowAny]
         else:
             self.permission_classes = [IsAdmin]
@@ -123,9 +116,8 @@ class SlotView(viewsets.GenericViewSet):
             slot = get_object_or_404(Slot.objects.all(), pk=id)
             serializer_one = SlotSerializer(slot)
             return Response(serializer_one.data)
-        if request.GET.get('station_id') is not None:
-            slots = Slot.objects.filter(
-                station_id=request.GET.get('station_id'))
+        if request.GET.get("station_id") is not None:
+            slots = Slot.objects.filter(station_id=request.GET.get("station_id"))
         else:
             slots = Slot.objects.all()
         serializer = SlotSerializer(slots, many=True)
@@ -136,24 +128,24 @@ class SlotView(viewsets.GenericViewSet):
 
         saved_bike_id = SlotSerializer.to_Slot(saved_slot)
 
-        saved_bike = get_object_or_404(
-            Bike.objects.all(), pk=saved_bike_id['bike_id'])
-        data = {'status': 'used'}
-        serializer = BikeSerializer(
-            instance=saved_bike, data=data, partial=True)
+        saved_bike = get_object_or_404(Bike.objects.all(), pk=saved_bike_id["bike_id"])
+        data = {"status": "used"}
+        serializer = BikeSerializer(instance=saved_bike, data=data, partial=True)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
 
-        slot_context = {'bike_id': 0, 'status': 'unused'}
+        slot_context = {"bike_id": 0, "status": "unused"}
         serializer_slot = SlotSerializer.update(
-            instance=saved_slot, context=slot_context)
+            instance=saved_slot, context=slot_context
+        )
 
         return Response(SlotSerializer.to_Slot(serializer_slot))
 
     def put_status_only(self, request, id):
         saved_slot = get_object_or_404(Slot.objects.all(), pk=id)
-        slot_data = request.data.get('slot')
-        slot_context = {'bike_id': 0, 'status': slot_data['status']}
+        slot_data = request.data.get("slot")
+        slot_context = {"bike_id": 0, "status": slot_data["status"]}
         serializer_slot = SlotSerializer.update(
-            instance=saved_slot, context=slot_context)
+            instance=saved_slot, context=slot_context
+        )
         return Response(SlotSerializer.to_Slot(serializer_slot))
