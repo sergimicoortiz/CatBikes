@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useIncidents } from "../../../hooks/useIncidents";
-import('../Dashboard.scss');
-import DataTable from 'react-data-table-component';
-import { toast } from 'react-toastify';
+import("../Dashboard.scss");
+import DataTable from "react-data-table-component";
+import { toast } from "react-toastify";
 
 const IncidentsList = () => {
     const { incidents, deleteIncidents, updateIncident } = useIncidents();
@@ -19,46 +19,46 @@ const IncidentsList = () => {
 
     const columns = [
         {
-            name: 'Slug',
+            name: "Slug",
             selector: row => row.slug,
             sortable: true,
         },
         {
-            name: 'Status',
+            name: "Status",
             selector: row => row.status,
             sortable: true,
         },
         {
-            name: 'User',
+            name: "User",
             selector: row => row.user_id,
             sortable: true,
         },
         {
-            name: 'Title',
+            name: "Title",
             selector: row => row.title,
             sortable: true,
 
         },
         {
-            name: 'Slot',
+            name: "Slot",
             selector: row => row.slot_id,
             sortable: true,
 
         },
         {
-            name: 'Body',
+            name: "Body",
             selector: row => row.body,
             sortable: true,
 
         },
         {
-            name: 'Created',
+            name: "Created",
             selector: row => row.created_at,
             sortable: true,
 
         },
         {
-            name: 'Modified',
+            name: "Modified",
             selector: row => row.modified_at,
             sortable: true,
 
@@ -74,39 +74,39 @@ const IncidentsList = () => {
 
     const updateSelectedIncidents = () => {
         if (selectedRows.length == 1) {
-            updateIncident(selectedRows)
+            updateIncident(selectedRows);
         } else {
-            toast.error("Please select only 1")
+            toast.error("Please select only 1");
         }
         setToggleCleared(!toggleCleared);
-        setSelectedRows([])
-    }
+        setSelectedRows([]);
+    };
 
     const removeSelectedIncidents = () => {
         if (selectedRows.length > 0) {
-            deleteIncidents(selectedRows)
+            deleteIncidents(selectedRows);
         }
         setToggleCleared(!toggleCleared);
-        setSelectedRows([])
+        setSelectedRows([]);
     };
 
     const conditionalRowStyles = [
         {
             when: row => row.status == "in_progress",
             style: {
-                backgroundColor: 'yellow',
+                backgroundColor: "yellow",
             },
         },
         {
             when: row => row.status == "in_revision",
             style: {
-                backgroundColor: 'orange',
+                backgroundColor: "orange",
             },
         },
         {
             when: row => row.status == "resolved",
             style: {
-                backgroundColor: 'green',
+                backgroundColor: "green",
             },
         },
     ];
@@ -116,23 +116,23 @@ const IncidentsList = () => {
             <div>
 
                 <button className="custom-btn btn-13" onClick={() => {
-                    updateSelectedIncidents()
+                    updateSelectedIncidents();
                 }} disabled={selectedRows.length === 0}><span>Update</span></button>
                 <button className="custom-btn btn-5" onClick={() => {
-                    removeSelectedIncidents()
+                    removeSelectedIncidents();
                 }} disabled={selectedRows.length === 0}><span>DELETE</span></button>
                 <div style={{ display: "inline", paddingLeft: "10%" }}>
                     <button className="custom-btn btn-3" onClick={() => {
-                        setFilter("to_do")
+                        setFilter("to_do");
                     }}><span>To Do</span></button>
                     <button className="custom-btn btn-3" onClick={() => {
-                        setFilter("in_progress")
+                        setFilter("in_progress");
                     }}><span>In Progess</span></button>
                     <button className="custom-btn btn-3" onClick={() => {
-                        setFilter("in_revision")
+                        setFilter("in_revision");
                     }}><span>In Revision</span></button>
                     <button className="custom-btn btn-3" onClick={() => {
-                        setFilter("resolved")
+                        setFilter("resolved");
                     }}><span>Resolveds</span></button>
                 </div>
             </div>
@@ -149,6 +149,6 @@ const IncidentsList = () => {
                 />
             </div>
         </div>
-    )
-}
-export default IncidentsList
+    );
+};
+export default IncidentsList;

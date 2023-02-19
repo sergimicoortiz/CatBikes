@@ -1,10 +1,10 @@
-import { useCallback, useContext, useState, useEffect } from "react"
-import StationService from '../services/StationService';
+import { useCallback, useContext, useState, useEffect } from "react";
+import StationService from "../services/StationService";
 import { useNavigate, useLocation } from "react-router-dom";
 import StationContext from "../context/StationsContext";
 import SlotService from "../services/SlotService";
 import { toast } from "react-toastify";
-import { useSlots } from './useSlots';
+import { useSlots } from "./useSlots";
 
 export function useStations() {
     const navigate = useNavigate();
@@ -16,9 +16,9 @@ export function useStations() {
 
     //save the slots of an specific station.
     useEffect(() => {
-        const page = pathname.split('/')[1];
-        if (oneStation.id && page !== 'dashboard') {
-            const params = { 'station_id': oneStation.id };
+        const page = pathname.split("/")[1];
+        if (oneStation.id && page !== "dashboard") {
+            const params = { "station_id": oneStation.id };
             SlotService.getAll(params)
                 .then(({ data, status }) => {
                     if (status === 200) {
@@ -60,7 +60,7 @@ export function useStations() {
         setStations(stations.filter(item => !slugs_ok.includes(item.slug)));
         const ids_ok = stations.filter(item => !slugs_ok.includes(item.slug)).map(item => item.id);
         setSlots(slots.filter(slot => ids_ok.includes(slot.station_id)));
-    }
+    };
 
     const useCreateStation = useCallback(data => {
         const slot_quantity = data.slot_quantity;
@@ -68,8 +68,8 @@ export function useStations() {
         StationService.CreateStations(data, slot_quantity)
             .then(({ data, status }) => {
                 if (status === 200) {
-                    toast.success('Station created');
-                    navigate('/dashboard/stations');
+                    toast.success("Station created");
+                    navigate("/dashboard/stations");
                     data.station.total_slots = data.slots.length;
                     setStations([...stations, data.station]);
                     setSlots([...slots, ...data.slots]);
@@ -77,8 +77,8 @@ export function useStations() {
             })
             .catch(e => {
                 console.error(e);
-                toast.error('Create station error');
-                navigate('/home');
+                toast.error("Create station error");
+                navigate("/home");
             });
     }, []);
 
@@ -93,13 +93,13 @@ export function useStations() {
                         setStations(old_stations);
                     }
                     toast.success(`Station ${slug} updated`);
-                    navigate('/dashboard/stations');
+                    navigate("/dashboard/stations");
                 }
             })
             .catch(e => {
                 console.error(e);
-                toast.error('Update station error');
-                navigate('/home');
+                toast.error("Update station error");
+                navigate("/home");
             });
     }, []);
 

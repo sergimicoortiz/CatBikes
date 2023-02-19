@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react'
-import IncidentsService from '../services/IncidentsService'
-import UserContext from './UserContext';
+import React, { useState, useEffect, useContext } from "react";
+import IncidentsService from "../services/IncidentsService";
+import UserContext from "./UserContext";
 
-const Context = React.createContext({})
+const Context = React.createContext({});
 
 export function IncidentsContextProvider({ children }) {
     const { isAdmin } = useContext(UserContext);
@@ -11,14 +11,14 @@ export function IncidentsContextProvider({ children }) {
         if (isAdmin) {
             IncidentsService.getAll()
                 .then(({ data }) => {
-                    setIncidents(data)
-                })
+                    setIncidents(data);
+                });
         }
-    }, [setIncidents, isAdmin])
+    }, [setIncidents, isAdmin]);
 
     return <Context.Provider value={{ incidents, setIncidents }}>
         {children}
-    </Context.Provider>
+    </Context.Provider>;
 }
 
-export default Context
+export default Context;

@@ -1,47 +1,47 @@
-import React, { useState } from "react";
+import React from "react";
 import { useIncidents } from "../../hooks/useIncidents";
-import DataTable from 'react-data-table-component';
+import DataTable from "react-data-table-component";
 
 
 const IncidentsUser = () => {
     const { userIncidents } = useIncidents();
     const columns = [
         {
-            name: 'Slug',
+            name: "Slug",
             selector: row => row.slug,
             sortable: true,
         },
         {
-            name: 'Status',
+            name: "Status",
             selector: row => row.status,
             sortable: true,
         },
         {
-            name: 'Title',
+            name: "Title",
             selector: row => row.title,
             sortable: true,
 
         },
         {
-            name: 'Slot',
+            name: "Slot",
             selector: row => row.slot_id,
             sortable: true,
 
         },
         {
-            name: 'Body',
+            name: "Body",
             selector: row => row.body,
             sortable: true,
 
         },
         {
-            name: 'Created',
+            name: "Created",
             selector: row => row.created_at,
             sortable: true,
 
         },
         {
-            name: 'Modified',
+            name: "Modified",
             selector: row => row.modified_at,
             sortable: true,
 
@@ -53,19 +53,19 @@ const IncidentsUser = () => {
         {
             when: row => row.status == "in_progress",
             style: {
-                backgroundColor: 'yellow',
+                backgroundColor: "yellow",
             },
         },
         {
             when: row => row.status == "in_revision",
             style: {
-                backgroundColor: 'orange',
+                backgroundColor: "orange",
             },
         },
         {
             when: row => row.status == "resolved",
             style: {
-                backgroundColor: 'green',
+                backgroundColor: "green",
             },
         },
     ];
@@ -82,7 +82,7 @@ const IncidentsUser = () => {
 
             />
         </div>
-    )
-}
+    );
+};
 
-export default IncidentsUser
+export default IncidentsUser;

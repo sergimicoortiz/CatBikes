@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import StationService from '../services/StationService';
+import React, { useState, useEffect } from "react";
+import StationService from "../services/StationService";
 
-const Context = React.createContext({})
+const Context = React.createContext({});
 
 export function StationContext({ children }) {
-    const [stations, setStations] = useState([])
+    const [stations, setStations] = useState([]);
 
     useEffect(function () {
         StationService.GetStations()
@@ -14,7 +14,7 @@ export function StationContext({ children }) {
 
     return <Context.Provider value={{ stations, setStations }}>
         {children}
-    </Context.Provider>
+    </Context.Provider>;
 }
 
-export default Context
+export default Context;

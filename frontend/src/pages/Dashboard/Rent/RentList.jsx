@@ -1,46 +1,46 @@
 import React, { useState } from "react";
 import { useRent } from "../../../hooks/useRent";
-import('../Dashboard.scss');
-import DataTable from 'react-data-table-component';
+import("../Dashboard.scss");
+import DataTable from "react-data-table-component";
 
 const RentList = () => {
     const { rents, useDeleteRentMultiple } = useRent();
     const columns = [
         {
-            name: 'Id',
+            name: "Id",
             selector: row => row.id,
             sortable: true,
         },
         {
-            name: 'user_id',
+            name: "user_id",
             selector: row => row.user_id,
             sortable: true,
         },
         {
-            name: 'bike_id',
+            name: "bike_id",
             selector: row => row.bike_id,
             sortable: true,
         },
         {
-            name: 'start_slot_id',
+            name: "start_slot_id",
             selector: row => row.start_slot_id,
             sortable: true,
 
         },
         {
-            name: 'end_slot_id',
+            name: "end_slot_id",
             selector: row => row.end_slot_id,
             sortable: true,
 
         },
         {
-            name: 'start_date',
+            name: "start_date",
             selector: row => row.start_date,
             sortable: true,
 
         },
         {
-            name: 'end_date',
+            name: "end_date",
             selector: row => row.end_date,
             sortable: true,
 
@@ -58,13 +58,13 @@ const RentList = () => {
         useDeleteRentMultiple(selectedRows.filter(item => item.end_slot_id !== null).map(row => row.id));
         setToggleCleared(!toggleCleared);
         setSelectedRows([]);
-    }
+    };
 
     const conditionalRowStyles = [
         {
             when: row => row.end_slot_id !== null,
             style: {
-                backgroundColor: 'green',
+                backgroundColor: "green",
             },
         }
     ];
@@ -84,6 +84,6 @@ const RentList = () => {
                 clearSelectedRows={toggleCleared}
             />
         </div>
-    )
-}
-export default RentList
+    );
+};
+export default RentList;

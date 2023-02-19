@@ -1,7 +1,7 @@
 import React from "react";
 import { useStations } from "../../hooks/useStations";
-import { Navigate, useNavigate } from "react-router-dom";
-import './StationsClientList.scss';
+import { useNavigate } from "react-router-dom";
+import "./StationsClientList.scss";
 
 const StationsClientList = () => {
     const { stations } = useStations();
@@ -16,12 +16,12 @@ const StationsClientList = () => {
                 <span className="copy">Total Slots: {item.total_slots}</span>
                 <span className="copy">Bikes for Rent: {item.total_bikes}</span>
                 <button className="btn" onClick={() => {
-                    navigate('/stations/' + item.slug)
+                    navigate("/stations/" + item.slug);
                 }
                 }>Show Bikes</button>
             </div>
         </div>
-    )
+    );
 
     return (
         <div className="stationsClientCard">
@@ -29,7 +29,7 @@ const StationsClientList = () => {
                 {StationCard}
             </main>
         </div>
-    )
-}
+    );
+};
 
 export default StationsClientList;

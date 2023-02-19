@@ -1,37 +1,37 @@
 import React, { useState } from "react";
-import('../Dashboard.scss');
+import("../Dashboard.scss");
 import { useStations } from "../../../hooks/useStations";
-import DataTable from 'react-data-table-component';
+import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 
 const StationsList = () => {
     const navigate = useNavigate();
-    const { stations, setStations, useDeleteStationMultiple } = useStations();
+    const { stations, useDeleteStationMultiple } = useStations();
 
     const columns = [
         {
-            name: 'Slug',
+            name: "Slug",
             selector: row => row.slug,
             sortable: true,
         },
         {
-            name: 'Name',
+            name: "Name",
             selector: row => row.name,
             sortable: true,
         },
         {
-            name: 'Status',
+            name: "Status",
             selector: row => row.status,
             sortable: true,
         },
         {
-            name: 'Image',
+            name: "Image",
             selector: row => row.image,
             sortable: true,
 
         },
         {
-            name: 'Position',
+            name: "Position",
             selector: row => `lon: ${row.longitude} lat: ${row.latitude}`,
             sortable: true,
 
@@ -42,13 +42,13 @@ const StationsList = () => {
         {
             when: row => row.status == "inactive",
             style: {
-                backgroundColor: 'red',
+                backgroundColor: "red",
             },
         },
         {
             when: row => row.status == "manteinance",
             style: {
-                backgroundColor: 'yellow',
+                backgroundColor: "yellow",
             },
         },
     ];
@@ -64,13 +64,13 @@ const StationsList = () => {
         useDeleteStationMultiple(selectedRows.map(row => row.slug));
         setToggleCleared(!toggleCleared);
         setSelectedRows([]);
-    }
+    };
 
 
     const redirects = {
-        create: () => navigate('/dashboard/stations/create'),
-        update: (slug) => navigate('/dashboard/stations/update/' + slug),
-    }
+        create: () => navigate("/dashboard/stations/create"),
+        update: (slug) => navigate("/dashboard/stations/update/" + slug),
+    };
 
     return (
         <div>
@@ -88,7 +88,7 @@ const StationsList = () => {
                 clearSelectedRows={toggleCleared}
             />
         </div>
-    )
-}
+    );
+};
 
 export default StationsList;

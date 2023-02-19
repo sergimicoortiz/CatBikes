@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import './Header.scss';
+import "./Header.scss";
 import { useNavigate, useLocation } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import { useUser } from "../../hooks/useUser";
@@ -8,33 +8,33 @@ import NotificationsContext from "../../context/NotificationsContext";
 const Header = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [path, setPath] = useState('');
+    const [path, setPath] = useState("");
     const { useLogout } = useUser();
-    const { user, isAuth, isAdmin } = useContext(UserContext)
-    const { incidents } = useContext(IncidentsContext)
-    const { notifications } = useContext(NotificationsContext)
+    const { user, isAuth, isAdmin } = useContext(UserContext);
+    const { incidents } = useContext(IncidentsContext);
+    const { notifications } = useContext(NotificationsContext);
     const countAdmin = incidents.filter(item => item.status != "resolved");
 
 
     const redirects = {
-        home: () => navigate('/home'),
-        dashboard: () => navigate('/dashboard'),
-        stations: () => navigate('/stations'),
-        login: () => navigate('/login'),
-        profile: () => navigate('/profile'),
-        incidents: () => navigate('/dashboard/incidents'),
-        notifications: () => navigate('/notifications'),
-    }
+        home: () => navigate("/home"),
+        dashboard: () => navigate("/dashboard"),
+        stations: () => navigate("/stations"),
+        login: () => navigate("/login"),
+        profile: () => navigate("/profile"),
+        incidents: () => navigate("/dashboard/incidents"),
+        notifications: () => navigate("/notifications"),
+    };
 
     useEffect(() => {
-        const path_tmp = location['pathname'].split('/')[1];
-        setPath(path_tmp ? path_tmp : 'home');
+        const path_tmp = location["pathname"].split("/")[1];
+        setPath(path_tmp ? path_tmp : "home");
     }, [location]);
 
     const UserOrButtons = isAuth ?
         (<>
             <li><a onClick={() => useLogout()}>Logout</a></li>
-            <li className={path === 'profile' ? 'active' : ''} ><a onClick={() => redirects.profile()}>{user.username}</a></li>
+            <li className={path === "profile" ? "active" : ""} ><a onClick={() => redirects.profile()}>{user.username}</a></li>
             <li onClick={() => redirects.notifications()}>
                 <svg
                     viewBox="0 0 24 24"
@@ -47,11 +47,11 @@ const Header = () => {
                 <span className="-count">{notifications.length}</span>
             </li>
         </>)
-        : <li className={path === 'login' ? 'active' : path === 'register' ? 'active' : ''}><a onClick={() => redirects.login()}>Login</a></li>
+        : <li className={path === "login" ? "active" : path === "register" ? "active" : ""}><a onClick={() => redirects.login()}>Login</a></li>;
 
     const dashboardButton = isAdmin ?
         (<>
-            <li className={path === 'dashboard' ? 'active' : ''}><a onClick={() => redirects.dashboard()}>Dashboard</a></li>
+            <li className={path === "dashboard" ? "active" : ""}><a onClick={() => redirects.dashboard()}>Dashboard</a></li>
 
 
             <li onClick={() => redirects.incidents()}>
@@ -67,7 +67,7 @@ const Header = () => {
             </li>
         </>
         ) :
-        ''
+        "";
 
 
     return (
@@ -81,15 +81,15 @@ const Header = () => {
                 </div>
                 <div className="navbar-menu" id="open-navbar1">
                     <ul className="navbar-nav">
-                        <li className={path === 'home' ? 'active' : ''}><a onClick={() => redirects.home()}>Home</a></li>
+                        <li className={path === "home" ? "active" : ""}><a onClick={() => redirects.home()}>Home</a></li>
                         {dashboardButton}
-                        <li className={path === 'stations' ? 'active' : ''}><a onClick={() => redirects.stations()}>Stations</a></li>
+                        <li className={path === "stations" ? "active" : ""}><a onClick={() => redirects.stations()}>Stations</a></li>
                         {UserOrButtons}
                     </ul>
                 </div>
             </div>
         </nav>
-    )
-}
+    );
+};
 
 export default Header;

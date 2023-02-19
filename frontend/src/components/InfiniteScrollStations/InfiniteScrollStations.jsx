@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
-import InfiniteScroll from 'react-infinite-scroll-component';
+import InfiniteScroll from "react-infinite-scroll-component";
 import StationContext from "../../context/StationsContext";
-import '../../pages/StationsClient/StationsClientList.scss';
+import "../../pages/StationsClient/StationsClientList.scss";
 import { useNavigate } from "react-router-dom";
 
 
@@ -13,7 +13,7 @@ const InfiniteScrollStations = () => {
     const [items, setItems] = useState([]);
     const fetchData = () => {
         setCont(cont + 1);
-    }
+    };
 
     useEffect(() => {
         const limit = cont * 2;
@@ -21,7 +21,7 @@ const InfiniteScrollStations = () => {
             .map(item => {
                 return (
                     <div className="card" key={item.slug} style={{
-                        backgroundImage: `url(${item.image})`, backgroundRepeat: 'no-repeat'
+                        backgroundImage: `url(${item.image})`, backgroundRepeat: "no-repeat"
                     }}>
                         <div className="content">
                             <h2 className="title">{item.name}</h2>
@@ -29,12 +29,12 @@ const InfiniteScrollStations = () => {
                             <span className="copy">Total Slots: {item.total_slots}</span>
                             <span className="copy">Bikes for Rent: {item.total_bikes}</span>
                             <button className="btn" onClick={() => {
-                                navigate('/stations/' + item.slug)
+                                navigate("/stations/" + item.slug);
                             }
                             }>Show Bikes</button>
                         </div>
                     </div>
-                )
+                );
             });
         setItems(items_tmp);
         if (items_tmp.length === stations.length && items_tmp.length > 0) setHasMore(false);
@@ -43,13 +43,13 @@ const InfiniteScrollStations = () => {
 
     return (
         <InfiniteScroll
-            style={{ width: '43%', height: 'auto', margin: 'auto' }}
+            style={{ width: "43%", height: "auto", margin: "auto" }}
             dataLength={items.length}
             next={fetchData}
             hasMore={hasMore}
             loader={<h4>Loading...</h4>}
             endMessage={
-                <p style={{ textAlign: 'center' }}>
+                <p style={{ textAlign: "center" }}>
                     <b>Yay! You have seen it all</b>
                 </p>
             }
@@ -60,7 +60,7 @@ const InfiniteScrollStations = () => {
                 </main>
             </div>
         </InfiniteScroll>
-    )
-}
+    );
+};
 
 export default InfiniteScrollStations;

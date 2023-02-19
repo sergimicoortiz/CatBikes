@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import secrets from "../../secrets";
 import Map,{NavigationControl} from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import './MapStation.scss';
+import "./MapStation.scss";
 import StationContext from "../../context/StationsContext";
 import MarkerStation from "./MarkerStation";
 const MapStations = () => {
@@ -24,7 +24,7 @@ const MapStations = () => {
                 {StationsMarkers}
             </Map>
         </div>
-    )
-}
+    );
+};
 
 export default MapStations;

@@ -11,7 +11,7 @@ const NotificationUser = () => {
         <>
             {notifications_html}
         </>
-    )
-}
+    );
+};
 
-export default NotificationUser
+export default NotificationUser;

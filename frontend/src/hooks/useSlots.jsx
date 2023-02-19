@@ -1,10 +1,10 @@
-import { useContext, useCallback, useState } from 'react'
-import SlotService from '../services/SlotService';
-import { useBikes } from './useBikes';
-import SlotsContext from '../context/SlotsContext';
-import StationContext from '../context/StationsContext';
+import { useContext, useCallback, useState } from "react";
+import SlotService from "../services/SlotService";
+import { useBikes } from "./useBikes";
+import SlotsContext from "../context/SlotsContext";
+import StationContext from "../context/StationsContext";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify'
+import { toast } from "react-toastify";
 
 export function useSlots() {
     const { slots, setSlots } = useContext(SlotsContext);
@@ -17,27 +17,27 @@ export function useSlots() {
     const getOneSlot = useCallback((id) => {
         SlotService.getOne(id).
             then(({ data }) => {
-                setOneSlot(data)
+                setOneSlot(data);
             })
             .catch(e => console.error(e));
     }, []);
 
     const useSlotManteinance = useCallback((id, put_in_manteinance) => {
-        const status = put_in_manteinance ? 'manteinance' : 'unused';
+        const status = put_in_manteinance ? "manteinance" : "unused";
         SlotService.updateStatus(id, status)
             .then(({ data, status }) => {
                 if (status === 200) {
-                    const old_slots = [...slots]
+                    const old_slots = [...slots];
                     const index = old_slots.findIndex(item => item.id === data.id);
                     old_slots[index] = data;
                     setSlots(old_slots);
-                    navigate('/dashboard/slots');
+                    navigate("/dashboard/slots");
                 }
             })
             .catch(e => {
                 console.error(e);
-                toast.error('useSlotManteinance error');
-                navigate('/home');
+                toast.error("useSlotManteinance error");
+                navigate("/home");
             });
     });
 
@@ -58,7 +58,7 @@ export function useSlots() {
 
                     let save_old = get_Old_Slots[remove_old];
                     save_old.bike_id = data.data.id;
-                    save_old.status = 'used';
+                    save_old.status = "used";
                     if (remove_old !== -1) {
                         get_Old_Slots[remove_old] = save_old;
                         setSlots(get_Old_Slots);
@@ -67,29 +67,29 @@ export function useSlots() {
                         let get_Old_Bikes = [...bikes];
                         const remove_old_bike = get_Old_Bikes.findIndex(item => item.slug === slug);
                         let save_old_bike = get_Old_Bikes[remove_old_bike];
-                        save_old_bike.status = 'unused';
+                        save_old_bike.status = "unused";
                         if (remove_old_bike !== -1) {
                             get_Old_Bikes[remove_old_bike] = save_old_bike;
                             setBikes(get_Old_Bikes);
                         }
 
                     }
-                    navigate('/dashboard/slots')
+                    navigate("/dashboard/slots");
                 }
             })
             .catch(e => {
                 console.error(e);
-                toast.error('returnBike error');
-                navigate('/home');
+                toast.error("returnBike error");
+                navigate("/home");
             });
 
-    }
+    };
 
     const saveBike = (slug) => {
         if (slug) {
-            setSaveSlot(slug)
+            setSaveSlot(slug);
         }
-    }
+    };
 
     const rentBikeBackend = (id) => {
         SlotService.rentBikeBackend(id)
@@ -108,7 +108,7 @@ export function useSlots() {
 
                         // Continue Render bike
                         let save_old_bike = get_Old_Bikes[remove_old_bike];
-                        save_old_bike.status = 'used';
+                        save_old_bike.status = "used";
                         if (remove_old_bike !== -1) {
                             get_Old_Bikes[remove_old_bike] = save_old_bike;
                             setBikes(get_Old_Bikes);
@@ -123,15 +123,15 @@ export function useSlots() {
                         ]);
 
                     }
-                    navigate('/dashboard/slots')
+                    navigate("/dashboard/slots");
                 }
             })
             .catch(e => {
                 console.error(e);
-                toast.error('rentBikeBackend error');
-                navigate('/home');
+                toast.error("rentBikeBackend error");
+                navigate("/home");
             });
-    }
+    };
 
 
     return {
@@ -146,5 +146,5 @@ export function useSlots() {
         setSaveSlot,
         rentBikeBackend,
         useSlotManteinance
-    }
+    };
 }

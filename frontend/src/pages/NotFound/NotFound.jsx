@@ -1,12 +1,12 @@
 import React from "react";
-import './NotFound.scss';
-import { useNavigate } from 'react-router-dom';
+import "./NotFound.scss";
+import { useNavigate } from "react-router-dom";
 
 const NotFound = () => {
     const navigate = useNavigate();
     const redirects = {
-        home: () => navigate('/home'),
-    }
+        home: () => navigate("/home"),
+    };
     return (
         <div className="flex-container">
             <div className="text-center">
@@ -19,7 +19,7 @@ const NotFound = () => {
                 <button type="button" name="button" onClick={() => redirects.home()}>Return To Home</button>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default NotFound;

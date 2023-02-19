@@ -1,5 +1,5 @@
 import React from "react";
-import './Notification.scss'
+import "./Notification.scss";
 
 const Notification = ({ notification, seeNotification }) => {
 
@@ -20,7 +20,7 @@ const Notification = ({ notification, seeNotification }) => {
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Notification;

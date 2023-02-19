@@ -1,16 +1,16 @@
 import Api from "./Api";
 
 const getAll = () => {
-  return Api().get("/notifications");
+    return Api().get("/notifications");
 };
 
 const UpdateSeen = (id) => {
-  return Api().put("/notifications/" + id);
-}
+    return Api().put("/notifications/" + id);
+};
 
 const NotificationsService = {
-  getAll,
-  UpdateSeen
+    getAll,
+    UpdateSeen
 };
 
 export default NotificationsService;

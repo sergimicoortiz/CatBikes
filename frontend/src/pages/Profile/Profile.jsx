@@ -6,7 +6,7 @@ const Profile = () => {
         <div>
             <IncidentsUser />
         </div>
-    )
-}
+    );
+};
 
-export default Profile
+export default Profile;

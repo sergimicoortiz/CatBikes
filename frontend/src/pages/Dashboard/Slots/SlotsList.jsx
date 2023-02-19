@@ -1,14 +1,13 @@
 import React from "react";
 import { useSlots } from "../../../hooks/useSlots";
 
-import DataTable from 'react-data-table-component';
+import DataTable from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
 
-import '../Dashboard.scss'
+import "../Dashboard.scss";
 
 const SlotsList = () => {
-    // Cambiar
-    const { slots, setSlots } = useSlots();
+    const { slots } = useSlots();
 
     const [selectedRows, setSelectedRows] = React.useState(false);
     const [toggledClearRows, setToggleClearRows] = React.useState(false);
@@ -17,22 +16,22 @@ const SlotsList = () => {
 
     const columns = [
         {
-            name: 'id',
+            name: "id",
             selector: row => row.id,
             sortable: true
         },
         {
-            name: 'status',
+            name: "status",
             selector: row => row.status,
             sortable: true
         },
         {
-            name: 'station_id',
+            name: "station_id",
             selector: row => row.station_id,
             sortable: true
         },
         {
-            name: 'bike_id',
+            name: "bike_id",
             selector: row => row.bike_id,
             sortable: true
         },
@@ -42,19 +41,19 @@ const SlotsList = () => {
         {
             when: row => row.status == "used",
             style: {
-                backgroundColor: '#03f65e',
+                backgroundColor: "#03f65e",
             },
         },
         {
             when: row => row.status == "unused",
             style: {
-                backgroundColor: '#497f7b',
+                backgroundColor: "#497f7b",
             },
         },
         {
             when: row => row.status == "manteinance",
             style: {
-                backgroundColor: '#7b7944',
+                backgroundColor: "#7b7944",
             },
         },
     ];
@@ -66,7 +65,7 @@ const SlotsList = () => {
     return (
         <div>
             <button className="custom-btn btn-13" onClick={() => {
-                navigate('/dashboard/slots/' + selectedRows[0].id)
+                navigate("/dashboard/slots/" + selectedRows[0].id);
             }} disabled={selectedRows.length != 1}>Details</button>
             <DataTable
                 columns={columns}
@@ -80,6 +79,6 @@ const SlotsList = () => {
             />
         </div>
     );
-}
+};
 
 export default SlotsList;

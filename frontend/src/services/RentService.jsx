@@ -1,11 +1,11 @@
-import Api from './Api';
+import Api from "./Api";
 
 const GetRentDashboard = () => {
-    return Api().get('rentDashboard');
+    return Api().get("rentDashboard");
 };
 
 const DeleteRentDashboard = (id) => {
-    return Api().delete('rentDashboard/' + id);
+    return Api().delete("rentDashboard/" + id);
 };
 
 const getOneRent = () => {

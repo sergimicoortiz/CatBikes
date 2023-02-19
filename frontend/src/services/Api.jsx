@@ -1,6 +1,6 @@
-import axios from 'axios';
-import secrets from '../secrets';
-import JwtService from '../services/JwtService';
+import axios from "axios";
+import secrets from "../secrets";
+import JwtService from "../services/JwtService";
 
 const useAxios = () => {
     let api = null;
@@ -26,7 +26,7 @@ const useAxios = () => {
         (response) => response,
         (error) => {
             if (error.response.status === 403) {
-                sessionStorage.removeItem("time")
+                sessionStorage.removeItem("time");
                 JwtService.destroyToken();
                 window.location.reload();
             }
@@ -35,5 +35,5 @@ const useAxios = () => {
     );
 
     return api;
-}
+};
 export default useAxios;
