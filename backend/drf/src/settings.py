@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET") or "pepit"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG") == "True"
 
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", os.getenv("ALLOWED_HOSTS") or "*"]
 
@@ -140,6 +140,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS URLS
 CORS_ALLOWED_ORIGINS = [os.getenv("CORS") or "http://localhost"]
+CSRF_TRUSTED_ORIGINS = [os.getenv("CORS") or "http://localhost"]
 
 AUTH_USER_MODEL = "user.User"
 
