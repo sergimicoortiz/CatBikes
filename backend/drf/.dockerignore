@@ -1,8 +1,11 @@
 *__pycache__*
 example.env
 exampleDocker.env
+exampleAWS.env
+Pipfile
 Pipfile.lock
 .dockerignore
 Dockerfile
 package.json
-Pipfile
+.gitignore
+filler.py

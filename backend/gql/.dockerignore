@@ -2,5 +2,9 @@ node_modules
 package-lock.json
 example.env
 exampleDocker.env
+exampleAWS.env
 .dockerignore
 Dockerfile
+.gitignore
+.eslintrc.json
+.prettierrc

@@ -16,3 +16,6 @@ src/secrets.example.js
 src/secrets.exampleDocker.js
 .dockerignore
 Dockerfile
+.eslintrc.js
+.gitignore
+.prettierrc.js
