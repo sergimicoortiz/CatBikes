@@ -5,23 +5,52 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('stations', '0001_initial'),
+        ("stations", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Rent',
+            name="Rent",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('start_date', models.DateTimeField(auto_now_add=True)),
-                ('end_date', models.DateTimeField(null=True)),
-                ('bike', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bike', to='stations.bike')),
-                ('end_slot', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='end_slot', to='stations.slot')),
-                ('start_slot', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='start_slot', to='stations.slot')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("start_date", models.DateTimeField(auto_now_add=True)),
+                ("end_date", models.DateTimeField(null=True)),
+                (
+                    "bike",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="bike",
+                        to="stations.bike",
+                    ),
+                ),
+                (
+                    "end_slot",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="end_slot",
+                        to="stations.slot",
+                    ),
+                ),
+                (
+                    "start_slot",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="start_slot",
+                        to="stations.slot",
+                    ),
+                ),
             ],
         ),
     ]

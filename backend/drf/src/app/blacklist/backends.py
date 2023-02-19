@@ -5,10 +5,9 @@ from .models import Blacklist
 
 
 class JWTAuthentication(authentication.BaseAuthentication):
-    authentication_header_prefix = 'Bearer'
+    authentication_header_prefix = "Bearer"
 
     def authenticate(self, request):
-
         request.user = None
         auth_header = authentication.get_authorization_header(request).split()
 
@@ -18,8 +17,8 @@ class JWTAuthentication(authentication.BaseAuthentication):
         if len(auth_header) != 2:
             return None
 
-        prefix = auth_header[0].decode('utf-8')
-        token = auth_header[1].decode('utf-8')
+        prefix = auth_header[0].decode("utf-8")
+        token = auth_header[1].decode("utf-8")
 
         if prefix != self.authentication_header_prefix:
             return None
@@ -27,11 +26,9 @@ class JWTAuthentication(authentication.BaseAuthentication):
         return self._authenticate_credentials(request, token)
 
     def _authenticate_credentials(self, request, token):
-
         token = len(Blacklist.objects.filter(token=token))
-        if (token > 0):
-            msg = 'Token in Blacklist'
+        if token > 0:
+            msg = "Token in Blacklist"
             raise exceptions.AuthenticationFailed(msg)
-
 
         return None

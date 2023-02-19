@@ -19,12 +19,12 @@ def add_slug_to_station_if_not_exists(sender, instance, *args, **kwargs):
         if len(slug) > MAXIMUM_SLUG_LENGTH:
             slug = slug[:MAXIMUM_SLUG_LENGTH]
 
-        while len(slug + '-' + unique) > MAXIMUM_SLUG_LENGTH:
-            parts = slug.split('-')
+        while len(slug + "-" + unique) > MAXIMUM_SLUG_LENGTH:
+            parts = slug.split("-")
 
             if len(parts) == 1:
-                slug = slug[:MAXIMUM_SLUG_LENGTH - len(unique) - 1]
+                slug = slug[: MAXIMUM_SLUG_LENGTH - len(unique) - 1]
             else:
-                slug = '-'.join(parts[:-1])
+                slug = "-".join(parts[:-1])
 
-        instance.slug = slug + '-' + unique
+        instance.slug = slug + "-" + unique

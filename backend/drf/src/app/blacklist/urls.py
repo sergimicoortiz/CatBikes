@@ -3,5 +3,5 @@ from .views import BlacklistAuthenticatedView
 
 
 urlpatterns = [
-    path('logout', BlacklistAuthenticatedView.as_view({'post': 'logout'})),
+    path("logout", BlacklistAuthenticatedView.as_view({"post": "logout"})),
 ]
