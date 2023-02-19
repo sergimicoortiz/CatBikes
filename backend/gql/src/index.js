@@ -1,8 +1,8 @@
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from '@apollo/server/standalone';
-import { ApolloServerPluginLandingPageDisabled } from '@apollo/server/plugin/disabled';
-import { ApolloServerErrorCode } from '@apollo/server/errors';
-import { GraphQLError } from 'graphql';
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
+import { ApolloServerErrorCode } from "@apollo/server/errors";
+import { GraphQLError } from "graphql";
 import dotenv from "dotenv";
 
 //Station typeDefs and resolvers
@@ -35,15 +35,20 @@ import notificationResolvers from "./models/notification/notification.resolvers.
 
 //Other imports
 import enums from "./utils/enums.js";
-import { getUser } from './services/userService.js';
+import { getUser } from "./services/userService.js";
 
 dotenv.config();
 
-const plugins = process.env.NODE_ENV === 'development' ? [] : [ApolloServerPluginLandingPageDisabled()];
+const plugins =
+    process.env.NODE_ENV === "development"
+        ? []
+        : [ApolloServerPluginLandingPageDisabled()];
 
 const context = async ({ req }) => {
-    const AuthenticationError = new GraphQLError('Authentication failed', { context: { code: ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED } });
-    const token = (req.headers.authorization || '').split(' ')[1] || '';
+    const AuthenticationError = new GraphQLError("Authentication failed", {
+        context: { code: ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED },
+    });
+    const token = (req.headers.authorization || "").split(" ")[1] || "";
     let user = null;
     let isAuth = false;
     let isAdmin = false;
@@ -52,7 +57,7 @@ const context = async ({ req }) => {
         if (status === 200) {
             user = data.user;
             isAuth = true;
-            isAdmin = data.user.types === 'admin';
+            isAdmin = data.user.types === "admin";
         }
     }
     return { user, isAdmin, isAuth, AuthenticationError };
@@ -79,7 +84,7 @@ const server = new ApolloServer({
         notificationResolvers,
     ],
     cache: "bounded",
-    includeStacktraceInErrorResponses: process.env.NODE_ENV === 'development',
+    includeStacktraceInErrorResponses: process.env.NODE_ENV === "development",
     plugins: plugins,
 });
 

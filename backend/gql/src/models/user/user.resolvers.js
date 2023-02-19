@@ -1,6 +1,6 @@
 import User from "./user.model.js";
-import { GraphQLError } from 'graphql';
-import { ApolloServerErrorCode } from '@apollo/server/errors';
+import { GraphQLError } from "graphql";
+import { ApolloServerErrorCode } from "@apollo/server/errors";
 
 const userResolvers = {
     Query: {
@@ -8,8 +8,15 @@ const userResolvers = {
             try {
                 if (args.uuid) {
                     if (!context.isAdmin) throw context.AuthenticationError;
-                    const user = await User.findOne({ where: { uuid: args.uuid } });
-                    if (!user) throw new GraphQLError('User not found', { extensions: { code: ApolloServerErrorCode.BAD_USER_INPUT } });
+                    const user = await User.findOne({
+                        where: { uuid: args.uuid },
+                    });
+                    if (!user)
+                        throw new GraphQLError("User not found", {
+                            extensions: {
+                                code: ApolloServerErrorCode.BAD_USER_INPUT,
+                            },
+                        });
                     return user;
                 }
                 if (!context.user) throw context.AuthenticationError;
@@ -22,9 +29,9 @@ const userResolvers = {
 
         allUsers: async (parent, args, context) => {
             if (!context.isAdmin) throw context.AuthenticationError;
-            return await User.findAll()
-        }
-    }
+            return await User.findAll();
+        },
+    },
 };
 
 export default userResolvers;

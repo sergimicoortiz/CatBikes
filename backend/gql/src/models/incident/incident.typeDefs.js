@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 const incidentTypeDefs = gql`
     type Incident {
@@ -19,8 +19,9 @@ const incidentTypeDefs = gql`
 
     type Mutation {
         createIncident(body: String!, title: String!, slot_id: ID!): Incident
-        updateIncident(id: ID! status:IncidentStatus!): Incident
+        updateIncident(id: ID!, status: IncidentStatus!): Incident
         deleteIncident(id: ID!): Incident
-    }`;
+    }
+`;
 
 export default incidentTypeDefs;
