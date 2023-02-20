@@ -3,6 +3,7 @@ import Station from "../stations/station.model.js";
 import Bike from "../bikes/bike.model.js";
 import { GraphQLError } from "graphql";
 import { ApolloServerErrorCode } from "@apollo/server/errors";
+import { generateQR } from "../../utils/utils.js";
 
 const slotResolvers = {
     Query: {
@@ -12,6 +13,23 @@ const slotResolvers = {
             return await Slot.findAll();
         },
         slot: async (parent, args) => await Slot.findByPk(args.id),
+        slotQR: async (parent, args, context) => {
+            try {
+                if (context.isAdmin || context.isTechnical) {
+                    const slot = await Slot.findByPk(args.id);
+                    if (!slot)
+                        throw new GraphQLError("Slot not found", {
+                            extensions: {
+                                code: ApolloServerErrorCode.BAD_USER_INPUT,
+                            },
+                        });
+                    return generateQR("slot", slot.id);
+                }
+            } catch (error) {
+                console.error(error);
+                throw error;
+            }
+        },
     },
 
     Slot: {

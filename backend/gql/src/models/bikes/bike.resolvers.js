@@ -1,6 +1,6 @@
 import Bike from "./bike.model.js";
 import Slot from "../slots/slot.model.js";
-import { generateSlug } from "../../utils/utils.js";
+import { generateSlug, generateQR } from "../../utils/utils.js";
 import { GraphQLError } from "graphql";
 import { ApolloServerErrorCode } from "@apollo/server/errors";
 
@@ -12,6 +12,29 @@ const bikeResolvers = {
             const { status } = args;
             if (status) return await Bike.findAll({ where: { status } });
             return await Bike.findAll();
+        },
+        bikeQR: async (parent, args, context) => {
+            try {
+                if (context.isTechnical || context.isAdmin) {
+                    const bike = await Bike.findOne({
+                        where: { slug: args.slug },
+                    });
+                    if (!bike) {
+                        throw new GraphQLError("Bike not found", {
+                            extensions: {
+                                code: ApolloServerErrorCode.INTERNAL_SERVER_ERROR,
+                            },
+                        });
+                    }
+                    const qr = await generateQR("bike", bike.id);
+                    return qr;
+                } else {
+                    throw context.AuthenticationError;
+                }
+            } catch (error) {
+                console.error(error);
+                throw error;
+            }
         },
     },
 

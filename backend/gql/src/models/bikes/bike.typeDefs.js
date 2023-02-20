@@ -12,6 +12,7 @@ const bikeTypeDefs = gql`
     type Query {
         bike(slug: String!): Bike
         bikes(status: Status): [Bike]!
+        bikeQR(slug: String!): String!
     }
 
     type Mutation {

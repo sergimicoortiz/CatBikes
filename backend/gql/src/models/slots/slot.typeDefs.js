@@ -11,6 +11,7 @@ const slotTypeDefs = gql`
     type Query {
         slots(status: Status): [Slot]!
         slot(id: ID!): Slot!
+        slotQR(id: ID!): String!
     }
 
     type Mutation {
