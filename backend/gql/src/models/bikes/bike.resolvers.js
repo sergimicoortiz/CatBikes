@@ -8,9 +8,11 @@ const bikeResolvers = {
     Query: {
         bike: async (parent, args) =>
             await Bike.findOne({ where: { slug: args.slug } }),
-        bikes: async () => await Bike.findAll(),
-        bikesStatus: async (parent, args) =>
-            await Bike.findAll({ where: { status: args.status } }),
+        bikes: async (parent, args) => {
+            const { status } = args;
+            if (status) return await Bike.findAll({ where: { status } });
+            return await Bike.findAll();
+        },
     },
 
     Bike: {

@@ -6,7 +6,11 @@ import { ApolloServerErrorCode } from "@apollo/server/errors";
 
 const slotResolvers = {
     Query: {
-        slots: async () => await Slot.findAll(),
+        slots: async (parent, args) => {
+            const { status } = args;
+            if (status) return await Slot.findAll({ where: { status } });
+            return await Slot.findAll();
+        },
         slot: async (parent, args) => await Slot.findByPk(args.id),
     },
 

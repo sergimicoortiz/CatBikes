@@ -16,8 +16,7 @@ const stationTypeDefs = gql`
 
     type Query {
         station(slug: String!): Station
-        stations: [Station]!
-        stationCount: Int!
+        stations(status: StationStatus): [Station]!
     }
 
     type Mutation {

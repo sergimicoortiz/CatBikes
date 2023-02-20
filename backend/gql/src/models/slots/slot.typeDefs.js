@@ -9,7 +9,7 @@ const slotTypeDefs = gql`
     }
 
     type Query {
-        slots: [Slot]!
+        slots(status: Status): [Slot]!
         slot(id: ID!): Slot!
     }
 
