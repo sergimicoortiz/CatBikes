@@ -64,23 +64,26 @@ const slotResolvers = {
 
         setMaintenanceSlot: async (parent, args, context) => {
             try {
-                if (!context.isAdmin) throw context.AuthenticationError;
-                const slot = await Slot.findByPk(args.id);
-                if (!slot)
-                    throw new GraphQLError("Slot not found", {
-                        extensions: {
-                            code: ApolloServerErrorCode.BAD_USER_INPUT,
-                        },
-                    });
-                if (slot.bike_id)
-                    throw new GraphQLError("Slot is in use", {
-                        extensions: {
-                            code: ApolloServerErrorCode.BAD_USER_INPUT,
-                        },
-                    });
-                slot.status = args.maintenance ? "maintenance" : "unused";
-                await slot.save();
-                return slot;
+                if (context.isAdmin || context.isTechnical) {
+                    const slot = await Slot.findByPk(args.id);
+                    if (!slot)
+                        throw new GraphQLError("Slot not found", {
+                            extensions: {
+                                code: ApolloServerErrorCode.BAD_USER_INPUT,
+                            },
+                        });
+                    if (slot.bike_id)
+                        throw new GraphQLError("Slot is in use", {
+                            extensions: {
+                                code: ApolloServerErrorCode.BAD_USER_INPUT,
+                            },
+                        });
+                    slot.status = args.maintenance ? "maintenance" : "unused";
+                    await slot.save();
+                    return slot;
+                } else {
+                    throw context.AuthenticationError;
+                }
             } catch (error) {
                 console.error(error);
                 throw error;
