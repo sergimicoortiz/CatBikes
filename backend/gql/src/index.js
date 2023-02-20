@@ -52,15 +52,17 @@ const context = async ({ req }) => {
     let user = null;
     let isAuth = false;
     let isAdmin = false;
+    let isTechnical = false;
     if (token) {
         const { data, status } = await getUser(token);
         if (status === 200) {
             user = data.user;
             isAuth = true;
             isAdmin = data.user.types === "admin";
+            isTechnical = data.user.types === "technical";
         }
     }
-    return { user, isAdmin, isAuth, AuthenticationError };
+    return { user, isAdmin, isAuth, isTechnical, AuthenticationError };
 };
 
 const server = new ApolloServer({

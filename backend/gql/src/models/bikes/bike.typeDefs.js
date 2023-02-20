@@ -23,6 +23,7 @@ const bikeTypeDefs = gql`
             status: Status
         ): Bike
         deleteBike(slug: String!): Bike
+        maintenanceBike(slug: String!, slot_id: ID): Bike
     }
 `;
 
