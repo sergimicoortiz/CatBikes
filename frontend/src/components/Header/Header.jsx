@@ -10,7 +10,7 @@ const Header = () => {
     const location = useLocation();
     const [path, setPath] = useState("");
     const { useLogout } = useUser();
-    const { user, isAuth, isAdmin } = useContext(UserContext);
+    const { user, isAuth, isAdmin, isTechnical } = useContext(UserContext);
     const { incidents } = useContext(IncidentsContext);
     const { notifications } = useContext(NotificationsContext);
     const countAdmin = incidents.filter((item) => item.status != "resolved");
@@ -23,6 +23,7 @@ const Header = () => {
         profile: () => navigate("/profile"),
         incidents: () => navigate("/dashboard/incidents"),
         notifications: () => navigate("/notifications"),
+        technical: () => navigate("/technical"),
     };
 
     useEffect(() => {
@@ -80,6 +81,14 @@ const Header = () => {
         ""
     );
 
+    const technicalButton = isTechnical ? (
+        <li className={path === "technical" ? "active" : ""}>
+            <a onClick={() => redirects.technical()}>Technical</a>
+        </li>
+    ) : (
+        ""
+    );
+
     return (
         <nav className="navbar">
             <div className="container">
@@ -96,6 +105,7 @@ const Header = () => {
                             <a onClick={() => redirects.home()}>Home</a>
                         </li>
                         {dashboardButton}
+                        {technicalButton}
                         <li className={path === "stations" ? "active" : ""}>
                             <a onClick={() => redirects.stations()}>Stations</a>
                         </li>

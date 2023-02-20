@@ -12,6 +12,7 @@ export function UserContextProvider({ children }) {
     const [user, setUser] = useState({});
     const [isAuth, setIsAuth] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isTechnical, setIsTechnical] = useState(false);
     const { refreshToken } = useUser();
 
     useEffect(() => {
@@ -36,6 +37,7 @@ export function UserContextProvider({ children }) {
                         setUser(data.user);
                         setIsAuth(true);
                         setIsAdmin(data.user.types === "admin");
+                        setIsTechnical(data.user.types === "technical");
                     }
                 })
                 .catch((e) => console.error(e));
@@ -55,6 +57,8 @@ export function UserContextProvider({ children }) {
                 setIsAuth,
                 isAdmin,
                 setIsAdmin,
+                isTechnical,
+                setIsTechnical,
             }}
         >
             {children}
