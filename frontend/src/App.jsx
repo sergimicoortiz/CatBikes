@@ -93,6 +93,9 @@ function App() {
     const TechnicalListSlots = React.lazy(() =>
         import("./pages/Technical/TechnicalListSlots")
     );
+    const TechnicalDetailsBikes = React.lazy(() =>
+        import("./pages/Technical/TechnicalDetailsBikes")
+    );
 
     return (
         <div>
@@ -229,6 +232,12 @@ function App() {
                                                             path="/technical/slots"
                                                             element={
                                                                 <TechnicalListSlots />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/technical/bikes/:slug"
+                                                            element={
+                                                                <TechnicalDetailsBikes />
                                                             }
                                                         />
                                                     </Route>

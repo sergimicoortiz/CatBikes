@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useBikesTechnical } from "../../hooks/technical/useBikesTechnical";
 import DataTable from "react-data-table-component";
 import "./Technical.scss";
@@ -6,6 +7,7 @@ const TechnicalListBikes = () => {
     const { bikes, setStatus } = useBikesTechnical();
     const [selectedRows, setSelectedRows] = useState(false);
     const [toggledClearRows, setToggleClearRows] = useState(false);
+    const navigate = useNavigate();
 
     const columns = [
         {
@@ -50,7 +52,6 @@ const TechnicalListBikes = () => {
     };
 
     const changeStatus = (new_status) => {
-        console.log(new_status);
         setStatus(new_status);
         setToggleClearRows(!toggledClearRows);
         setSelectedRows([]);
@@ -83,7 +84,9 @@ const TechnicalListBikes = () => {
             <button
                 className="custom-btn btn-13"
                 disabled={selectedRows.length !== 1}
-                onClick={() => console.log(selectedRows[0])}
+                onClick={() =>
+                    navigate("/technical/bikes/" + selectedRows[0].slug)
+                }
             >
                 <span>DETAILS</span>
             </button>

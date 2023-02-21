@@ -16,3 +16,37 @@ export const getBikesQuery = gql`
         }
     }
 `;
+
+export const getOneBikesQuery = gql`
+    query ($slug: String!) {
+        bike(slug: $slug) {
+            id
+            slug
+            name
+            status
+            Slot {
+                id
+                station {
+                    slug
+                }
+            }
+        }
+    }
+`;
+
+export const maintenanceBikesQuery = gql`
+    mutation ($slug: String!) {
+        maintenanceBike(slug: $slug) {
+            id
+            slug
+            name
+            status
+            Slot {
+                id
+                station {
+                    slug
+                }
+            }
+        }
+    }
+`;
