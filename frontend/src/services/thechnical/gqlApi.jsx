@@ -10,3 +10,5 @@ export const gqlClient = new ApolloClient({
             : "",
     },
 });
+
+// This is created at the app start so when we refresh token the auth header do not change.

@@ -57,6 +57,23 @@ export function useBikesTechnical() {
         }
     }, []);
 
+    const useMaintenanceBikeRemove = useCallback(async (slug, slotId) => {
+        try {
+            const { data } = await MaintenanceBikeMutation({
+                variables: { slug, slotId },
+            });
+            if (data) {
+                toast.success(
+                    `Bike ${data.maintenanceBike.slug} in slot ${data.maintenanceBike.Slot.id}`
+                );
+                navigate("/technical/bikes");
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("The slot is in use");
+        }
+    }, []);
+
     return {
         bikes,
         setBikes,
@@ -67,5 +84,6 @@ export function useBikesTechnical() {
         bike,
         setBike,
         useMaintenanceBike,
+        useMaintenanceBikeRemove,
     };
 }

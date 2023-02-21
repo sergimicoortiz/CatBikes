@@ -35,8 +35,8 @@ export const getOneBikesQuery = gql`
 `;
 
 export const maintenanceBikesQuery = gql`
-    mutation ($slug: String!) {
-        maintenanceBike(slug: $slug) {
+    mutation ($slug: String!, $slotId: ID) {
+        maintenanceBike(slug: $slug, slot_id: $slotId) {
             id
             slug
             name
