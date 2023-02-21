@@ -44,7 +44,7 @@ const StationsList = () => {
             },
         },
         {
-            when: (row) => row.status == "manteinance",
+            when: (row) => row.status == "maintenance",
             style: {
                 backgroundColor: "yellow",
             },

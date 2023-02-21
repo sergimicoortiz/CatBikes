@@ -85,7 +85,7 @@ const StationForm = ({
                         Select
                     </option>
                     <option value="active">Active</option>
-                    <option value="manteinance">Manteinance</option>
+                    <option value="maintenance">Maintenance</option>
                     <option value="inactive">Inactive</option>
                 </select>
                 <div className="error">{errors.status?.message}</div>

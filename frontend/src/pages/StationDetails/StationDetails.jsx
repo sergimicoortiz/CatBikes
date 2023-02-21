@@ -36,7 +36,7 @@ const StationDetails = () => {
             } else if (data.status == "unused") {
                 returnBike(data);
             } else {
-                toast.error("This slot is in manteinance, take another one");
+                toast.error("This slot is in maintenance, take another one");
             }
         } else {
             toast.error("You must be logged");
@@ -83,7 +83,7 @@ const StationDetails = () => {
                             ) : item.status == "used" ? (
                                 <a>Rent Bike</a>
                             ) : (
-                                "Manteinance"
+                                "Maintenance"
                             )}
                         </button>
                         {incidence_btn(item.id)}

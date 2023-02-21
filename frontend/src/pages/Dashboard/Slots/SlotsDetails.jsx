@@ -29,7 +29,7 @@ const SlotsList = () => {
             className="custom-btn btn-5 center"
             onClick={() => useSlotManteinance(id, true)}
         >
-            Put in manteinance
+            Put in maintenance
         </button>
     );
 
@@ -71,7 +71,7 @@ const SlotsList = () => {
                 </div>
             );
             break;
-        case "manteinance":
+        case "maintenance":
             buttons = (
                 <div>
                     <button

@@ -14,7 +14,7 @@ import { NotificationsContextProvider } from "./context/NotificationsContext";
 
 //gql
 import { ApolloProvider } from "@apollo/client";
-import { gqlClient } from "./services/gqlApi";
+import { gqlClient } from "./services/thechnical/gqlApi";
 
 //Guards
 import AdminGuard from "./services/guards/AdminGuard";
@@ -87,6 +87,12 @@ function App() {
 
     //Technical
     const Technical = React.lazy(() => import("./pages/Technical/Technical"));
+    const TechnicalListBikes = React.lazy(() =>
+        import("./pages/Technical/TechnicalListBikes")
+    );
+    const TechnicalListSlots = React.lazy(() =>
+        import("./pages/Technical/TechnicalListSlots")
+    );
 
     return (
         <div>
@@ -211,6 +217,18 @@ function App() {
                                                             path="/technical"
                                                             element={
                                                                 <Technical />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/technical/bikes"
+                                                            element={
+                                                                <TechnicalListBikes />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/technical/slots"
+                                                            element={
+                                                                <TechnicalListSlots />
                                                             }
                                                         />
                                                     </Route>
