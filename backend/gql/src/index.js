@@ -1,9 +1,14 @@
 import { ApolloServer } from "@apollo/server";
-import { startStandaloneServer } from "@apollo/server/standalone";
 import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
+import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { ApolloServerErrorCode } from "@apollo/server/errors";
 import { GraphQLError } from "graphql";
 import dotenv from "dotenv";
+import http from "http";
+import express from "express";
+import bodyParser from "body-parser";
+import { expressMiddleware } from "@apollo/server/express4";
+import cors from "cors";
 
 //Station typeDefs and resolvers
 import stationTypeDefs from "./models/stations/station.typeDefs.js";
@@ -39,11 +44,6 @@ import { getUser } from "./services/userService.js";
 
 dotenv.config();
 
-const plugins =
-    process.env.NODE_ENV === "development"
-        ? []
-        : [ApolloServerPluginLandingPageDisabled()];
-
 const context = async ({ req }) => {
     const AuthenticationError = new GraphQLError("Authentication failed", {
         context: { code: ApolloServerErrorCode.GRAPHQL_VALIDATION_FAILED },
@@ -64,6 +64,17 @@ const context = async ({ req }) => {
     }
     return { user, isAdmin, isAuth, isTechnical, AuthenticationError };
 };
+
+const app = express();
+const httpServer = http.createServer(app);
+
+const plugins =
+    process.env.NODE_ENV === "development"
+        ? [ApolloServerPluginDrainHttpServer({ httpServer })]
+        : [
+              ApolloServerPluginLandingPageDisabled(),
+              ApolloServerPluginDrainHttpServer({ httpServer }),
+          ];
 
 const server = new ApolloServer({
     typeDefs: [
@@ -90,9 +101,18 @@ const server = new ApolloServer({
     plugins: plugins,
 });
 
-const { url } = await startStandaloneServer(server, {
-    context: context,
-    listen: { port: process.env.PORT || 4000 },
-});
+await server.start();
 
-console.info(`Server ready at: ${url}`);
+app.use(
+    "/",
+    cors({
+        origin: [process.env.WEB_BASE_URL || "http://localhost:3000"],
+    }),
+    bodyParser.json(),
+    expressMiddleware(server, { context })
+);
+
+await new Promise((resolve) =>
+    httpServer.listen({ port: process.env.PORT || 4000 }, resolve)
+);
+console.log(" Server ready at http://localhost:4000");
