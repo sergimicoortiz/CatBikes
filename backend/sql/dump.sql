@@ -464,7 +464,7 @@ CREATE TABLE `user_user` (
   UNIQUE KEY `uuid` (`uuid`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -473,6 +473,7 @@ CREATE TABLE `user_user` (
 
 LOCK TABLES `user_user` WRITE;
 /*!40000 ALTER TABLE `user_user` DISABLE KEYS */;
+INSERT INTO `user_user` VALUES (2,'pbkdf2_sha256$390000$eAw5APQho1gDSLHmyl87MS$TCYoi0clX3mA1Kz8WOrZv+QstuS9OO2IQNKWGlDxs0E=',NULL,1,'f31ed919-6c10-ac6c-d9b6-9d2cf12bd42a','asdasdasd','asd@asd.asd','admin',1,0);
 /*!40000 ALTER TABLE `user_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -541,4 +542,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-17 15:35:46
+-- Dump completed on 2023-02-22 19:04:32
