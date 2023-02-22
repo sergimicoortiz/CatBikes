@@ -1,14 +1,29 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import {
+    ApolloClient,
+    InMemoryCache,
+    createHttpLink,
+    setContext,
+} from "@apollo/client";
 import secrets from "../../secrets";
 
-export const gqlClient = new ApolloClient({
+const link = createHttpLink({
     uri: secrets.URL_GQL || "http://localhost:4000",
-    cache: new InMemoryCache(),
-    headers: {
-        authorization: localStorage.getItem("token")
-            ? ` Bearer ${localStorage.getItem("token")}`
-            : "",
-    },
+    credentials: "same-origin",
 });
 
-// This is created at the app start so when we refresh token the auth header do not change.
+const authLink = setContext((_, { headers }) => {
+    return {
+        headers: {
+            ...headers,
+            authorization: localStorage.getItem("token")
+                ? ` Bearer ${localStorage.getItem("token")}`
+                : "",
+            "Apollo-Require-Preflight": "true",
+        },
+    };
+});
+
+export const gqlClient = new ApolloClient({
+    link: authLink.concat(link),
+    cache: new InMemoryCache(),
+});

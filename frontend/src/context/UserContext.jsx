@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import UserService from "../services/UserService";
 import JwtService from "../services/JwtService";
-// import { useUser } from "../hooks/useUser";
+import { useUser } from "../hooks/useUser";
 
 const Context = React.createContext({});
 
@@ -13,23 +13,23 @@ export function UserContextProvider({ children }) {
     const [isAuth, setIsAuth] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
     const [isTechnical, setIsTechnical] = useState(false);
-    // const { refreshToken } = useUser();
+    const { refreshToken } = useUser();
 
     useEffect(() => {
         if (token) {
-            // const interval = setInterval(() => {
-            //     if (sessionStorage.getItem("time")) {
-            //         sessionStorage.setItem(
-            //             "time",
-            //             Number(sessionStorage.getItem("time")) + Number(1)
-            //         );
-            //         if (sessionStorage.getItem("time") >= 10) {
-            //             refreshToken();
-            //         }
-            //     } else {
-            //         sessionStorage.setItem("time", Number(1));
-            //     }
-            // }, 60000);
+            const interval = setInterval(() => {
+                if (sessionStorage.getItem("time")) {
+                    sessionStorage.setItem(
+                        "time",
+                        Number(sessionStorage.getItem("time")) + Number(1)
+                    );
+                    if (sessionStorage.getItem("time") >= 10) {
+                        refreshToken();
+                    }
+                } else {
+                    sessionStorage.setItem("time", Number(1));
+                }
+            }, 60000);
 
             UserService.GetUser()
                 .then(({ data, status }) => {
@@ -42,7 +42,7 @@ export function UserContextProvider({ children }) {
                 })
                 .catch((e) => console.error(e));
 
-            // return () => clearInterval(interval);
+            return () => clearInterval(interval);
         }
     }, [token]);
 
