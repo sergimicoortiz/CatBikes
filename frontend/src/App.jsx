@@ -97,6 +97,10 @@ function App() {
         import("./pages/Technical/TechnicalDetailsBikes")
     );
 
+    const TechnicalDetailsSlots = React.lazy(() =>
+        import("./pages/Technical/TechnicalDetailsSlots")
+    );
+
     return (
         <div>
             <ApolloProvider client={gqlClient}>
@@ -238,6 +242,12 @@ function App() {
                                                             path="/technical/bikes/:slug"
                                                             element={
                                                                 <TechnicalDetailsBikes />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/technical/slots/:id"
+                                                            element={
+                                                                <TechnicalDetailsSlots />
                                                             }
                                                         />
                                                     </Route>

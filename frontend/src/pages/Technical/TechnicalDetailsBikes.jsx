@@ -15,10 +15,35 @@ const TechnicalDetailsBikes = () => {
         }
     }, [slug]);
 
+    const station_info = bike?.Slot?.station ? (
+        <>
+            <h2 style={{ textAlign: "center" }}>
+                Station: {bike.Slot.station.slug}
+            </h2>
+        </>
+    ) : (
+        <>
+            <h2 style={{ textAlign: "center" }}> No station</h2>
+        </>
+    );
+
+    const slot_info = bike?.Slot ? (
+        <>
+            <h2 style={{ textAlign: "center" }}>Slot: {bike.Slot.id}</h2>
+        </>
+    ) : (
+        <>
+            <h2 style={{ textAlign: "center" }}> No slot</h2>
+        </>
+    );
+
     const bike_info = bike ? (
         <div>
             <br />
-            <h2 style={{ textAlign: "center" }}>{bike.name}</h2>
+            <h2 style={{ textAlign: "center" }}>Name:{bike.name}</h2>
+            <h2 style={{ textAlign: "center" }}>Status:{bike.status}</h2>
+            {slot_info}
+            {station_info}
         </div>
     ) : (
         <div>
