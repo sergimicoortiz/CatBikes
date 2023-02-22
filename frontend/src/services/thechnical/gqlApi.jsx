@@ -1,9 +1,5 @@
-import {
-    ApolloClient,
-    InMemoryCache,
-    createHttpLink,
-    setContext,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import secrets from "../../secrets";
 
 const link = createHttpLink({
