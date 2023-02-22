@@ -26,7 +26,7 @@ const bikeResolvers = {
                             },
                         });
                     }
-                    const qr = await generateQR("bike", bike.id);
+                    const qr = await generateQR("bikes", bike.id);
                     return qr;
                 } else {
                     throw context.AuthenticationError;

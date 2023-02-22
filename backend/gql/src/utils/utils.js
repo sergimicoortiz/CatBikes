@@ -28,7 +28,7 @@ export function generateSlug(title) {
 
 export async function generateQR(type, id) {
     const qr = await QRCode.toDataURL(
-        `This is a test ${type} QR code for ${id}`
+        `${process.env.WEB_BASE_URL}/technical/${type}/${id}`
     );
     return qr;
 }

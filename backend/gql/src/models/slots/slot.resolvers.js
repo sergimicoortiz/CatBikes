@@ -23,7 +23,7 @@ const slotResolvers = {
                                 code: ApolloServerErrorCode.BAD_USER_INPUT,
                             },
                         });
-                    return generateQR("slot", slot.id);
+                    return generateQR("slots", slot.id);
                 }
             } catch (error) {
                 console.error(error);
