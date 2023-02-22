@@ -72,9 +72,9 @@ const plugins =
     process.env.NODE_ENV === "development"
         ? [ApolloServerPluginDrainHttpServer({ httpServer })]
         : [
-              ApolloServerPluginLandingPageDisabled(),
-              ApolloServerPluginDrainHttpServer({ httpServer }),
-          ];
+            ApolloServerPluginLandingPageDisabled(),
+            ApolloServerPluginDrainHttpServer({ httpServer }),
+        ];
 
 const server = new ApolloServer({
     typeDefs: [
@@ -106,7 +106,7 @@ await server.start();
 app.use(
     "/",
     cors({
-        origin: [process.env.WEB_BASE_URL || "http://localhost:3000"],
+        origin: [process.env.CORS || "http://localhost:3000"],
     }),
     bodyParser.json(),
     expressMiddleware(server, { context })
@@ -115,4 +115,3 @@ app.use(
 await new Promise((resolve) =>
     httpServer.listen({ port: process.env.PORT || 4000 }, resolve)
 );
-console.log(" Server ready at http://localhost:4000");

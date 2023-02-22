@@ -6,4 +6,4 @@ RUN apk --no-cache add bash
 RUN npm install
 EXPOSE 4000
 
-#Size: 172MB
+#Size: 217MB
