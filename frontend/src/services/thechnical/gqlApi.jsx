@@ -14,7 +14,6 @@ const authLink = setContext((_, { headers }) => {
             authorization: localStorage.getItem("token")
                 ? ` Bearer ${localStorage.getItem("token")}`
                 : "",
-            "Apollo-Require-Preflight": "true",
         },
     };
 });
