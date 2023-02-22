@@ -11,8 +11,8 @@ const bikeTypeDefs = gql`
 
     type Query {
         bike(slug: String!): Bike
-        bikes: [Bike]!
-        bikesStatus(status: Status!): [Bike]!
+        bikes(status: Status): [Bike]!
+        bikeQR(slug: String!): String!
     }
 
     type Mutation {
@@ -24,6 +24,7 @@ const bikeTypeDefs = gql`
             status: Status
         ): Bike
         deleteBike(slug: String!): Bike
+        maintenanceBike(slug: String!, slot_id: ID): Bike
     }
 `;
 

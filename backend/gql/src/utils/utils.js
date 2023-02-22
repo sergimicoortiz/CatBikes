@@ -1,3 +1,8 @@
+import dotenv from "dotenv";
+import QRCode from "qrcode";
+
+dotenv.config();
+
 export function generateRandomString(length) {
     const characters =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -19,4 +24,11 @@ export function generateSlug(title) {
         "-" +
         generateRandomString(6);
     return slug;
+}
+
+export async function generateQR(type, id) {
+    const qr = await QRCode.toDataURL(
+        `${process.env.WEB_BASE_URL}/technical/${type}/${id}`
+    );
+    return qr;
 }

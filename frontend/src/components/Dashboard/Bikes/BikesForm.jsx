@@ -63,7 +63,7 @@ export default function BikesForm({
                     </option>
                     <option value="used">Used</option>
                     <option value="unused">Unused</option>
-                    <option value="manteinance">Manteinance</option>
+                    <option value="maintenance">Maintenance</option>
                 </select>
                 <div className="invalid-feedback">{errors.status?.message}</div>
                 <button>{buttonContent}</button>

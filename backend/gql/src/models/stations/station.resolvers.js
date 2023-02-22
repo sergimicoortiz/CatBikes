@@ -6,8 +6,11 @@ import { generateSlug } from "../../utils/utils.js";
 
 const stationResolvers = {
     Query: {
-        stationCount: async () => await Stations.count(),
-        stations: async () => await Stations.findAll(),
+        stations: async (parent, args) => {
+            const { status } = args;
+            if (status) return await Stations.findAll({ where: { status } });
+            return await Stations.findAll();
+        },
         station: async (parent, args) =>
             await Stations.findOne({ where: { slug: args.slug } }),
     },

@@ -51,7 +51,7 @@ const SlotsList = () => {
             },
         },
         {
-            when: (row) => row.status == "manteinance",
+            when: (row) => row.status == "maintenance",
             style: {
                 backgroundColor: "#7b7944",
             },

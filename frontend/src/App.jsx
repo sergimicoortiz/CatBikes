@@ -12,10 +12,15 @@ import { UserContextProvider } from "./context/UserContext";
 import { IncidentsContextProvider } from "./context/IncidentsContext";
 import { NotificationsContextProvider } from "./context/NotificationsContext";
 
+//gql
+import { ApolloProvider } from "@apollo/client";
+import { gqlClient } from "./services/thechnical/gqlApi";
+
 //Guards
 import AdminGuard from "./services/guards/AdminGuard";
 import { NoAuthGuard } from "./services/guards/AuthGuard";
 import { AuthGuard } from "./services/guards/AuthGuard";
+import { TechnicalGuard } from "./services/guards/TechnicalGuard";
 
 function App() {
     const NotFound = React.lazy(() => import("./pages/NotFound/NotFound"));
@@ -80,155 +85,230 @@ function App() {
         import("./pages/NotificationsUser/NotificationsUser")
     );
 
+    //Technical
+    const Technical = React.lazy(() => import("./pages/Technical/Technical"));
+    const TechnicalListBikes = React.lazy(() =>
+        import("./pages/Technical/TechnicalListBikes")
+    );
+    const TechnicalListSlots = React.lazy(() =>
+        import("./pages/Technical/TechnicalListSlots")
+    );
+    const TechnicalDetailsBikes = React.lazy(() =>
+        import("./pages/Technical/TechnicalDetailsBikes")
+    );
+
+    const TechnicalDetailsSlots = React.lazy(() =>
+        import("./pages/Technical/TechnicalDetailsSlots")
+    );
+
     return (
         <div>
-            <Suspense fallback={<Loading />}>
-                <BrowserRouter>
-                    <UserContextProvider>
-                        <StationContext>
-                            <IncidentsContextProvider>
-                                <BikesContextProvider>
-                                    <SlotsContextProvider>
-                                        <NotificationsContextProvider>
-                                            <Header />
-                                            <ToastContainer
-                                                position="top-right"
-                                                autoClose={2500}
-                                                hideProgressBar={false}
-                                                newestOnTop={false}
-                                                closeOnClick
-                                                rtl={false}
-                                                pauseOnFocusLoss={false}
-                                                draggable
-                                                pauseOnHover
-                                                theme="light"
-                                            />
-                                            <Routes>
-                                                <Route
-                                                    path="*"
-                                                    element={<NotFound />}
+            <ApolloProvider client={gqlClient}>
+                <Suspense fallback={<Loading />}>
+                    <BrowserRouter>
+                        <UserContextProvider>
+                            <StationContext>
+                                <IncidentsContextProvider>
+                                    <BikesContextProvider>
+                                        <SlotsContextProvider>
+                                            <NotificationsContextProvider>
+                                                <Header />
+                                                <ToastContainer
+                                                    position="top-right"
+                                                    autoClose={2500}
+                                                    hideProgressBar={false}
+                                                    newestOnTop={false}
+                                                    closeOnClick
+                                                    rtl={false}
+                                                    pauseOnFocusLoss={false}
+                                                    draggable
+                                                    pauseOnHover
+                                                    theme="light"
                                                 />
-                                                <Route
-                                                    path="/"
-                                                    element={<Home />}
-                                                />
-                                                <Route
-                                                    path="/home"
-                                                    element={<Home />}
-                                                />
+                                                <Routes>
+                                                    <Route
+                                                        path="*"
+                                                        element={<NotFound />}
+                                                    />
+                                                    <Route
+                                                        path="/"
+                                                        element={<Home />}
+                                                    />
+                                                    <Route
+                                                        path="/home"
+                                                        element={<Home />}
+                                                    />
 
-                                                <Route element={<AdminGuard />}>
                                                     <Route
-                                                        path="/dashboard"
-                                                        element={<Dashboard />}
-                                                    />
-                                                    {/* Dashboard Bikes */}
+                                                        element={<AdminGuard />}
+                                                    >
+                                                        <Route
+                                                            path="/dashboard"
+                                                            element={
+                                                                <Dashboard />
+                                                            }
+                                                        />
+                                                        {/* Dashboard Bikes */}
+                                                        <Route
+                                                            path="/dashboard/bikes"
+                                                            element={
+                                                                <BikesList />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/dashboard/bikes/create"
+                                                            element={
+                                                                <BikesCreate />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/dashboard/bikes/update/:slug"
+                                                            element={
+                                                                <BikesUpdate />
+                                                            }
+                                                        />
+                                                        {/* DASHBOARD STATIONS */}
+                                                        <Route
+                                                            path="/dashboard/stations"
+                                                            element={
+                                                                <StationList />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/dashboard/stations/create"
+                                                            element={
+                                                                <StationsCreate />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/dashboard/stations/update/:slug"
+                                                            element={
+                                                                <StationsUpdate />
+                                                            }
+                                                        />
+                                                        {/* Dashboard Slots */}
+                                                        <Route
+                                                            path="/dashboard/slots"
+                                                            element={
+                                                                <SlotsList />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/dashboard/slots/:id"
+                                                            element={
+                                                                <SlotsDetails />
+                                                            }
+                                                        />
+                                                        {/* Dashboard Rent */}
+                                                        <Route
+                                                            path="/dashboard/rent"
+                                                            element={
+                                                                <RentList />
+                                                            }
+                                                        />
+                                                        {/* Dashboard Incidents */}
+                                                        <Route
+                                                            path="/dashboard/incidents"
+                                                            element={
+                                                                <IncidentsList />
+                                                            }
+                                                        />
+                                                    </Route>
+                                                    {/* Technical */}
                                                     <Route
-                                                        path="/dashboard/bikes"
-                                                        element={<BikesList />}
-                                                    />
-                                                    <Route
-                                                        path="/dashboard/bikes/create"
                                                         element={
-                                                            <BikesCreate />
+                                                            <TechnicalGuard />
+                                                        }
+                                                    >
+                                                        <Route
+                                                            path="/technical"
+                                                            element={
+                                                                <Technical />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/technical/bikes"
+                                                            element={
+                                                                <TechnicalListBikes />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/technical/slots"
+                                                            element={
+                                                                <TechnicalListSlots />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/technical/bikes/:slug"
+                                                            element={
+                                                                <TechnicalDetailsBikes />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/technical/slots/:id"
+                                                            element={
+                                                                <TechnicalDetailsSlots />
+                                                            }
+                                                        />
+                                                    </Route>
+                                                    {/* Stations Client */}
+                                                    <Route
+                                                        path="/stations"
+                                                        element={
+                                                            <StationsClientList />
                                                         }
                                                     />
                                                     <Route
-                                                        path="/dashboard/bikes/update/:slug"
+                                                        path="/stations/:slug"
                                                         element={
-                                                            <BikesUpdate />
+                                                            <StationDetails />
                                                         }
                                                     />
-                                                    {/* DASHBOARD STATIONS */}
+                                                    {/* Login/Register */}
                                                     <Route
-                                                        path="/dashboard/stations"
                                                         element={
-                                                            <StationList />
+                                                            <NoAuthGuard />
                                                         }
-                                                    />
+                                                    >
+                                                        <Route
+                                                            path="/login"
+                                                            element={<Login />}
+                                                        />
+                                                        <Route
+                                                            path="/register"
+                                                            element={
+                                                                <Register />
+                                                            }
+                                                        />
+                                                    </Route>
+                                                    {/* Profile */}
                                                     <Route
-                                                        path="/dashboard/stations/create"
-                                                        element={
-                                                            <StationsCreate />
-                                                        }
-                                                    />
-                                                    <Route
-                                                        path="/dashboard/stations/update/:slug"
-                                                        element={
-                                                            <StationsUpdate />
-                                                        }
-                                                    />
-                                                    {/* Dashboard Slots */}
-                                                    <Route
-                                                        path="/dashboard/slots"
-                                                        element={<SlotsList />}
-                                                    />
-                                                    <Route
-                                                        path="/dashboard/slots/:id"
-                                                        element={
-                                                            <SlotsDetails />
-                                                        }
-                                                    />
-                                                    {/* Dashboard Rent */}
-                                                    <Route
-                                                        path="/dashboard/rent"
-                                                        element={<RentList />}
-                                                    />
-                                                    {/* Dashboard Incidents */}
-                                                    <Route
-                                                        path="/dashboard/incidents"
-                                                        element={
-                                                            <IncidentsList />
-                                                        }
-                                                    />
-                                                </Route>
-                                                {/* Stations Client */}
-                                                <Route
-                                                    path="/stations"
-                                                    element={
-                                                        <StationsClientList />
-                                                    }
-                                                />
-                                                <Route
-                                                    path="/stations/:slug"
-                                                    element={<StationDetails />}
-                                                />
-                                                {/* Login/Register */}
-                                                <Route
-                                                    element={<NoAuthGuard />}
-                                                >
-                                                    <Route
-                                                        path="/login"
-                                                        element={<Login />}
-                                                    />
-                                                    <Route
-                                                        path="/register"
-                                                        element={<Register />}
-                                                    />
-                                                </Route>
-                                                {/* Profile */}
-                                                <Route element={<AuthGuard />}>
-                                                    <Route
-                                                        path="/profile"
-                                                        element={<Profile />}
-                                                    />
-                                                    <Route
-                                                        path="/notifications"
-                                                        element={
-                                                            <NotificationsUser />
-                                                        }
-                                                    />
-                                                </Route>
-                                            </Routes>
-                                            <Footer />
-                                        </NotificationsContextProvider>
-                                    </SlotsContextProvider>
-                                </BikesContextProvider>
-                            </IncidentsContextProvider>
-                        </StationContext>
-                    </UserContextProvider>
-                </BrowserRouter>
-            </Suspense>
+                                                        element={<AuthGuard />}
+                                                    >
+                                                        <Route
+                                                            path="/profile"
+                                                            element={
+                                                                <Profile />
+                                                            }
+                                                        />
+                                                        <Route
+                                                            path="/notifications"
+                                                            element={
+                                                                <NotificationsUser />
+                                                            }
+                                                        />
+                                                    </Route>
+                                                </Routes>
+                                                <Footer />
+                                            </NotificationsContextProvider>
+                                        </SlotsContextProvider>
+                                    </BikesContextProvider>
+                                </IncidentsContextProvider>
+                            </StationContext>
+                        </UserContextProvider>
+                    </BrowserRouter>
+                </Suspense>
+            </ApolloProvider>
         </div>
     );
 }

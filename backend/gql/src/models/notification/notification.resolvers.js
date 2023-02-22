@@ -78,8 +78,7 @@ const notificationResolvers = {
     },
 
     Notification: {
-        user: async (parent, args, context) =>
-            await User.findByPk(parent.user_id),
+        user: async (parent) => await User.findByPk(parent.user_id),
     },
 };
 
