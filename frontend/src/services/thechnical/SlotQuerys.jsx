@@ -38,3 +38,9 @@ export const maintenanceSlotQuery = gql`
         }
     }
 `;
+
+export const slotQrQuery = gql`
+    query ($slotQrId: ID!) {
+        slotQR(id: $slotQrId)
+    }
+`;

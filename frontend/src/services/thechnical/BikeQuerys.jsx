@@ -50,3 +50,9 @@ export const maintenanceBikesQuery = gql`
         }
     }
 `;
+
+export const bikeQrQuery = gql`
+    query ($slug: String!) {
+        bikeQR(slug: $slug)
+    }
+`;

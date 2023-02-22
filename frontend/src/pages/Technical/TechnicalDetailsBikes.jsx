@@ -4,7 +4,7 @@ import { useBikesTechnical } from "../../hooks/technical/useBikesTechnical";
 import "./Technical.scss";
 
 const TechnicalDetailsBikes = () => {
-    const { bike, setSlug, useMaintenanceBike, useMaintenanceBikeRemove } =
+    const { bike, setSlug, useMaintenanceBike, useMaintenanceBikeRemove, qr } =
         useBikesTechnical();
     const { slug } = useParams();
     const [slotID, setSlotID] = useState(null);
@@ -79,11 +79,25 @@ const TechnicalDetailsBikes = () => {
             </>
         );
 
+    const qrCode = qr?.bikeQR ? (
+        <div>
+            <br />
+            <img src={qr.bikeQR} />
+            <br />
+            <a download={`${bike.slug}.png`} href={qr.bikeQR}>
+                Download
+            </a>
+        </div>
+    ) : (
+        <p>no qr</p>
+    );
+
     return (
         <div>
             <h1> Details Bikes</h1>
             {bike_info}
             {button}
+            {qrCode}
         </div>
     );
 };

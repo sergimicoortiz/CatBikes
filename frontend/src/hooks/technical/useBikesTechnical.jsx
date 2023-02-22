@@ -7,11 +7,13 @@ import {
     getBikesQuery,
     getOneBikesQuery,
     maintenanceBikesQuery,
+    bikeQrQuery,
 } from "../../services/thechnical/BikeQuerys";
 
 export function useBikesTechnical() {
     const [bikes, setBikes] = useState([]);
     const [bike, setBike] = useState({});
+    const [qr, setQr] = useState("");
     const [status, setStatus] = useState(null);
     const [slug, setSlug] = useState("");
     const navigate = useNavigate();
@@ -27,6 +29,11 @@ export function useBikesTechnical() {
         fetchPolicy: "no-cache",
     });
 
+    const { loading: loadingQR, data: dataQr } = useQuery(bikeQrQuery, {
+        variables: { slug },
+        fetchPolicy: "no-cache",
+    });
+
     useEffect(() => {
         if (dataAll) {
             setBikes(dataAll.bikes);
@@ -34,8 +41,15 @@ export function useBikesTechnical() {
     }, [loadingAll, status]);
 
     useEffect(() => {
+        if (dataQr) {
+            setQr(dataQr);
+        }
+    }, [loadingQR, slug]);
+
+    useEffect(() => {
         if (dataOne) {
             setBike(dataOne.bike);
+            setQr(dataQr);
         }
     }, [loadingOne, slug]);
 
@@ -85,5 +99,7 @@ export function useBikesTechnical() {
         setBike,
         useMaintenanceBike,
         useMaintenanceBikeRemove,
+        qr,
+        setQr,
     };
 }

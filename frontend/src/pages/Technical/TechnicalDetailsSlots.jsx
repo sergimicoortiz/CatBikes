@@ -4,7 +4,7 @@ import { useSlotTechnical } from "../../hooks/technical/useSlotTechnical";
 import "./Technical.scss";
 
 const TechnicalDetailsBikes = () => {
-    const { slot, setSlotId, useMaintenanceSlot } = useSlotTechnical();
+    const { slot, setSlotId, useMaintenanceSlot, qr } = useSlotTechnical();
     const { id } = useParams();
 
     useEffect(() => {
@@ -53,11 +53,25 @@ const TechnicalDetailsBikes = () => {
             </>
         );
 
+    const qrCode = qr?.slotQR ? (
+        <div>
+            <br />
+            <img src={qr.slotQR} />
+            <br />
+            <a download={`${slot.id}.png`} href={qr.slotQR}>
+                Download
+            </a>
+        </div>
+    ) : (
+        <p>no qr</p>
+    );
+
     return (
         <div>
             <h1> Details Slot</h1>
             {slot_info}
             {button}
+            {qrCode}
         </div>
     );
 };

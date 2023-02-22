@@ -6,6 +6,7 @@ import {
     getOneSlotQuery,
     getSlotsQuery,
     maintenanceSlotQuery,
+    slotQrQuery,
 } from "../../services/thechnical/SlotQuerys";
 
 export function useSlotTechnical() {
@@ -13,6 +14,7 @@ export function useSlotTechnical() {
     const [slot, setSlot] = useState({});
     const [status, setStatus] = useState(null);
     const [slotId, setSlotId] = useState(0);
+    const [qr, setQr] = useState("");
     const navigate = useNavigate();
 
     const { loading: loadingOne, data: dataOne } = useQuery(getOneSlotQuery, {
@@ -25,11 +27,22 @@ export function useSlotTechnical() {
         fetchPolicy: "no-cache",
     });
 
+    const { loading: loadingQr, data: dataQr } = useQuery(slotQrQuery, {
+        variables: { slotQrId: slotId },
+        fetchPolicy: "no-cache",
+    });
+
     useEffect(() => {
         if (dataAll) {
             setSlots(dataAll.slots);
         }
     }, [loadingAll, status]);
+
+    useEffect(() => {
+        if (dataQr) {
+            setQr(dataQr);
+        }
+    }, [loadingQr, slotId]);
 
     useEffect(() => {
         if (dataOne) {
@@ -66,5 +79,7 @@ export function useSlotTechnical() {
         status,
         setStatus,
         useMaintenanceSlot,
+        qr,
+        setQr,
     };
 }
