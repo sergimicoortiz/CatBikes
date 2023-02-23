@@ -12,6 +12,7 @@ import bodyParser from "body-parser";
 import { expressMiddleware } from "@apollo/server/express4";
 import cors from "cors";
 import fs from "fs";
+import { bootstrap } from "global-agent";
 
 //Station typeDefs and resolvers
 import stationTypeDefs from "./models/stations/station.typeDefs.js";
@@ -46,6 +47,15 @@ import enums from "./utils/enums.js";
 import { getUser } from "./services/userService.js";
 
 dotenv.config();
+
+if (process.env.PORT == 443) {
+    process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+    process.env["NODE_EXTRA_CA_CERTS"] = "/certs/cert.pem";
+    process.env["GLOBAL_AGENT_HTTP_PROXY"] = "http://gql:443";
+    process.env["GLOBAL_AGENT_HTTPS_PROXY"] = "http://gql:443";
+}
+
+bootstrap();
 
 const context = async ({ req }) => {
     const AuthenticationError = new GraphQLError("Authentication failed", {
@@ -120,13 +130,14 @@ app.use(
     "/",
     cors({
         origin: [process.env.CORS || "http://localhost:3000"],
+        credentials: true,
     }),
     bodyParser.json(),
     expressMiddleware(server, { context })
 );
 
 await new Promise((resolve) =>
-    httpServer.listen({ port: process.env.PORT || 4000 }, resolve)
+    httpServer.listen({ port: parseInt(process.env.PORT) || 4000 }, resolve)
 );
 
 console.log("Server ready");

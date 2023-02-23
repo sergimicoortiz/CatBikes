@@ -17,34 +17,49 @@ export function useSlotTechnical() {
     const [qr, setQr] = useState("");
     const navigate = useNavigate();
 
-    const { loading: loadingOne, data: dataOne } = useQuery(getOneSlotQuery, {
+    const {
+        loading: loadingOne,
+        data: dataOne,
+        error: errorOne,
+    } = useQuery(getOneSlotQuery, {
         variables: { slotId },
         fetchPolicy: "no-cache",
     });
 
-    const { loading: loadingAll, data: dataAll } = useQuery(getSlotsQuery, {
+    const {
+        loading: loadingAll,
+        data: dataAll,
+        error: errorAll,
+    } = useQuery(getSlotsQuery, {
         variables: { status },
         fetchPolicy: "no-cache",
     });
 
-    const { loading: loadingQr, data: dataQr } = useQuery(slotQrQuery, {
+    const {
+        loading: loadingQr,
+        data: dataQr,
+        error: errorQr,
+    } = useQuery(slotQrQuery, {
         variables: { slotQrId: slotId },
         fetchPolicy: "no-cache",
     });
 
     useEffect(() => {
+        console.log("dataAll", errorAll);
         if (dataAll) {
             setSlots(dataAll.slots);
         }
     }, [loadingAll, status]);
 
     useEffect(() => {
+        console.log("dataQr", errorQr);
         if (dataQr) {
             setQr(dataQr);
         }
     }, [loadingQr, slotId]);
 
     useEffect(() => {
+        console.log("dataOne", errorOne);
         if (dataOne) {
             setSlot(dataOne.slot);
         }

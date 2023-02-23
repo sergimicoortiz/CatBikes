@@ -35,18 +35,21 @@ export function useBikesTechnical() {
     });
 
     useEffect(() => {
+        console.log("dataAll", dataAll);
         if (dataAll) {
             setBikes(dataAll.bikes);
         }
     }, [loadingAll, status]);
 
     useEffect(() => {
+        console.log("dataQr", dataQr);
         if (dataQr) {
             setQr(dataQr);
         }
     }, [loadingQR, slug]);
 
     useEffect(() => {
+        console.log("dataOne", dataOne);
         if (dataOne) {
             setBike(dataOne.bike);
             setQr(dataQr);

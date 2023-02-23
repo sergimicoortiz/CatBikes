@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_TLS_REJECT_UNAUTHORIZED='0' node src/index.js",
+    "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "lint": "eslint --ext .js src",
     "lint_fix": "eslint --ext .js src --fix",
@@ -22,6 +22,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "global-agent": "^3.0.0",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "http": "^0.0.1-security",
