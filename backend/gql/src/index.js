@@ -49,10 +49,10 @@ import { getUser } from "./services/userService.js";
 dotenv.config();
 
 if (process.env.PORT == 443) {
-    process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
     process.env["NODE_EXTRA_CA_CERTS"] = "/certs/cert.pem";
-    process.env["GLOBAL_AGENT_HTTP_PROXY"] = "http://gql:443";
-    process.env["GLOBAL_AGENT_HTTPS_PROXY"] = "http://gql:443";
+    process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
+    process.env["GLOBAL_AGENT_HTTP_PROXY"] = "http://frontend:443";
+    process.env["GLOBAL_AGENT_HTTPS_PROXY"] = "http://frontend:443";
 }
 
 bootstrap();
@@ -127,7 +127,7 @@ const server = new ApolloServer({
 await server.start();
 
 app.use(
-    "/",
+    "/graphql",
     cors({
         origin: [process.env.CORS || "http://localhost:3000"],
         credentials: true,
