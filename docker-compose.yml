@@ -29,6 +29,8 @@ services:
     build: ./backend/gql
     container_name: gql
     command: sh -c '/app/wait-for-it.sh -t 0 db:3306 -- npm run start'
+    volumes:
+      - ./certs:/certs
     networks:
       - app
     depends_on:

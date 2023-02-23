@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { ApolloServer } from "@apollo/server";
 import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -5,10 +6,12 @@ import { ApolloServerErrorCode } from "@apollo/server/errors";
 import { GraphQLError } from "graphql";
 import dotenv from "dotenv";
 import http from "http";
+import https from "https";
 import express from "express";
 import bodyParser from "body-parser";
 import { expressMiddleware } from "@apollo/server/express4";
 import cors from "cors";
+import fs from "fs";
 
 //Station typeDefs and resolvers
 import stationTypeDefs from "./models/stations/station.typeDefs.js";
@@ -66,15 +69,25 @@ const context = async ({ req }) => {
 };
 
 const app = express();
-const httpServer = http.createServer(app);
+
+const httpServer =
+    process.env.PORT != 443
+        ? http.createServer(app)
+        : https.createServer(
+              {
+                  key: fs.readFileSync("/certs/key.pem"),
+                  cert: fs.readFileSync("/certs/cert.pem"),
+              },
+              app
+          );
 
 const plugins =
     process.env.NODE_ENV === "development"
         ? [ApolloServerPluginDrainHttpServer({ httpServer })]
         : [
-            ApolloServerPluginLandingPageDisabled(),
-            ApolloServerPluginDrainHttpServer({ httpServer }),
-        ];
+              ApolloServerPluginLandingPageDisabled(),
+              ApolloServerPluginDrainHttpServer({ httpServer }),
+          ];
 
 const server = new ApolloServer({
     typeDefs: [
@@ -115,3 +128,5 @@ app.use(
 await new Promise((resolve) =>
     httpServer.listen({ port: process.env.PORT || 4000 }, resolve)
 );
+
+console.log("Server ready");
