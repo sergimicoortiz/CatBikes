@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { ApolloServer } from "@apollo/server";
 import { ApolloServerPluginLandingPageDisabled } from "@apollo/server/plugin/disabled";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
@@ -72,9 +73,9 @@ const plugins =
     process.env.NODE_ENV === "development"
         ? [ApolloServerPluginDrainHttpServer({ httpServer })]
         : [
-            ApolloServerPluginLandingPageDisabled(),
-            ApolloServerPluginDrainHttpServer({ httpServer }),
-        ];
+              ApolloServerPluginLandingPageDisabled(),
+              ApolloServerPluginDrainHttpServer({ httpServer }),
+          ];
 
 const server = new ApolloServer({
     typeDefs: [
@@ -115,3 +116,5 @@ app.use(
 await new Promise((resolve) =>
     httpServer.listen({ port: process.env.PORT || 4000 }, resolve)
 );
+
+console.log("Server ready");

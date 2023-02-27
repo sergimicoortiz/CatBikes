@@ -14,7 +14,7 @@ import { NotificationsContextProvider } from "./context/NotificationsContext";
 
 //gql
 import { ApolloProvider } from "@apollo/client";
-import { gqlClient } from "./services/thechnical/gqlApi";
+import gqlClient from "./services/thechnical/gqlApi";
 
 //Guards
 import AdminGuard from "./services/guards/AdminGuard";
