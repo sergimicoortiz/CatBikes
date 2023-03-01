@@ -36,6 +36,8 @@ _Bienvenidas y bienvenidos a CatBikes_
 8. **Bell Client**
     Una campana con un contador de las notificaciones que tiene el cliente por ver
 
+9. **Technical**
+    Los tecnicos pueden poner tanto slots como bicicletas en mantenimiento, ademas de que disponen de un qr para acceder a un slot/bicicleta de forma mas rapida.
 ## Instalar 💿
 
 ---
@@ -47,14 +49,15 @@ Tener instalado las siguientes herramientas:
 
 - [React](https://es.reactjs.org/) v18.2.0
 - [DRF](https://www.django-rest-framework.org/) v3.14.0
+- [GraphQL/Apollo Server](https://www.apollographql.com/docs/apollo-server/) v4
 - [MySQL](https://www.mysql.com/)
 
 ### `Puesta en marcha`
 
-#### Backend
+#### Backend DRF
   ```
-  cd backend
-  cp ./src/settings.example.py ./src/settings.py
+  cd backend/drf
+  cp example.env .env
   pipenv install
   pipenv run python ./manage.py migrate
   pipenv run python ./filler.py  (Opcional, creación de dummys )
@@ -63,11 +66,19 @@ Tener instalado las siguientes herramientas:
   
   Antes de realizar el runserver deberemos de acceder a la base de datos de mysql y crear el trigger de las notificaciónes, simplemente deberemos de copiar y pegar el contenido de backend/sql/ClientNotificationTrigger.sql 
 
+#### Backend GQL
+  ```
+  cd backend/gql
+  cp example.env .env
+  npm run install
+  npm run start
+  ```
+
   #### Frontend
   ```
   cd frontend
   cp ./src/secrets.example.js ./src/secrets.js  
-  npm install -D
+  npm install
   npm run start
   ```
 
@@ -91,6 +102,17 @@ Lista de tecnologías utilizadas en este proyecto:
     - Header
     - Token JWT
     - Token Blacklist
+
+- [GQL](https://www.apollographql.com/docs/apollo-server/) v4
+  - Models
+  - DB validation
+  - MySQL
+    - Relationships
+    - Schema
+  - Middleware_auth
+    - Header
+    - Token JWT
+    - DRF verification
 
 `Frontend` 🏛️
 
