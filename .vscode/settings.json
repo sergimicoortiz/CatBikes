@@ -20,5 +20,10 @@
     "python.formatting.provider": "none",
     "editor.formatOnSave": true,
     "editor.tabSize": 4
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 4
   }
 }
