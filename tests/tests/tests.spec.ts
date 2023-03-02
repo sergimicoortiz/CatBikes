@@ -58,3 +58,26 @@ test('register test', async ({ page }) => {
   await page.getByText('Logout').click();
   await expect(page).toHaveURL(URL);
 });
+
+test('snapshots', async ({ page }) => {
+  //Take screenshots of the home, register and login pages
+  await page.goto(URL);
+  await expect(page).toHaveScreenshot('home.png', { maxDiffPixels: 100 });
+  await page.goto(URL + "register");
+  await expect(page).toHaveScreenshot('register.png', { maxDiffPixels: 100 });
+  await page.goto(URL + "login");
+  await expect(page).toHaveScreenshot('login.png', { maxDiffPixels: 100 });
+
+  //Login with admin account and take a screenshot of the dashboard
+  await page.getByPlaceholder('Username').click();
+  await page.getByPlaceholder('Username').fill('asdasdasd');
+  await page.getByPlaceholder('Password').click();
+  await page.getByPlaceholder('Password').fill('asdasdasd');
+  await page.getByRole('button', { name: 'login' }).click();
+  await expect(page).toHaveURL(URL);
+  await page.goto(URL + "dashboard");
+  await expect(page).toHaveScreenshot('dashboard.png', { maxDiffPixels: 100 });
+  await page.getByText('Logout').click();
+  await expect(page).toHaveURL(URL);
+
+});
