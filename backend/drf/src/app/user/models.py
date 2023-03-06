@@ -54,7 +54,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         dt = datetime.now() + timedelta(minutes=settings.JWT_EXP_TIME)
 
         token = jwt.encode(
-            {"username": self.username, "exp": int(dt.strftime("%s"))},
+            {"username": self.username, "exp": int(dt.timestamp())},
+            # strftime('%s') didnt work in windows 😿
+            # https://stackoverflow.com/questions/10807164/python-time-formatting-different-in-windows
             settings.SECRET_KEY,
             algorithm="HS256",
         )
