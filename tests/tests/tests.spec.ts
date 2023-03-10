@@ -87,25 +87,6 @@ test('snapshots', async ({ page }) => {
 
 });
 
-
-// test('rent bike', async ({ page }) => {
-//   await page.goto(URL);
-//   await page.getByText('Login').click();
-//   await page.getByPlaceholder('Username').click();
-//   await page.getByPlaceholder('Username').fill('asdasdasd');
-//   await page.getByPlaceholder('Password').click();
-//   await page.getByPlaceholder('Password').fill('asdasdasd');
-//   await page.getByRole('button', { name: 'login' }).click();
-//   await page.getByRole('group', { name: '1 / 5' }).getByRole('img').click();
-//   await page.getByRole('button', { name: 'Rent Bike' }).first().click();
-//   await page.getByRole('button', { name: 'Next slide' }).click();
-//   await page.getByRole('group', { name: '2 / 5' }).getByRole('img').click();
-//   await page.getByText('Return Bike').first().click();
-//   await page.getByText('Logout').click();
-//   await expect(page).toHaveURL(URL);
-// });
-
-
 test('drf api test', async ({ request }) => {
   //Test the DRF API
   const responseStationsDRF = await request.get(URL_DRF + "station");
@@ -117,7 +98,7 @@ test('drf api test', async ({ request }) => {
   const respsponseSlotsDRF = await request.get(URL_DRF + "slot");
   expect(respsponseSlotsDRF.ok()).toBeTruthy();
 
-  // //Test the GQL API
+  //Test the GQL API
 
   const responseStationsGQL = await request.post(URL_GQL, {
     data: {
