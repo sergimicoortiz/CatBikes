@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "playwright test"
+    "test": "playwright test",
+    "install": "playwright install",
+    "install:dep": "playwright install-deps"
   },
   "keywords": [],
   "author": "",
