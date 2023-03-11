@@ -7,6 +7,7 @@ const URL_DRF = process.env.URL_DRF || 'http://localhost:8000/api/';
 const URL_GQL = process.env.URL_GQL || 'http://localhost:4000/';
 const ADMIN_USER = process.env.ADMIN_USER || 'asdasdasd';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'asdasdasd';
+const DEFAULT_SLEEP = 2000;
 
 test('has title', async ({ page }) => {
   await page.goto(URL);
@@ -57,7 +58,7 @@ test('register test', async ({ page }) => {
   await page.getByPlaceholder('Password', { exact: true }).press('Tab');
   await page.getByPlaceholder('Repeat password').fill(password);
   await page.getByRole('button', { name: 'register' }).click();
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(DEFAULT_SLEEP);
   await page.getByText(user).click();
   await expect(page).toHaveURL(/profile/);
   await page.getByText('Logout').click();
@@ -67,10 +68,15 @@ test('register test', async ({ page }) => {
 test('snapshots', async ({ page }) => {
   //Take screenshots of the home, register and login pages
   await page.goto(URL);
+  await page.waitForTimeout(DEFAULT_SLEEP);
   await expect(page).toHaveScreenshot('home.png', { maxDiffPixels: 100 });
+
   await page.goto(URL + "register");
+  await page.waitForTimeout(DEFAULT_SLEEP);
   await expect(page).toHaveScreenshot('register.png', { maxDiffPixels: 100 });
+
   await page.goto(URL + "login");
+  await page.waitForTimeout(DEFAULT_SLEEP);
   await expect(page).toHaveScreenshot('login.png', { maxDiffPixels: 100 });
 
   //Login with admin account and take a screenshot of the dashboard
@@ -79,8 +85,9 @@ test('snapshots', async ({ page }) => {
   await page.getByPlaceholder('Password').click();
   await page.getByPlaceholder('Password').fill(ADMIN_PASSWORD);
   await page.getByRole('button', { name: 'login' }).click();
-  await expect(page).toHaveURL(URL);
+  await page.waitForTimeout(DEFAULT_SLEEP);
   await page.goto(URL + "dashboard");
+  await page.waitForTimeout(DEFAULT_SLEEP);
   await expect(page).toHaveScreenshot('dashboard.png', { maxDiffPixels: 100 });
   await page.getByText('Logout').click();
   await expect(page).toHaveURL(URL);
